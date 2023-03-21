@@ -9,7 +9,7 @@ notebook_names = ["nonplanar_spacer.ipynb",
 notebook_addresses = ["../models/" + notebook_name for notebook_name in notebook_names]
 
 old_import = "import fullcontrol as fc"
-new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol\\n" + old_import
+new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
 
 for notebook_address in notebook_addresses:
     content_string = open(notebook_address).read()

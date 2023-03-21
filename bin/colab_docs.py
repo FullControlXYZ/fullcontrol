@@ -20,7 +20,7 @@ notebook_colab_urls = [
     f'https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
 
 old_import = "import fullcontrol as fc"
-new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol\\n" + old_import
+new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
 
 string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be access [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) and run in google colab'
 
