@@ -24,6 +24,8 @@ for use on a local system, clone this repo and open the contents notebooks (cont
 
 ### tips and examples:
 1. design tips - [design_tips.ipynb](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/design_tips_colab.ipynb)
+1. example model (nonplanar spacer) - [nonplanar_spacer.ipynb](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/nonplanar_spacer_colab.ipynb)
+1. example model (nuts and bolts) - [nuts_and_bolts.ipynb](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/nuts_and_bolts_colab.ipynb)
 
 ### FullControl lab:
 1. FullControl lab geometry - [lab_geometry.ipynb](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/lab_geometry_colab.ipynb)

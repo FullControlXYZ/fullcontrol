@@ -58,6 +58,7 @@ the FullControl repository is organized as follows:
 
 * `docs`: jupyter notebooks describing FullControl and its use. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) or jump straight in to the [1-minute demo](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/fast_demo_colab.ipynb)
 * `fullcontrol`: the FullControl python package. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/fullcontrol)
+* `models`: example models that use FullControl. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/models)
 * `lab`: the FullControl lab python package for experimental features. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/lab)
 * `bin`: scripts for FullControl development activities
 
