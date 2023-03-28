@@ -28,7 +28,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Extruder(relative_gcode=initialization_data["relative_e"]))
     starting_procedure_steps.append(Fan(speed_percent=initialization_data["fan_percent"]))
     starting_procedure_steps.append(ManualGcode(text='M106 P2 S255 ; enable aux fan'))
-    starting_procedure_steps.append(Point(x=80, y=80, z=10))
+    starting_procedure_steps.append(Point(x=20, y=20, z=10))
     starting_procedure_steps.append(ManualGcode(text='G92 X0 Y0 ; offset print to avoid filament cutting area'))
     starting_procedure_steps.append(Point(x=5, y=5, z=10))
     starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=True))
