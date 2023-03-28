@@ -22,7 +22,7 @@ notebook_colab_urls = [
 old_import = "import fullcontrol as fc"
 new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
 
-string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be access [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) and run in google colab'
+string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be accessed [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) and run in google colab'
 
 model_notebook_names = ["nonplanar_spacer.ipynb",
                         "nuts_and_bolts.ipynb"]

@@ -1,5 +1,20 @@
 # FullControl
 
+## FullControl - unconstrained design
+
+fullcontrol allows you to control 3D printers, or other cnc systems, in ways that are not possible using conventional software
+
+you design everything about the print path and print settings, giving you the design freedom to do anything you want
+
+get started without installing anything: go through the [interactive tutorial notebooks](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb) then use the [design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/colab_design_template.ipynb) - or install and run things locally as described below
+
+<p align="center">
+  <br>
+  <img src="https://github.com/FullControlXYZ/media/blob/main/fullcontrol_collage_1.jpg?raw=true" width="600">
+  <br><b>think beyond <em>'normal'</em> 3D printing</b><br><br>
+</p>
+
+
 ## intro
 
 the conventional method to generate gcode is: create cad model -> export stl -> slice into layers -> create paths for each layer -> output path as gcode
@@ -32,17 +47,23 @@ FullControl allows designs to be created that control changes the ***state*** of
 
 ## using FullControl
 
-jupyter notebooks are provided in the [docs](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) folder of this github repository (repo) to introduce FullControl and demonstrate its use
+jupyter notebooks are provided in the [docs](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) folder of this github repository (repo) to introduce FullControl and demonstrate its use - browse tutorials: [github](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs/README.md) / [colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb)
 
 a future update of this repo will give more details about the python code
 
 ## installation
 
+new to python? ***don't install*** - just use the [colab design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/colab_design_template.ipynb) and get designing straight away online
+
+alternatively, to run locally, install miniconda/anaconda/python and git - if you run into any installation problems, update your versions of python/git/pip
+
+
 ```
 pip install git+https://github.com/FullControlXYZ/fullcontrol
 ```
 
-alternatively clone this git repo and run "pip install ." from the repo directory
+you can also clone this git repo and run "pip install ." from the repo directory
+
 
 ## use
 
@@ -56,11 +77,18 @@ import fullcontrol as fc
 
 the FullControl repository is organized as follows:
 
-* `docs`: jupyter notebooks describing FullControl and its use. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) or jump straight in to the [1-minute demo](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/fast_demo_colab.ipynb)
-* `fullcontrol`: the FullControl python package. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/fullcontrol)
-* `models`: example models that use FullControl. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/models)
-* `lab`: the FullControl lab python package for experimental features. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/lab)
+* `docs`: jupyter notebooks describing FullControl and its use. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs/README.md) or jump straight in to the [1-minute demo](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/fast_demo_colab.ipynb)
+* `fullcontrol`: the FullControl python package. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/fullcontrol/README.md)
+* `models`: example models that use FullControl. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/models/README.md)
+* `lab`: the FullControl lab python package for experimental features. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/lab/README.md)
 * `bin`: scripts for FullControl development activities
+
+## workflow for new content
+
+the anticipated workflow for new content is:
+1. demosntrate new ideas with github gists (quick and dirty)
+1. gists inform new additions to the FullControl lab (a little more polished)
+1. lab informs new additions to the main fullcontrol package or models subdirectory
 
 ## feedback
 
