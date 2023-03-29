@@ -20,7 +20,9 @@ get started without installing anything: go through the [interactive tutorial no
   </p>
 </a>
 <p align="center">
+  <picture>
   <img src="https://github.com/FullControlXYZ/media/blob/main/fullcontrol_collage_1.jpg?raw=true" width="600">
+  </picture>
   <br><b>think beyond <em>'normal'</em> 3D printing</b><br><br>
 </p>
 
