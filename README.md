@@ -8,12 +8,21 @@ you design everything about the print path and print settings, giving you the de
 
 get started without installing anything: go through the [interactive tutorial notebooks](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb) then use the [design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/colab_design_template.ipynb) - or install and run things locally as described below
 
+<a href="https://youtu.be/qaQe-YgDPgo">
+  <p align="center">
+    <img src="https://github.com/FullControlXYZ/media/blob/main/video_thumbnail.png?raw=true" width="200">
+    <br>quick-start guide
+  </p>
+</a>
+<a href="https://www.youtube.com/playlist?list=PLXIkSZPJTLeVXNktt3HfyeytS7fG2byuG">
+  <p align="center">
+    (youtube playlist)<br>
+  </p>
+</a>
 <p align="center">
-  <br>
   <img src="https://github.com/FullControlXYZ/media/blob/main/fullcontrol_collage_1.jpg?raw=true" width="600">
   <br><b>think beyond <em>'normal'</em> 3D printing</b><br><br>
 </p>
-
 
 ## intro
 
