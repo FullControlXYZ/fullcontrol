@@ -49,12 +49,12 @@ def trianglewaveXYpolar(start_point: Point, direction_polar: float, amplitude: f
     steps.append(start_point.copy())
     for i in range(periods):
         point_temp = polar_to_point(centre=steps[-1], radius=amplitude, angle=direction_polar + pi/2)
-        steps.append(polar_to_point(centre=point_temp, radius=period_length, angle=direction_polar))
+        steps.append(polar_to_point(centre=point_temp, radius=period_length/2, angle=direction_polar))
         point_temp = polar_to_point(centre=steps[-1], radius=amplitude, angle=direction_polar - pi/2)
-        steps.append(polar_to_point(centre=point_temp, radius=period_length, angle=direction_polar))
+        steps.append(polar_to_point(centre=point_temp, radius=period_length/2, angle=direction_polar))
     if extra_half_period:
         point_temp = polar_to_point(centre=steps[-1], radius=amplitude, angle=direction_polar + pi/2)
-        steps.append(polar_to_point(centre=point_temp, radius=period_length, angle=direction_polar))
+        steps.append(polar_to_point(centre=point_temp, radius=period_length/2, angle=direction_polar))
     return steps
 
 
