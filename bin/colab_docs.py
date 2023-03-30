@@ -32,6 +32,8 @@ model_notebook_names = ["nonplanar_spacer.ipynb",
 model_notebook_colab_urls = [
     f'https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/{model_notebook_name[0:-6]}_colab.ipynb' for model_notebook_name in model_notebook_names]
 
+design_template_old = '../models/design_template.ipynb'
+design_template_new = 'https://github.com/FullControlXYZ/fullcontrol/blob/master/models/design_template.ipynb'
 
 for notebook_address in notebook_addresses:
     content_string = open(notebook_address).read()
@@ -39,8 +41,9 @@ for notebook_address in notebook_addresses:
     content_string = content_string.replace(old_import, new_import)
     if 'lab_five_axis_demo.ipynb' in notebook_address:
         content_string = content_string.replace(old_import_5ax, new_import_5ax)
-    # delete this line in contents.ipynb:
-    content_string = content_string.replace(string_to_delete, '')
+    if 'contents.ipynb' in notebook_address:
+        content_string = content_string.replace(string_to_delete, '')
+        content_string = content_string.replace(design_template_old, design_template_new)
     # replace links to models in contents.ipynb:
     for i in range(len(model_notebook_names)):
         content_string = content_string.replace(f'({"../models/" + model_notebook_names[i]})', f'({model_notebook_colab_urls[i]})')
