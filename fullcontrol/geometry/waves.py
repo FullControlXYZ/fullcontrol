@@ -39,27 +39,27 @@ def squarewaveXY(start_point: Point, direction_vector: Vector, amplitude: float,
     return squarewaveXYpolar(start_point, direction_polar, amplitude, line_spacing, periods, extra_half_period=extra_half_period, extra_end_line=extra_end_line)
 
 
-def trianglewaveXYpolar(start_point: Point, direction_polar: float, amplitude: float, period_length: float, periods: int, extra_half_period: bool = False) -> list:
+def trianglewaveXYpolar(start_point: Point, direction_polar: float, amplitude: float, tip_separation: float, periods: int, extra_half_period: bool = False) -> list:
     ''''generate a triangle wave with the set number of periods, starting at the start_point, with 
     a given wave direction (polar angle in radians), given amplitude, with the distance between 
-    neighbouring tips of the wave set by period_length. Optionally, an extra half period can be 
+    neighbouring tips of the wave set by tip_separation. Optionally, an extra half period can be 
     added. return list of Points
     '''
     steps = []
     steps.append(start_point.copy())
     for i in range(periods):
         point_temp = polar_to_point(centre=steps[-1], radius=amplitude, angle=direction_polar + pi/2)
-        steps.append(polar_to_point(centre=point_temp, radius=period_length/2, angle=direction_polar))
+        steps.append(polar_to_point(centre=point_temp, radius=tip_separation/2, angle=direction_polar))
         point_temp = polar_to_point(centre=steps[-1], radius=amplitude, angle=direction_polar - pi/2)
-        steps.append(polar_to_point(centre=point_temp, radius=period_length/2, angle=direction_polar))
+        steps.append(polar_to_point(centre=point_temp, radius=tip_separation/2, angle=direction_polar))
     if extra_half_period:
         point_temp = polar_to_point(centre=steps[-1], radius=amplitude, angle=direction_polar + pi/2)
-        steps.append(polar_to_point(centre=point_temp, radius=period_length/2, angle=direction_polar))
+        steps.append(polar_to_point(centre=point_temp, radius=tip_separation/2, angle=direction_polar))
     return steps
 
 
 def sinewaveXYpolar(start_point: Point, direction_polar: float, amplitude: float, period_length: float, periods: int, segments_per_period: int = 16, extra_half_period: bool = False, phase_shift: float = 0) -> list:
-    '''generate a sine wave with the set number of periods, starting at the start_[oint, with 
+    '''generate a sine wave with the set number of periods, starting at the start_point, with 
     a given wave direction (polar angle in radians), given amplitude, with the distance between 
     the midpoint of each line of the sine wave set by line_spacing. Optionally, an extra half 
     period can be added and the wave can be phase-shifted. return list of Points
