@@ -10,8 +10,7 @@ get started without installing anything: go through the [interactive tutorial no
 
 <a href="https://youtu.be/qaQe-YgDPgo">
   <p align="center">
-    <img src="https://github.com/FullControlXYZ/media/blob/main/video_thumbnail.png?raw=true" width="200">
-    <br>quick-start guide
+    <img src="https://github.com/FullControlXYZ/media/blob/main/quick-start_play_button.png?raw=true" width="200">
   </p>
 </a>
 <a href="https://www.youtube.com/playlist?list=PLXIkSZPJTLeVXNktt3HfyeytS7fG2byuG">
