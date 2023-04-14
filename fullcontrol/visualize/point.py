@@ -16,8 +16,6 @@ class Point(BasePoint):
 
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
         'process a Point in a list of steps supplied by the designer to update plot_data and state'
-        if self.color != None:
-            state.point.color = self.color  # this line is the only difference compared to the visualize method in point.py
 
         change_check = False
         precision_xyz = 3  # number of decimal places to use for x y z values in plot_data
