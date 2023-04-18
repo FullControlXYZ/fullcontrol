@@ -15,10 +15,10 @@ def polar_to_point(centre: Point, radius: float, angle: float) -> Point:
     return Point(x=centre.x + radius*cos(angle), y=centre.y + radius*sin(angle), z=centre.z)
 
 
-def point_to_polar(point: Point, centre: Point) -> PolarPoint:
-    'find polar radius and angle (radians: 0 to 2pi) in XY plane of the given Point relative to the centre Point. return a PolarPoint, accessed with .radius and .angle)'
-    r = ((point.x - centre.x) ** 2 + (point.y - centre.y) ** 2) ** 0.5
-    angle = atan2((point.y - centre.y), (point.x - centre.x))
+def point_to_polar(target_point: Point, origin_point: Point) -> PolarPoint:
+    'find polar radius and angle (radians: 0 to 2pi) in XY plane of the given target Point relative to a given origin Point. return a PolarPoint, accessed with .radius and .angle)'
+    r = ((target_point.x - origin_point.x) ** 2 + (target_point.y - origin_point.y) ** 2) ** 0.5
+    angle = atan2((target_point.y - origin_point.y), (target_point.x - origin_point.x))
     return PolarPoint(radius=r, angle=angle % tau)
 
 
