@@ -9,7 +9,7 @@ from fullcontrol.geometry.vector import Vector
 from fullcontrol.geometry.polar import PolarPoint
 
 # import functions
-from fullcontrol.geometry.polar import point_to_polar, polar_to_point
+from fullcontrol.geometry.polar import point_to_polar, polar_to_point, polar_to_vector
 from fullcontrol.geometry.midpoint import midpoint
 from fullcontrol.geometry.measure import distance, angleXY_between_3_points  # , distance_forgiving
 from fullcontrol.geometry.move import move
