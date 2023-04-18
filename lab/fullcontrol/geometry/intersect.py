@@ -45,8 +45,8 @@ def line_intersection_by_points_XY(point_a1: Point, point_a2: Point, point_b1: P
             ((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4))
         return Point(x=x_int, y=y_int, z=point_a1.z)
     except:
-        print(
-            f'error: are the lines parallel? or are points coincident? or similar?\na1={point_a1}\na2={point_a2}\nb1={point_b1}\nb2={point_b2}')
+        raise Exception(
+            f'error: no intercept found. are the lines parallel? or are points coincident? or similar?\na1={point_a1}\na2={point_a2}\nb1={point_b1}\nb2={point_b2}')
 
 
 def line_intersection_by_polar_XY(point1: Point, angle1: float, point2: Point, angle2: float) -> Point:
