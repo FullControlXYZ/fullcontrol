@@ -4,6 +4,9 @@
 usage = '  usage: python colab_models.py'  # executed from the bin folder of repo
 
 notebook_names = ["nonplanar_spacer.ipynb",
+                  "hex_adapter.ipynb",
+                  "fractional_design_engine_polar.ipynb",
+                  "ripple_texture.ipynb",
                   "nuts_and_bolts.ipynb"]
 
 notebook_addresses = ["../models/" + notebook_name for notebook_name in notebook_names]
