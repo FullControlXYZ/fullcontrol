@@ -48,7 +48,9 @@ class Point(BasePoint):
 
         def z_gradient(point: Point, bounding_box: BoundingBox):
             z_range = max(bounding_box.rangez, 0.00000001)
-            return [0, round((point.z-bounding_box.minz)/z_range, precision_color), 1]
+            # round to the same number of decimal places used for xyz ('precision_xyz') to avoid numerical rounding errors causing negative or very large (not allowbale) values in plot_data
+            z_min = round(bounding_box.minz, 3)
+            return [0, round((point.z-z_min)/z_range, precision_color), 1]
 
         def print_sequence(point_count_now: int, point_count_total: int):
             return [round(0.8*max(1-(2*point_count_now/point_count_total), 0), precision_color), round(max((2*point_count_now/point_count_total)-1, 0), precision_color), 1]

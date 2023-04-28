@@ -28,7 +28,7 @@ class PlotData(BaseModel):
         self.bounding_box.calc_bounds(steps)
         self.paths.append(Path())
         state.path_count_now += 1  # increased since plot_data is initialised with 1 path
-        self.paths[-1].extruder = state.extruder
+        self.paths[-1].extruder = Extruder(on=state.extruder.on)
 
     def add_path(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
         self.paths.append(Path())
