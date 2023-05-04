@@ -59,6 +59,8 @@ FullControl allows designs to be created that control changes the ***state*** of
 
 jupyter notebooks are provided in the [docs](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) folder of this github repository (repo) to introduce FullControl and demonstrate its use - browse tutorials: [github](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs/README.md) / [colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb)
 
+you can either use a cloud-based jupyter notebook environment like google colab, or run things locally by installing python and then either jupyterlab or vscode with python and jupyter extensions
+
 a future update of this repo will give more details about the python code
 
 ## installation
