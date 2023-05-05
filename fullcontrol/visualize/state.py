@@ -18,11 +18,7 @@ class State(BaseModel):
     point_count_total: Optional[int]
 
     def count_points(self, steps: list):
-        point_count = 0
-        for i in range(len(steps)):
-            if type(steps[i]).__name__ == 'Point':
-                point_count += 1
-        return point_count
+        return sum(1 for step in steps if isinstance(step, Point))
 
     def __init__(self, steps: list):
         super().__init__()
