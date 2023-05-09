@@ -12,15 +12,23 @@ def points_only(steps: list, track_xyz: bool = True) -> list:
     '''
     new_steps = []
     for step in steps:
-        if isinstance(step, Point): # only consider Point data
-            if (not track_xyz) or (not new_steps and all(val is not None for val in (step.x, step.y, step.z))):
-                new_steps.append(step)
-            else: # track_xyz, with at least one valid point already added
-                # fill in any None attributes for the next point with the most recent previous value:
-                next_point = deepcopy(new_steps[-1])
-                # update values that are not None
-                next_point.update_from(step)
-                new_steps.append(next_point)
+        if isinstance(step, Point):  # only consider Point data
+            new_steps.append(step)
+    if track_xyz:
+        for i in range(len(new_steps)-1):
+            # fill in any None attributes for the next point with the most recent previous value:
+            next_point = deepcopy(new_steps[i])
+            # update values that are not None
+            next_point.update_from(new_steps[i+1])
+            new_steps[i+1] = next_point
+        # delete initial elements prior to all of x y and z have values != None:
+        loop = True
+        while loop:
+            if new_steps[0].x == None or new_steps[0].y == None or new_steps[0].z == None:
+                del new_steps[0]
+            else:
+                loop = False
+    return new_steps
 
 
 def flatten(steps: list) -> list:
