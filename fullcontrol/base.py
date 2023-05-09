@@ -8,10 +8,10 @@ class BaseModelPlus(BaseModel):
     def __getitem__(self, name): return getattr(self, name)
 
     def update_from(self, source):
-        for key in source.__dict__:
-            if source.__dict__[key] != None:
-                if key in self.__dict__:
-                    self[key] = source.__dict__[key]
+        self_vars = vars(self) # cache, for multiple checks
+        for key, value in vars(source).items():
+            if (value is not None) and (key in self_vars):
+                self[key] = value
 
     @root_validator(pre=True)
     def check_card_number_omitted(cls, values):

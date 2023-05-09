@@ -12,10 +12,10 @@ def move(geometry: Union[Point, list], vector: Vector, copy: bool = False, copy_
     of the original geometry. return the new geometry as a list (original geometry 
     is not edited).
     '''
-    if copy == False:
-        return move_geometry(geometry, vector)
-    else:
+    if copy:
         return copy_geometry(geometry, vector, copy_quantity)
+    else:
+        return move_geometry(geometry, vector)
 
 
 def move_geometry(geometry: Union[Point, list], vector: Vector) -> Union[Point, list]:
@@ -34,15 +34,15 @@ def move_geometry(geometry: Union[Point, list], vector: Vector) -> Union[Point, 
         if point_new.z != None and vector.z != None:
             point_new.z += vector.z
         return point_new
-    if type(geometry).__name__ == "Point":
+    if isinstance(geometry, Point):
         return move_point(geometry, vector)
     else:
         geometry_new = []
-        for i in range(len(geometry)):
-            if type(geometry[i]).__name__ == 'Point':
-                geometry_new.append(move_point(geometry[i], vector))
+        for element in geometry:
+            if isinstance(element, Point):
+                geometry_new.append(move_point(element, vector))
             else:
-                geometry_new.append(geometry[i])
+                geometry_new.append(element)
         return geometry_new
 
 
@@ -59,7 +59,7 @@ def copy_geometry(geometry: Union[Point, list], vector: Vector, quantity: int) -
         v_now.x = vector.x*i if vector.x != None else None
         v_now.y = vector.y*i if vector.y != None else None
         v_now.z = vector.z*i if vector.z != None else None
-        if type(geometry).__name__ == "Point":
+        if isinstance(geometry, Point):
             steps_new.append(move_geometry(geometry, v_now))
         else:
             steps_new.extend(move_geometry(geometry, v_now))

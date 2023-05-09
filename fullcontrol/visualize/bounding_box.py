@@ -1,6 +1,7 @@
-
 from pydantic import BaseModel
 from typing import Optional
+
+from fullcontrol.common import Point
 
 
 class BoundingBox(BaseModel):
@@ -28,20 +29,17 @@ class BoundingBox(BaseModel):
         self.maxx = -1e10  # initial low value always overwritten
         self.maxy = -1e10  # initial low value always overwritten
         self.maxz = -1e10  # initial low value always overwritten
-        for i in range(len(steps)):
-            if type(steps[i]).__name__ == 'Point':
-                if steps[i].x != None:
-                    self.minx = min(self.minx, steps[i].x)
-                if steps[i].y != None:
-                    self.miny = min(self.miny, steps[i].y)
-                if steps[i].z != None:
-                    self.minz = min(self.minz, steps[i].z)
-                if steps[i].x != None:
-                    self.maxx = max(self.maxx, steps[i].x)
-                if steps[i].y != None:
-                    self.maxy = max(self.maxy, steps[i].y)
-                if steps[i].z != None:
-                    self.maxz = max(self.maxz, steps[i].z)
+        for step in steps:
+            if isinstance(step, Point):
+                if (x := step.x) is not None:
+                    self.minx = min(self.minx, x)
+                    self.maxx = max(self.maxx, x)
+                if (y := step.y) is not None:
+                    self.miny = min(self.miny, y)
+                    self.maxy = max(self.maxy, y)
+                if (z := step.z) is not None:
+                    self.minz = min(self.minz, z)
+                    self.maxz = max(self.maxz, z)
         self.midx = (self.minx + self.maxx) / 2
         self.midy = (self.miny + self.maxy) / 2
         self.midz = (self.minz + self.maxz) / 2
