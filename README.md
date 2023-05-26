@@ -98,7 +98,7 @@ the FullControl repository is organized as follows:
 ## workflow for new content
 
 the anticipated workflow for new content is:
-1. demosntrate new ideas with github gists (quick and dirty)
+1. demonstrate new ideas with github gists (quick and dirty)
 1. gists inform new additions to the FullControl lab (a little more polished)
 1. lab informs new additions to the main fullcontrol package or models subdirectory
 
