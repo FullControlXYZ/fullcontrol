@@ -33,7 +33,7 @@ class Point(BasePoint):
             change_check = True
         if change_check:
             state.point.update_color(state, plot_data, plot_controls)
-            plot_data.paths[-1].add_point(state.point)
+            plot_data.paths[-1].add_point(state)
             state.point_count_now += 1
 
     def update_color(self, state: 'State', plot_data: 'PlotData', plot_controls: 'PlotControls'):

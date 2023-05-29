@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 
-from fullcontrol.common import Point, Extruder
+from fullcontrol.common import Point, Extruder, ExtrusionGeometry
 from fullcontrol.visualize.point import Point
 
 
@@ -16,6 +16,9 @@ class State(BaseModel):
     path_count_now: Optional[int] = 0
     point_count_now: Optional[int] = 0
     point_count_total: Optional[int]
+    # extrusion_width: Optional[float] = 0.5
+    # extrusion_height: Optional[float] = 0.2
+    extrusion_geometry: Optional[ExtrusionGeometry] = ExtrusionGeometry(width=0.5, height=0.2)
 
     def count_points(self, steps: list):
         return sum(1 for step in steps if isinstance(step, Point))

@@ -1,8 +1,11 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 # from fullcontrol.vis_OO2.color import PathColors, Color
-from fullcontrol.common import Extruder
+from fullcontrol.common import Extruder, ExtrusionGeometry
 from fullcontrol.visualize.point import Point
+
+if TYPE_CHECKING:
+    from fullcontrol.visualize.state import State
 
 
 class Path(BaseModel):
@@ -12,10 +15,14 @@ class Path(BaseModel):
     zvals: Optional[list] = []
     colors: Optional[list] = []  # [r,g,b]
     extruder: Optional[Extruder]
+    widths: Optional[list] = []
+    heights: Optional[list] = []
 
-    def add_point(self, point: Point):
+    def add_point(self, state: 'State'):
         'append a point to this path'
-        self.xvals.append(point.x)
-        self.yvals.append(point.y)
-        self.zvals.append(point.z)
-        self.colors.append(point.color)
+        self.xvals.append(state.point.x)
+        self.yvals.append(state.point.y)
+        self.zvals.append(state.point.z)
+        self.colors.append(state.point.color)
+        self.widths.append(state.extrusion_geometry.width)
+        self.heights.append(state.extrusion_geometry.height)

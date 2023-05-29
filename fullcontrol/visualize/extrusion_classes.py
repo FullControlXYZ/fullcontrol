@@ -1,5 +1,6 @@
 
 from fullcontrol.common import Extruder as BaseExtruder
+from fullcontrol.common import ExtrusionGeometry as BaseExtrusionGeometry
 from typing import TYPE_CHECKING
 from fullcontrol.visualize.controls import PlotControls
 
@@ -21,3 +22,14 @@ class Extruder(BaseExtruder):
                 state.path_count_now += 1
             else:
                 plot_data.paths[-1].extruder.on = self.on
+
+
+class ExtrusionGeometry(BaseExtrusionGeometry):
+    'generic Extrusion_Geometry with a visualisation method added'
+
+    def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
+        'process an Extrusion_Geometry in a list of steps supplied by the designer to update state'
+        if self.width != None and self.width != state.extrusion_geometry.width:
+            state.extrusion_geometry.width = self.width
+        if self.height != None and self.height != state.extrusion_geometry.height:
+            state.extrusion_geometry.height = self.height

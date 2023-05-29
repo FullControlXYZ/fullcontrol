@@ -33,7 +33,7 @@ class PlotData(BaseModel):
     def add_path(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
         self.paths.append(Path())
         state.point.update_color(state, plot_data, plot_controls)
-        self.paths[-1].add_point(state.point)
+        self.paths[-1].add_point(state)
         # self.paths[-1].colors.add_colors(state, plot_data)
         self.paths[-1].extruder = Extruder(on=state.extruder.on)
 

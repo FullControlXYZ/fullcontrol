@@ -36,6 +36,15 @@ class Extruder(gc.Extruder, vis.Extruder):
     '''
     pass
 
+
+class ExtrusionGeometry(gc.ExtrusionGeometry, vis.ExtrusionGeometry):
+    ''' geometric description of the printed extrudate. 'area_model' is used to specify how cross-sectional
+    area of the extrudate is defined. area_model options: rectangle (requires width and height) / stadium 
+    (requires width and height) / circle (requires diameter) / manual (requires area attribute to be set
+    manually). the 'area' attribute is automatically calculated unless area_model=='manual' 
+    '''
+    pass
+
 # 3. classes that are defined in the gcode subpackage only
 
 
@@ -68,15 +77,6 @@ class Hotend(gc.Hotend, PassVisualize):
 
 class Buildplate(gc.Buildplate, PassVisualize):
     'set temperature of the buildplate. if wait==True, system will wait for temperature to be reached before continuing'
-    pass
-
-
-class ExtrusionGeometry(gc.ExtrusionGeometry, PassVisualize):
-    ''' geometric description of the printed extrudate. 'area_model' is used to specify how cross-sectional
-    area of the extrudate is defined. area_model options: rectangle (requires width and height) / stadium 
-    (requires width and height) / circle (requires diameter) / manual (requires area attribute to be set
-    manually). the 'area' attribute is automatically calculated unless area_model=='manual' 
-    '''
     pass
 
 
