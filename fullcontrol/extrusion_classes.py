@@ -9,7 +9,7 @@ class ExtrusionGeometry(BaseModelPlus):
     (requires width and height) / circle (requires diameter) / manual (requires area attribute to be set
     manually). the 'area' attribute is automatically calculated unless area_model=='manual' 
     '''
-    # area_model options: 'rectangle' / 'stadium' / 'circle':
+    # area_model options: 'rectangle' / 'stadium' / 'circle' / 'manual':
     area_model: Optional[str]
     # width of printed line for area_model = rectangle or stadium:
     width: Optional[float]
