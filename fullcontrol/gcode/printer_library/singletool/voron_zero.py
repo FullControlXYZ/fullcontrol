@@ -7,7 +7,7 @@ def set_up(user_overrides: dict):
     '''
 
     # overrides for this specific printer relative those defined in base_settings.py
-    printer_overrides = {'primer': 'no_primer', 'chamber_temp': 50}
+    printer_overrides = {'primer': 'no_primer', 'chamber_temp': 50, 'z_offset': 0.0}
     # update default initialization settings with printer-specific overrides and user-defined overrides
     initialization_data = {**base_settings.default_initial_settings, **printer_overrides}
     initialization_data = {**initialization_data, **user_overrides}
@@ -24,6 +24,8 @@ def set_up(user_overrides: dict):
         text='M220 S' + str(initialization_data["print_speed_percent"])+' ; set speed factor override percentage'))
     starting_procedure_steps.append(ManualGcode(
         text='M221 S' + str(initialization_data["material_flow_percent"])+' ; set extrude factor override percentage'))
+    if initialization_data['z_offset']:
+        starting_procedure_steps.append(ManualGcode(text='SET_GCODE_OFFSET Z=' + str(initialization_data['z_offset']) + ' MOVE=1'))
     # starting_procedure_steps.append(Extruder(on=False))
     # starting_procedure_steps.append(Point(x=5, y=5, z=10))
     # starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=250))
