@@ -8,3 +8,4 @@ class GcodeControls(BaseModel):
     printer_name: Optional[str] = 'generic'
     initialization_data: Optional[dict] = {}  # values passed for initialization_data overwrite the default initialization_data of the printer
     save_as: Optional[str] = None
+    include_date: Optional[bool] = True
