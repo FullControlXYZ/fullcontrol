@@ -1,6 +1,6 @@
 # example models
 
-parametric models and a design template ([also available in colab](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/colab_design_template.ipynb)) are provided to demonstrate the use of FullControl 
+parametric models and a design template ([also available in colab](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/design_template_colab.ipynb)) are provided to demonstrate the use of FullControl 
 
 1. [fullcontrol.xyz](https://fullcontrol.xyz) models in a jupytner notebook format:
     - [nonplanar spacer](https://fullcontrol.xyz/#/models/971ff7)  - [open in colab](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/nonplanar_spacer_colab.ipynb)

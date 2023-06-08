@@ -6,7 +6,7 @@ fullcontrol allows you to control 3D printers, or other cnc systems, in ways tha
 
 you design everything about the print path and print settings, giving you the design freedom to do anything you want
 
-get started without installing anything: go through the [interactive tutorial notebooks](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb) then use the [design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/colab_design_template.ipynb) - or install and run things locally as described below
+get started without installing anything: go through the [interactive tutorial notebooks](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb) then use the [design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/design_template_colab.ipynb) - or install and run things locally as described below
 
 <a href="https://youtu.be/qaQe-YgDPgo">
   <p align="center">
@@ -65,7 +65,7 @@ a future update of this repo will give more details about the python code
 
 ## installation
 
-new to python? ***don't install*** - just use the [colab design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/colab_design_template.ipynb) and get designing straight away online
+new to python? ***don't install*** - just use the [colab design template](https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/design_template_colab.ipynb) and get designing straight away online
 
 alternatively, to run locally, install miniconda/anaconda/python and git - if you run into any installation problems, update your versions of python/git/pip
 
