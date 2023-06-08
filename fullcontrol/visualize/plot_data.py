@@ -39,3 +39,7 @@ class PlotData(BaseModel):
 
     def add_annotation(self, annotation: 'PlotAnnotation'):
         self.annotations.append({'label': annotation.label, 'x': annotation.point.x, 'y': annotation.point.y, 'z': annotation.point.z})
+
+    def cleanup(self):
+        'remove single-point paths (e.g. caused by an Extruder at the end of the list or similar)'
+        self.paths = [path for path in self.paths if len(path.xvals)>1] 

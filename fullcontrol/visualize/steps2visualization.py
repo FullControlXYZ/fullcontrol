@@ -10,6 +10,7 @@ def visualize(steps: list, plot_controls: PlotControls = PlotControls()):
     plot_data = PlotData(steps, state)
     for step in steps:
         step.visualize(state, plot_data, plot_controls)
+    plot_data.cleanup()
 
     if plot_controls.raw_data == True:
         return plot_data
