@@ -43,16 +43,18 @@ def convex_from_grid(points_grid: list, travel: bool, zigzag: bool, overextrusio
         # i runs through the segments of each line
         for i in range(point_count_i):
             # set i1 and i2 to run through points in reverse if zigzag == True and this is an even line
-            i1 = point_count_i - i if zigzag and j%2 == 1 else i
-            i2 = point_count_i - (i+1) if zigzag and j%2 == 1 else (i+1)
+            i1 = point_count_i - i if zigzag and j % 2 == 1 else i
+            i2 = point_count_i - (i+1) if zigzag and j % 2 == 1 else (i+1)
             if travel and i == 0 and j > 0:
-                convex_steps = convex_segment(points_grid[i1][j], points_grid[i1][j+1], points_grid[i2][j], points_grid[i2][j+1], overextrusion_percent)
+                convex_steps = convex_segment(points_grid[i1][j], points_grid[i1][j+1], points_grid[i2]
+                                              [j], points_grid[i2][j+1], overextrusion_percent)
                 steplist.append(Extruder(on=False))
-                steplist.append(convex_steps[1])
+                steplist.append(convex_steps[1])  # start point of first segment
                 steplist.append(Extruder(on=True))
                 steplist.extend(convex_steps)
             else:
-                steplist.extend(convex_segment(points_grid[i1][j], points_grid[i1][j+1], points_grid[i2][j], points_grid[i2][j+1], overextrusion_percent))
+                steplist.extend(convex_segment(points_grid[i1][j], points_grid[i1][j+1],
+                                points_grid[i2][j], points_grid[i2][j+1], overextrusion_percent))
     return steplist
 
 
@@ -84,23 +86,24 @@ def convex_from_grid_and_speed(points_grid: list, speed_ref: float, width_ref: f
     '''
     steplist = []
     point_count_j = len(points_grid[0])-1
+    point_count_i = len(points_grid)-1
     # j represents one of the lines being printed
     for j in range(point_count_j):
         # i runs through the segments of each line
         for i in range(len(points_grid)-1):
             # run through points in reverse if zigzag == True and this is an even line
-            j1 = point_count_j - j if zigzag and j%2 == 1 else j
-            j2 = point_count_j - (j+1) if zigzag and j%2 == 1 else (j+1)
+            i1 = point_count_i - i if zigzag and j % 2 == 1 else i
+            i2 = point_count_i - (i+1) if zigzag and j % 2 == 1 else (i+1)
             if travel and i == 0 and j > 0:
                 convex_segs = convex_segment_and_speed(
-                    points_grid[i][j1], points_grid[i][j2], points_grid[i+1][j1], points_grid[i+1][j2], speed_ref, width_ref, overextrusion_percent)
+                    points_grid[i1][j], points_grid[i1][j+1], points_grid[i2][j], points_grid[i2][j+1], speed_ref, width_ref, overextrusion_percent)
                 steplist.append(Extruder(on=False))
-                steplist.append(convex_segs[2])
+                steplist.append(convex_segs[2])  # start point of first segment
                 steplist.append(Extruder(on=True))
                 steplist.extend(convex_segs)
             else:
                 steplist.extend(convex_segment_and_speed(
-                points_grid[i][j1], points_grid[i][j2], points_grid[i+1][j1], points_grid[i+1][j2], speed_ref, width_ref, overextrusion_percent))
+                    points_grid[i1][j], points_grid[i1][j+1], points_grid[i2][j], points_grid[i2][j+1], speed_ref, width_ref, overextrusion_percent))
     return steplist
 
 
@@ -123,5 +126,5 @@ def convex_pathsXY(path1: list, path2: list, lines: int, vary_speed: bool = Fals
         if width_ref == None:
             raise ValueError("parameter width_ref must be supplied")
         steplist = convex_from_grid_and_speed(points_grid, speed_ref, width_ref, travel, zigzag, overextrusion_percent)
-    print('please cite our CONVEX research study :) https://www.researchgate.net/publication/346098541')
+    print('yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541')
     return steplist
