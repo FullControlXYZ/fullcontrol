@@ -7,7 +7,7 @@ def set_up(user_overrides: dict):
     '''
 
     # overrides for this specific printer relative those defined in base_settings.py
-    printer_overrides = {'primer': 'no_primer', 'chamber_temp': 50, 'z_offset': 0.0}
+    printer_overrides = {'primer': 'no_primer', 'chamber_temp': 50, 'z_offset': None, 'default_primer': True}
     # update default initialization settings with printer-specific overrides and user-defined overrides
     initialization_data = {**base_settings.default_initial_settings, **printer_overrides}
     initialization_data = {**initialization_data, **user_overrides}
@@ -24,25 +24,24 @@ def set_up(user_overrides: dict):
         text='M220 S' + str(initialization_data["print_speed_percent"])+' ; set speed factor override percentage'))
     starting_procedure_steps.append(ManualGcode(
         text='M221 S' + str(initialization_data["material_flow_percent"])+' ; set extrude factor override percentage'))
-    if initialization_data['z_offset']:
+    if initialization_data['z_offset'] is not None:
         starting_procedure_steps.append(ManualGcode(text='SET_GCODE_OFFSET Z=' + str(initialization_data['z_offset']) + ' MOVE=1'))
-    # starting_procedure_steps.append(Extruder(on=False))
-    # starting_procedure_steps.append(Point(x=5, y=5, z=10))
-    # starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=250))
-    # starting_procedure_steps.append(Printer(travel_speed=250))
-    # starting_procedure_steps.append(Point(z=50))
-    # starting_procedure_steps.append(Printer(travel_speed=initialization_data["travel_speed"]))
-    # starting_procedure_steps.append(Point(x=10.0, y=10.0, z=0.3))
+    if initialization_data['default_primer']:
+        starting_procedure_steps.append(Extruder(on=False))
+        starting_procedure_steps.append(Point(x=5, y=5, z=10))
+        starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=250))
+        starting_procedure_steps.append(Printer(travel_speed=250))
+        starting_procedure_steps.append(Point(z=50))
+        starting_procedure_steps.append(Printer(travel_speed=initialization_data["travel_speed"]))
+        starting_procedure_steps.append(Point(x=10.0, y=10.0, z=0.3))
     starting_procedure_steps.append(Extruder(on=True))
     starting_procedure_steps.append(ManualGcode(text=';-----\n; END OF STARTING PROCEDURE\n;-----\n'))
 
     ending_procedure_steps = []
     ending_procedure_steps.append(ManualGcode(text='\n;-----\n; START OF ENDING PROCEDURE\n;-----'))
     ending_procedure_steps.append(ManualGcode(text='print_end    ;end script from macro'))
-    ending_procedure_steps.append(ManualGcode(text='M221 S100 ; reset flow'))
     # ending_procedure_steps.append(ManualGcode(text='M900 K0 ; reset LA'))
-    ending_procedure_steps.append(ManualGcode(text='M84 ; disable steppers'))
-
+    
     initialization_data['starting_procedure_steps'] = starting_procedure_steps
     initialization_data['ending_procedure_steps'] = ending_procedure_steps
 
