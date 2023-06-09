@@ -40,7 +40,7 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(ManualGcode(text='\n;-----\n; START OF ENDING PROCEDURE\n;-----'))
     ending_procedure_steps.append(ManualGcode(text='print_end    ;end script from macro'))
     ending_procedure_steps.append(ManualGcode(text='M221 S100 ; reset flow'))
-    ending_procedure_steps.append(ManualGcode(text='M900 K0 ; reset LA'))
+    # ending_procedure_steps.append(ManualGcode(text='M900 K0 ; reset LA'))
     ending_procedure_steps.append(ManualGcode(text='M84 ; disable steppers'))
 
     initialization_data['starting_procedure_steps'] = starting_procedure_steps
