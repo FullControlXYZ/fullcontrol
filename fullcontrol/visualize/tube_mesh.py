@@ -18,6 +18,7 @@ class TubeMesh:
             sides: int = 4,
             capped: bool = False,
             inplace_path: bool = False,
+            metadata: dict | None = None,
     ):
         '''
         `path` should contain N points to 'draw' a tube along.
@@ -38,6 +39,7 @@ class TubeMesh:
         `inplace_path` is a flag specifying that `path` is already a valid numpy
             array of 3D points with float values, and will not be changed externally
             so can safely be used directly (instead of via a copy).
+        `metadata` is a dictionary of metadata relevant to the input path.
         '''
         self.path_points = path if inplace_path else self.make_valid_path(path)
 
@@ -52,6 +54,8 @@ class TubeMesh:
         self.__init_triangles()
         if self.capped:
             self.__init_endcaps()
+
+        self.metadata = metadata or {} # default to empty dictionary
 
     def __init_mesh_points(self):
         corner_tangents = self.calculate_corner_tangents(self.path_points)
@@ -180,7 +184,7 @@ class TubeMesh:
     ) -> go.Mesh3d:
         '''
         `colors` should be either
-            - `None` (to use plotly's default / configure elsewhere)
+            - `None` (to use self.metadata / plotly's default / configure elsewhere)
             - a single color for all the tubes,
             - N colors denoting the color of each path point (with blends between),
             - N-1 colors denoting the (constant) color of each tube
@@ -196,6 +200,11 @@ class TubeMesh:
                  according to mesh3d.colorscale
         '''
         mesh_kwargs = mesh_kwargs.copy()
+        # default to stored metadata (if available)
+        if colors is None:
+            colors = self.metadata.get('colors')
+
+        # turn path colors into appropriate mesh colors
         if colors is None or isinstance(colors, str):
             mesh_kwargs['color'] = colors
         elif len(colors) == len(self.path_points):
@@ -223,9 +232,10 @@ class TubeMesh:
         fig.update_scenes(aspectmode='data') # set equal axis aspect ratios
         fig.show()
 
-    def save(self, to: pathlib.Path | str, compressed=False):
+    def save_geometry(self, to: pathlib.Path | str, compressed=False):
         '''
         `to` is the location to save to. Should use the `.npz` file extension.
+        NOTE: does NOT save `self.metadata`.
         '''
         save = np.savez if not compressed else np.savez_compressed
         save(
@@ -239,7 +249,7 @@ class TubeMesh:
         )
 
     @classmethod
-    def from_file(cls, file: pathlib.Path | str, *args, **kwargs):
+    def geometry_from_file(cls, file: pathlib.Path | str, *args, **kwargs):
         data = np.load(file, *args, **kwargs)
         out = cls.__new__(cls)
         for attribute, value in data.items():
@@ -339,7 +349,7 @@ class FlowTubeMesh(TubeMesh):
     ) -> go.Mesh3d:
         '''
         `colors` should be either
-            - `None` (to use plotly's default / configure elsewhere)
+            - `None` (to use self.metadata / plotly's default / configure elsewhere)
             - a single color for all the tubes,
             - N colors denoting the color at each path point (with blends between),
             - N-1 colors denoting the (constant) color of each tube
@@ -355,6 +365,11 @@ class FlowTubeMesh(TubeMesh):
                  according to mesh3d.colorscale
         '''
         N = len(self._path_points)
+        # default to stored metadata (if available)
+        if colors is None:
+            colors = self.metadata.get('colors')
+
+        # turn high level path colors into low level path colors
         if colors is not None:
             if isinstance(colors, str):
                 n = 1
@@ -469,7 +484,7 @@ class CylindersMesh(TubeMesh):
     ) -> go.Mesh3d:
         '''
         `colors` should be either
-            - None (to use plotly's default, or configure elsewhere)
+            - `None` (to use self.metadata / plotly's default / configure elsewhere)
             - a single color for all the tubes,
             - N colors denoting the color at each path point (with blends between),
                 -> ignores `corner_colors`
@@ -491,6 +506,13 @@ class CylindersMesh(TubeMesh):
              or if `colors` is also `None`
         '''
         N = len(self._path_points)
+        # default to stored metadata (if available)
+        if colors is None:
+            colors = self.metadata.get('colors')
+        if corner_colors is None:
+            corner_colors = self.metadata.get('corner_colors')
+
+        # turn high level path colors into low level path colors
         if colors is not None:
             n = 1 if isinstance(colors, str) else len(colors)
             if n == N:
