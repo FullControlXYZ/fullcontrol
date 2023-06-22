@@ -2,6 +2,7 @@
 from collections.abc import Sequence
 from numbers import Real
 import pathlib
+import math
 # functionality
 import struct
 from datetime import datetime
@@ -17,7 +18,10 @@ class TubeMesh:
             path: np.ndarray | Sequence,
             widths: Real | np.ndarray | Sequence = 0.2,
             heights: Real | np.ndarray | Sequence | None = None,
-            sides: int = 4,
+            *, # make remaining arguments keyword-only
+            sides: int = 6,
+            rounding_strength: float = 1,
+            flat_sides: bool = True,
             capped: bool = False,
             inplace_path: bool = False,
             metadata: dict | None = None,
@@ -33,8 +37,21 @@ class TubeMesh:
         `heights` is like `widths`.
             If left as `None`, uses the `widths` value.
         `sides` determines the number of sides rendered for each tube.
-            Fewer sides render faster but look less rounded.
+            Fewer sides render faster but form a rougher cross-section approximation.
+            When set to an even number, the dimension between flat horizontal and/or
+            vertical sides is expanded such that the sides are flat against the 
+            specified segment width/height as appropriate.
             Must be >= 2. Default 4.
+        `rounding_strength` determines whether the cross-section profile is
+            rectangular (0), elliptical (1), or somewhere in between.
+            Should generally be left at 1 unless sides >= 6, although for an exact
+            rectangle it's fine to use sides = 4.
+        `flat_sides` rotates the sample angles of the cross-section profile such
+            that if `sides` is a multiple of 2 the vertical sides will be flat,
+            and if `sides` is a multiple of 4 the horizontal sides will also be flat.
+            If `flat_sides` is set to False then the major and minor axis points will
+            be exactly the specified width and height, but horizontal or vertical
+            touching between tubes will be along a line instead of a full surface.
         `capped` is a flag specifying whether to generate triangles for a cap on
             each end of the path. Off by default, but useful for generating closed
             meshes (e.g. for an STL).
@@ -50,6 +67,8 @@ class TubeMesh:
         self.radial_heights = np.reshape(heights, (-1,1)) / 2 if heights is not None \
             else self.radial_widths
         self.sides = sides
+        self.rounding_strength = rounding_strength
+        self.flat_sides = flat_sides
         self.capped = capped
 
         self.__init_mesh_points()
@@ -70,18 +89,49 @@ class TubeMesh:
         heave_offsets /= np.linalg.norm(heave_offsets, axis=1, keepdims=True)
         heave_offsets *= self.radial_heights
 
-        # Combine as evenly spaced points around the circle
-        # NOTE: there's potential for optimisation here, if we want to add
-        #  special cases for 2/4/... sided tubes, to reduce operations.
-        scale = 2 * np.pi / self.sides
-        point_offsets = np.dstack([
-            np.cos(s*scale)*sway_offsets + np.sin(s*scale)*heave_offsets
-            for s in range(self.sides)
-        ])
+        point_offsets = self.calculate_point_offsets(sway_offsets, heave_offsets)
 
         mesh_points = self.path_points[..., np.newaxis] + point_offsets
         # rearrange and reshape into a simple array of points
         self.mesh_points = mesh_points.swapaxes(1,2).reshape(-1,3)
+
+    def calculate_point_offsets(self, sway_offsets, heave_offsets):
+        '''
+        Converts the path point sway and heave offset vectors into offset points.
+        
+        Returns a depth-stacked array of shape (len(self.path_points), 3, self.sides),
+          where each row represents the cross-section profile offset points for a
+          single point on the tube trajectory.
+
+        Can be overridden via inheritance or monkey-patching to change the generated
+          cross-section profile.
+        '''
+        scale = 2 * np.pi / self.sides
+        # correction factors to expand flat_sides cases out to full width/height as relevant
+        sway_expand = heave_expand = 1
+        if self.flat_sides and self.sides % 2 == 0: # vertical sides are flat
+            sway_expand = 1 / abs(math.cos(scale * (0 + 1/2))**self.rounding_strength)
+            if self.sides % 4 == 0: # top and bottom are also flat
+                heave_expand = sway_expand
+        elif self.sides % 2 == 0: # only top and bottom are flat
+            heave_expand = 1 / abs(math.sin(scale * (self.sides // 4))**self.rounding_strength)
+
+        # Combine with even proportions around the cross-section profile
+        # NOTE: there's potential for optimisation here, if we want to add
+        #  special cases for 2/4/... sided tubes, to reduce operations. 
+        point_offsets = []
+        for s in range(self.sides):
+            s += self.flat_sides / 2
+            # use math functions here because numpy datatypes don't fall gracefully to complex
+            sway_mult = math.cos(s*scale)
+            heave_mult = math.sin(s*scale)
+            # support super-ellipse (rounded-rectangle) cross-section
+            if self.rounding_strength != 1:
+                # take abs to get magnitude of complex value (due to fractional power)
+                sway_mult = np.sign(sway_mult) * abs(sway_mult ** self.rounding_strength) * sway_expand
+                heave_mult = np.sign(heave_mult) * abs(heave_mult ** self.rounding_strength) * heave_expand
+            point_offsets.append(sway_mult*sway_offsets + heave_mult*heave_offsets)
+        return np.dstack(point_offsets)
 
     def __init_triangles(self):
         self.triangles = self.generate_tube_triangles(self.sides, self.num_cylinders)
@@ -343,12 +393,12 @@ class FlowTubeMesh(TubeMesh):
             widths: Real | np.ndarray | Sequence = 0.2,
             heights: Real | np.ndarray | Sequence | None = None,
             inplace_path: bool = False,
-            *args, **kwargs
+            **kwargs
     ):
         '''
         `path`, `widths`, `heights`, and `inplace_path` are as described in `TubeMesh`.
         `deviation_threshold_degrees` is the minimum angle considered to be "sharp".
-        `*args` and `**kwargs` are passed directly to the `TubeMesh` constructor.
+        `**kwargs` are passed directly to the `TubeMesh` constructor.
         '''
         # Store initial points internally
         self._path_points = path if inplace_path else self.make_valid_path(path)
@@ -375,7 +425,7 @@ class FlowTubeMesh(TubeMesh):
             if heights.size != 1:
                 heights = self._duplicate_sharp_corner_rows(heights)
 
-        super().__init__(path, widths, heights, inplace_path=True *args, **kwargs)
+        super().__init__(path, widths, heights, inplace_path=True, **kwargs)
 
     def _duplicate_sharp_corner_rows(self, array: np.ndarray, offset=0):
         # TODO confirm offset behaviour
@@ -481,7 +531,7 @@ class CylindersMesh(TubeMesh):
             widths: Real | np.ndarray | Sequence = 0.2,
             heights: Real | np.ndarray | Sequence | None = None,
             inplace_path: bool = False,
-            *args, **kwargs
+            **kwargs
     ):
         '''
         `path` should contain N points to 'draw' a tube along.
@@ -506,7 +556,7 @@ class CylindersMesh(TubeMesh):
         `inplace_path` is a flag specifying that `path` is already a valid numpy
             array of 3D points with float values, and will not be changed externally
             so can safely be used directly (instead of via a copy).
-        `*args` and `**kwargs` are passed directly to the `TubeMesh` constructor.
+        `**kwargs` are passed directly to the `TubeMesh` constructor.
         '''
         # Store initial points internally
         self._path_points = path if inplace_path else self.make_valid_path(path)
@@ -542,7 +592,7 @@ class CylindersMesh(TubeMesh):
                     f'{this_class} requires 1 or {N-1=} heights, not {H}'
                 heights = heights.repeat(2, axis=0)
 
-        super().__init__(path, widths, heights, inplace_path=True *args, **kwargs)
+        super().__init__(path, widths, heights, inplace_path=True, **kwargs)
 
     @staticmethod
     def calculate_corner_tangents(path_points):
@@ -623,7 +673,7 @@ if __name__ == '__main__':
     """
     path = np.array([
         [0,0,0],
-        [5,0,1],
+        [5,0,0],#1],
         [10,0,2],
         [7,1,1.5],
         [11,1,3],
@@ -646,7 +696,7 @@ if __name__ == '__main__':
         offsets.append(offset)
     side, up = offsets
 
-    kwargs = dict(sides=6, inplace_path=True, capped=True)
+    kwargs = dict(sides=8, rounding_strength=0.5, inplace_path=True, capped=True)
     meshes = (
         TubeMesh(path+side, widths=widths, heights=heights, **kwargs),
         TubeMesh(path+side+up, widths=widths, heights=heights, **kwargs),
