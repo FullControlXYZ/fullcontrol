@@ -1,5 +1,5 @@
 
-from fullcontrol.geometry import Point, arcXY, variable_arcXY
+from fullcontrol.geometry import Point, arcXY, variable_arcXY, elliptical_arcXY
 from math import tau
 
 
@@ -14,12 +14,18 @@ def rectangleXY(start_point: Point, x_size: float, y_size: float, cw: bool = Fal
 
 
 def circleXY(centre: Point, radius: float, start_angle: float, segments: int = 100, cw: bool = False) -> list:
-    ''''generate 2d-xy circle with the specified number of segments (defaulting to 100), centred about a Point,
+    '''generate 2d-xy circle with the specified number of segments (defaulting to 100), centred about a Point,
     with the given radius, starting at the specified polar angle (radians), with z-position the same as that
     of the centre Point. return list of Points
     '''
     return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
 
+def ellipseXY(centre: Point, a: float, b: float, start_angle: float, segments: int=100, cw: bool=False) -> list:
+    '''generate 2d-xy ellipse with the specified number of segments (defaulting to 100), centred about a Point,
+    with the given a (width) and b (height), starting at the specified polar angle (radians), with z-position the same as that
+    of the centre Point. return list of Points
+    '''
+    return elliptical_arcXY(centre, a, b, start_angle, tau*(1-(2*cw)), segments)
 
 def polygonXY(centre: Point, enclosing_radius: float, start_angle: float, sides: int, cw: bool = False) -> list:
     '''generate 2d-xy polygon with the specified number of sides, centred about a Point, sized based on the enclosing radius,
@@ -35,7 +41,6 @@ def spiralXY(centre: Point, start_radius: float, end_radius: float, start_angle:
     and end at the Point at the end of the final segment
     '''
     return variable_arcXY(centre, start_radius, start_angle, arc_angle=n_turns*tau*(1-(2*cw)), segments=segments, radius_change=end_radius-start_radius, z_change=0)
-
 
 def helixZ(centre: Point, start_radius: float, end_radius: float, start_angle: float, n_turns: float, pitch_z: float, segments: int, cw: bool = False) -> list:
     '''generate a helix in the Z direction with the specified number of segments and turns (partial turns permitted), centred about the Point centre, sized based on the start and end radius,
