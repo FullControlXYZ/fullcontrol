@@ -527,7 +527,7 @@ class CylindersMesh(TubeMesh):
             self,
             path: np.ndarray | Sequence,
             separation: Real | np.ndarray = 0,
-#            transition_type: str = 'widen',
+            transition_type: str = 'widen',
             widths: Real | np.ndarray | Sequence = 0.2,
             heights: Real | np.ndarray | Sequence | None = None,
             inplace_path: bool = False,
@@ -544,10 +544,10 @@ class CylindersMesh(TubeMesh):
                 - a single non-negative numerical value that applies to all internal points
                 - N-2 non-negative numbers to control each separation individually
         `transition_type` should be one of
-            - "widen" to rotate each tube such that a chamfer that's `tube_sep` long
+            - "widen" to rotate each tube such that a chamfer that's `separation` long
              can pass through the corner, maintaining the corner tangent
-            - "cut" (TODO) to cut off corners with a chamfer that's `tube_sep` long
-            Only applies if `tube_sep` is non-zero.
+            - "cut" (TODO) to cut off corners with a chamfer that's `separation` long
+            Only applies if `separation` is non-zero.
         `widths` should be either
             - a single numerical value that applies to all cylinders
             - N-1 numbers denoting the (constant) width of each elliptic cylinder
@@ -566,17 +566,29 @@ class CylindersMesh(TubeMesh):
         path = self._path_points.repeat(2, axis=0)[1:-1]
 
         # Handle tube separations (if relevant)
-        # TODO: allow `separation`="minimal", and calculate as appropriate for `transition_type`
-        if np.all(separation != 0):
-            offsets = super().calculate_corner_tangents(self._path_points)[1:-1]
-            offsets /= np.linalg.norm(offsets, axis=1, keepdims=True)
-            offsets *= np.reshape(tube_sep, (-1,1)) / 4
+        # TODO: allow `separation`="minimal"
+        if np.any(separation != 0):
+            scale = np.reshape(separation, (-1,1)) / 2
+            # determine offset directions
+            if transition_type == 'widen':
+                # shift path points back along corner tangent
+                offsets = super().calculate_corner_tangents(self._path_points)[1:-1]
+                # scale offsets to specified separation lengths
+                offsets /= np.linalg.norm(offsets, axis=1, keepdims=True)
+                offsets *= scale
+                pull_back = push_along = offsets
+            elif transition_type == 'cut':
+                # shift path points back along segment vectors
+                segment_vectors = np.diff(self._path_points, axis=0)
+                # scale offsets to specified separation lengths
+                segment_vectors /= np.linalg.norm(segment_vectors, axis=1, keepdims=True)
+                pull_back = segment_vectors[:-1] * scale
+                push_along = segment_vectors[1:] * scale
+            else:
+                raise ValueError("transition type should be one of 'cut'/'widen'.")
 
-            path[1:-1:2] -= offsets
-            path[2:-1:2] += offsets
-
-#            if transition_type == 'cut':
-#                ... # TODO: shift path points back along the pairwise average
+            path[1:-1:2] -= pull_back
+            path[2:-1:2] += push_along
 
         this_class = self.__class__.__name__
         widths = np.reshape(widths, (-1,1))
@@ -702,8 +714,10 @@ if __name__ == '__main__':
         TubeMesh(path+side+up, widths=widths, heights=heights, **kwargs),
         FlowTubeMesh(path, widths=widths, heights=heights, **kwargs),
         FlowTubeMesh(path+up, widths=widths, heights=heights, **kwargs),
-        CylindersMesh(path-side, widths=widths[:-1], heights=heights[:-1], **kwargs),
-        CylindersMesh(path-side+up, widths=widths[:-1], heights=heights[:-1], **kwargs),
+        CylindersMesh(path-side, widths=widths[:-1], heights=heights[:-1],
+                      separation=0.5, transition_type='cut', **kwargs),
+        CylindersMesh(path-side+up, widths=widths[:-1], heights=heights[:-1],
+                      separation=0.5, **kwargs),
     )
     t_mesh_data = perf_counter()
     print(f'DONE [{t_mesh_data - t_path_gen:.3f}s]\nGenerating plotly meshes... ', end='')
