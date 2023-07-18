@@ -44,16 +44,16 @@ class Extruder(BaseExtruder):
 
     # GCode attributes, used to translate the design into gcode:
     # units for E in GCode ... options: 'mm' / 'mm3'
-    units: Optional[str]
-    dia_feed: Optional[float]  # diameter of the feedstock filament
-    relative_gcode: Optional[bool]
+    units: Optional[str] = None
+    dia_feed: Optional[float] = None # diameter of the feedstock filament
+    relative_gcode: Optional[bool] = None
     # attibutes not set by user ... calculated automatically:
     # factor to convert volume of material into the value of 'E' in gcode
-    volume_to_e: Optional[float]
+    volume_to_e: Optional[float] = None
     # current extrusion volume for whole print
-    total_volume: Optional[float]
+    total_volume: Optional[float] = None
     # total extrusion volume reference value - this attribute is set to allow extrusion to be expressed relative to this point (for relative_gcode = True, it is reset for every line)
-    total_volume_ref: Optional[float]
+    total_volume_ref: Optional[float] = None
 
     def get_and_update_volume(self, volume):
         'DO THIS'

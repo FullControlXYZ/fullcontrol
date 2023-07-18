@@ -14,7 +14,7 @@ class Path(BaseModel):
     yvals: Optional[list] = []
     zvals: Optional[list] = []
     colors: Optional[list] = []  # [r,g,b]
-    extruder: Optional[Extruder]
+    extruder: Optional[Extruder] = None
     widths: Optional[list] = []
     heights: Optional[list] = []
 

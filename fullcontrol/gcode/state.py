@@ -17,10 +17,10 @@ class State(BaseModel):
     of various attributes
     '''
 
-    extruder: Optional[Extruder]
-    printer: Optional[Printer]
-    extrusion_geometry: Optional[ExtrusionGeometry]
-    steps: Optional[list]
+    extruder: Optional[Extruder] = None
+    printer: Optional[Printer] = None
+    extrusion_geometry: Optional[ExtrusionGeometry] = None
+    steps: Optional[list] = None
     point: Optional[Point] = Point()
     i: Optional[int] = 0
     gcode: Optional[list] = []

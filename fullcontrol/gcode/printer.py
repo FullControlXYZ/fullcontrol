@@ -5,9 +5,9 @@ from fullcontrol.common import Printer as BasePrinter
 
 class Printer(BasePrinter):
     'set print_speed and travel_speed of the 3D printer. see documentation for info about other attributes'
-    command_list: Optional[dict]
-    new_command: Optional[dict]
-    speed_changed: Optional[bool]
+    command_list: Optional[dict] = None
+    new_command: Optional[dict] = None
+    speed_changed: Optional[bool] = None
 
     def f_gcode(self, state):
         if self.speed_changed == True:

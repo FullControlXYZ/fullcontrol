@@ -6,20 +6,20 @@ from fullcontrol.common import Point
 
 class BoundingBox(BaseModel):
     'geometric measures of a bounding box, inlcuding mid values and ranges'
-    minx: Optional[float]
-    midx: Optional[float]
-    maxx: Optional[float]
+    minx: Optional[float] = None
+    midx: Optional[float] = None
+    maxx: Optional[float] = None
     # ranges and mid values are included as attributes, even though they are simple, to avoid them
     # being calculated for every point for the color_type z_gradient
-    rangex: Optional[float]
-    miny: Optional[float]
-    midy: Optional[float]
-    maxy: Optional[float]
-    rangey: Optional[float]
-    minz: Optional[float]
-    midz: Optional[float]
-    maxz: Optional[float]
-    rangez: Optional[float]
+    rangex: Optional[float] = None
+    miny: Optional[float] = None
+    midy: Optional[float] = None
+    maxy: Optional[float] = None
+    rangey: Optional[float] = None
+    minz: Optional[float] = None
+    midz: Optional[float] = None
+    maxz: Optional[float] = None
+    rangez: Optional[float] = None
 
     def calc_bounds(self, steps):
         'calculate the bounds and other useful geometric measures of the bounding box for all points in a list of steps'

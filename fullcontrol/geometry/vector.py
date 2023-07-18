@@ -4,6 +4,6 @@ from pydantic import BaseModel
 
 class Vector(BaseModel):
     'vector defined by x y and z distances'
-    x: Optional[float]
-    y: Optional[float]
-    z: Optional[float]
+    x: Optional[float] = None
+    y: Optional[float] = None
+    z: Optional[float] = None
