@@ -5,8 +5,8 @@ from copy import deepcopy
 
 class Point(BasePoint):
     'generic gcode Point with 5-axis aspects added/modified'
-    b: Optional[float]
-    c: Optional[float]
+    b: Optional[float] = None
+    c: Optional[float] = None
 
     def XYZBC_gcode(self, self_systemXYZ, p) -> float:
         'generate XYZBC gcode string to move from a point p to this point. return XYZBC string'

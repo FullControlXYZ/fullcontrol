@@ -17,8 +17,8 @@ class State(BaseModel):
     extruder: Optional[Extruder] = Extruder(on=True)
     path_count_now: Optional[int] = 0
     point_count_now: Optional[int] = 0
-    point_count_total: Optional[int]
-    extrusion_geometry: Optional[ExtrusionGeometry]
+    point_count_total: Optional[int] = None
+    extrusion_geometry: Optional[ExtrusionGeometry] = None
 
     def count_points(self, steps: list):
         return sum(1 for step in steps if isinstance(step, Point))

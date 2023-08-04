@@ -1,5 +1,5 @@
 
-from pydantic import BaseModel, root_validator
+from pydantic import model_validator, BaseModel
 
 
 class BaseModelPlus(BaseModel):
@@ -13,7 +13,8 @@ class BaseModelPlus(BaseModel):
             if (value is not None) and (key in self_vars):
                 self[key] = value
 
-    @root_validator(pre=True)
+    @model_validator(mode="before")
+    @classmethod
     def check_card_number_omitted(cls, values):
         annots = cls.__fields__
         for value in values:

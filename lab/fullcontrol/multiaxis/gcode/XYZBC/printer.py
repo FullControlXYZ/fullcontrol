@@ -5,10 +5,10 @@ from fullcontrol.common import Point
 
 class Printer(BasePrinter):
     'generic gcode Printer with 5-axis aspects added/modified'
-    command_list: Optional[dict]
-    new_command: Optional[dict]
-    speed_changed: Optional[bool]
-    bc_intercept: Optional[Point]  # point of b-c axes intercept point in system coordinates
+    command_list: Optional[dict] = None
+    new_command: Optional[dict] = None
+    speed_changed: Optional[bool] = None
+    bc_intercept: Optional[Point]  = None # point of b-c axes intercept point in system coordinates
 
     def f_gcode(self, state):
         if self.speed_changed == True:

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class Point(BasePoint):
     'generic fullcontrol Point with a color attribute and color/visualisation methods added'
-    color: Optional[list]  # [r,g,b]
+    color: Optional[list] = None  # [r,g,b]
 
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
         'process a Point in a list of steps supplied by the designer to update plot_data and state'
