@@ -17,3 +17,4 @@ later:
 - facilitate 2D plotters (variable line width) - [issue](https://github.com/FullControlXYZ/fullcontrol/issues/15)
 - facilitate easy SVG import - [issue](https://github.com/FullControlXYZ/fullcontrol/issues/11)
 - allow use of more complex gcode commands like G2/G3 - [issue](https://github.com/FullControlXYZ/fullcontrol/issues/2)
+- warn user if centre point has no z value defined - [issue](https://github.com/FullControlXYZ/fullcontrol/issues/36)
