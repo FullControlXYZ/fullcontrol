@@ -5,7 +5,7 @@ from typing import Union
 
 # import functions and classes that will be accessible to the user
 from .classes import *
-from fullcontrol.common import check, flatten, linspace, export_design, import_design, points_only, first_point
+from fullcontrol.common import check, flatten, linspace, export_design, import_design, points_only, relative_point, first_point
 from fullcontrol.geometry import *
 
 

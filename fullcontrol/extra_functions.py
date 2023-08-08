@@ -1,6 +1,7 @@
 from fullcontrol.common import Point
 from itertools import chain
 from copy import deepcopy
+from typing import Union
 
 
 def points_only(steps: list, track_xyz: bool = True) -> list:
@@ -29,6 +30,30 @@ def points_only(steps: list, track_xyz: bool = True) -> list:
             else:
                 loop = False
     return new_steps
+
+
+def relative_point(reference: Union[Point, list], x_offset: float, y_offset: float, z_offset: float):
+    '''
+    returns an fc.Point object with x y z positions relative to a reference point. if a 
+    list is supplied as the reference object, the last point in the list is used as the 
+    reference point. concise use: R=fc.relative_point -> steps.append(R(steps, 0.5, 0.5, 0))
+    '''
+    pt = None
+    if isinstance(reference, Point):
+        pt = reference
+    elif isinstance(reference, list):
+        list_len = len(reference)
+        for i in range(list_len):
+            if isinstance(reference[-(i+1)], Point):
+                pt = reference[-(i+1)]
+                break
+    if pt == None:
+        raise Exception(f'the reference object must be a Point or a list containing at least one point')
+    if None in [pt.x, pt.y, pt.z]:
+        raise Exception(f'the reference point must have all of x y z attributes defined (x={pt.x}, y={pt.y}, z={pt.z})')
+    new_pt = deepcopy(pt)
+    new_pt.x, new_pt.y, new_pt.z = pt.x + x_offset, pt.y + y_offset, pt.z + z_offset
+    return new_pt
 
 
 def flatten(steps: list) -> list:
