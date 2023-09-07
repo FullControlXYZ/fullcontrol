@@ -17,7 +17,7 @@ notebook_names = ["contents.ipynb",
 
 notebook_addresses = ["../docs/" + notebook_name for notebook_name in notebook_names]
 notebook_colab_urls = [
-    f'https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/docs/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
+    f'https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
 
 old_import = "import fullcontrol as fc"
 new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
@@ -30,7 +30,7 @@ string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks
 model_notebook_names = ["nonplanar_spacer.ipynb",
                         "nuts_and_bolts.ipynb"]
 model_notebook_colab_urls = [
-    f'https://githubtocolab.com/FullControlXYZ/fullcontrol/blob/master/models/colab/{model_notebook_name[0:-6]}_colab.ipynb' for model_notebook_name in model_notebook_names]
+    f'https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/{model_notebook_name[0:-6]}_colab.ipynb' for model_notebook_name in model_notebook_names]
 
 design_template_old = '../models/design_template.ipynb'
 design_template_new = 'https://github.com/FullControlXYZ/fullcontrol/blob/master/models/design_template.ipynb'
