@@ -20,6 +20,10 @@ def plot(data: PlotData, controls: PlotControls):
     else:
         Mesh = FlowTubeMesh
 
+    saving_stl = bool(controls.tube_stl_filename)
+    if saving_stl:
+        meshes = []
+
     # generate line plots
     any_mesh_plots = False
     max_width = 0
@@ -54,13 +58,22 @@ def plot(data: PlotData, controls: PlotControls):
                 heights = np.array(heights)[good_points]
                 if Mesh == CylindersMesh:
                     heights = heights[1:]
-            fig.add_trace(Mesh(path_points, widths=widths, heights=heights, sides=sides, capped=capped, inplace_path=True)
-                          .to_Mesh3d(colors=colors_now))
+            mesh = Mesh(path_points, widths=widths, heights=heights, sides=sides, capped=capped, inplace_path=True)
+            fig.add_trace(mesh.to_Mesh3d(colors=colors_now))
+            if saving_stl:
+                meshes.append(mesh)
             any_mesh_plots = True
             max_width = max(max_width, local_max)
         elif not controls.hide_travel or path.extruder.on:
             fig.add_trace(go.Scatter3d(mode='lines', x=path.xvals, y=path.yvals, z=path.zvals,
                                        showlegend=False, line=dict(width=linewidth_now, color=colors_now)))
+
+    # handle STL saving
+    if saving_stl:
+        binary_file = controls.tube_stl_type.lower()=='binary'
+        metadata = {'name': 'extrusion'}
+        MeshExporter(metadata, meshes).to_stl(controls.tube_stl_filename, binary_file,
+                                              combined_file=controls.tube_stls_combined)
 
     # find a bounding box, to create a plot with equally proportioned X Y Z scales (so a cuboid looks like a cuboid, not a cube)
     bounding_box_size = max(data.bounding_box.maxx-data.bounding_box.minx, data.bounding_box.maxy -

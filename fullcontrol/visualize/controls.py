@@ -10,6 +10,9 @@ class PlotControls(BaseModel):
     style: Optional[str] = None # 'tube'/'line'
     tube_type: Optional[str] = None # 'flow'/'cylinders'
     tube_sides: Optional[int] = None
+    tube_stl_filename: Optional[str] = None
+    tube_stl_type: Optional[str] = 'binary' # 'binary'/'ascii'
+    tube_stls_combined: Optional[bool] = False
     zoom: Optional[float] = 1
     hide_annotations: Optional[bool] = False
     hide_travel: Optional[bool] = False
