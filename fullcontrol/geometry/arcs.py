@@ -1,6 +1,7 @@
 
 from fullcontrol.common import linspace
-from fullcontrol.geometry import Point, polar_to_point, ramp_xyz, ramp_polar
+from fullcontrol.geometry import Point, polar_to_point, point_to_polar, ramp_xyz, ramp_polar, angleXY_between_3_points, centreXY_from_3_points, distance
+from fullcontrol.geometry.measure import centreXY_from_3_points
 from math import tau, sin , cos
 
 
@@ -40,3 +41,17 @@ def elliptical_arcXY(centre: Point, a: float, b: float, start_angle: float, arc_
     
     t_steps = linspace(start_angle, start_angle+arc_angle, segments+1)
     return [Point(x=a*cos(t) + centre.x, y=b*sin(t) + centre.y, z=centre.z) for t in t_steps]
+
+def three_point_arcXY(start_point: Point, mid_point: Point, end_point: Point, segments: int=100, invert: bool=False) -> list:
+    '''generate 2d_xy arc which crosses point a, point b and point c, with z-position the same as that
+    of the start point. return list of Points
+    '''
+    centre = centreXY_from_3_points(start_point, mid_point, end_point)
+    radius = distance(start_point, centre)
+    start_angle = point_to_polar(start_point, centre).angle
+    arc_angle = angleXY_between_3_points(start_point=start_point, mid_point=centre, end_point=end_point)
+    if invert:
+        arc_angle = tau + arc_angle
+
+    a_steps = linspace(start_angle, start_angle+arc_angle, segments+1)
+    return [polar_to_point(centre, radius, a) for a in a_steps]

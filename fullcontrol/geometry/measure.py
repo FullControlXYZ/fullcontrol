@@ -1,6 +1,6 @@
-
-from fullcontrol.geometry import Point, point_to_polar
-
+from fullcontrol.geometry import Point, point_to_polar, midpoint
+from fullcontrol.geometry.perpendicular_vector import perpendicular_vectorXY
+from fullcontrol.geometry.intersect import intersectXY_from_vector
 
 def distance(point1: Point, point2: Point) -> float:
     'return distance between two points'
@@ -18,3 +18,14 @@ def distance_forgiving(point1: Point, point2: Point) -> float:
 def angleXY_between_3_points(start_point: Point, mid_point: Point, end_point: Point) -> float:
     'returns the angle from start_point to end_point, about mid_point'
     return(point_to_polar(end_point, mid_point).angle - point_to_polar(start_point, mid_point).angle)
+
+
+def centreXY_from_3_points(start_point: Point, mid_point: Point, end_point: Point) -> Point:
+    'returns the centre point of the arc through three points'
+    #start_point is referred to as point A, mid_point as point B, end_point as point C
+    line_ab_midpoint = midpoint(start_point, mid_point)
+    line_ab_perpendicular_vector = perpendicular_vectorXY(start_point, mid_point)
+    line_bc_midpoint = midpoint(mid_point, end_point)
+    line_bc_perpendicular_vector = perpendicular_vectorXY(mid_point, end_point)
+
+    return intersectXY_from_vector(line_ab_midpoint, line_ab_perpendicular_vector, line_bc_midpoint, line_bc_perpendicular_vector)
