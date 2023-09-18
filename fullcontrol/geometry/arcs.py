@@ -52,6 +52,5 @@ def three_point_arcXY(start_point: Point, mid_point: Point, end_point: Point, se
     arc_angle = angleXY_between_3_points(start_point=start_point, mid_point=centre, end_point=end_point)
     if invert:
         arc_angle = tau + arc_angle
-
-    a_steps = linspace(start_angle, start_angle+arc_angle, segments+1)
-    return [polar_to_point(centre, radius, a) for a in a_steps]
+    
+    return arcXY(centre, radius, start_angle, arc_angle, segments=segments)
