@@ -18,7 +18,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps = []
     starting_procedure_steps.append(ManualGcode(
         text='; Time to print!!!!!\n; GCode created with FullControl - tell us what you\'re printing!\n; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok \n'))
-    starting_procedure_steps.append(ManualGcode(text='print_start EXTRUDER=' + str(initialization_data["nozzle_temp"]) + ' BED='+str(
+    starting_procedure_steps.append(ManualGcode(text='PRINT_START EXTRUDER=' + str(initialization_data["nozzle_temp"]) + ' BED='+str(
         initialization_data["bed_temp"]) + ' CHAMBER=' + str(initialization_data['chamber_temp'])))
     starting_procedure_steps.append(PrinterCommand(id='absolute_coords'))
     starting_procedure_steps.append(PrinterCommand(id='units_mm'))
@@ -43,7 +43,7 @@ def set_up(user_overrides: dict):
 
     ending_procedure_steps = []
     ending_procedure_steps.append(ManualGcode(text='\n;-----\n; START OF ENDING PROCEDURE\n;-----'))
-    ending_procedure_steps.append(ManualGcode(text='print_end    ;end script from macro'))
+    ending_procedure_steps.append(ManualGcode(text='PRINT_END    ;end script from macro \n'))
 
     initialization_data['starting_procedure_steps'] = starting_procedure_steps
     initialization_data['ending_procedure_steps'] = ending_procedure_steps
