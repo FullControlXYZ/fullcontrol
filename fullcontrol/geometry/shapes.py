@@ -20,12 +20,29 @@ def circleXY(centre: Point, radius: float, start_angle: float, segments: int = 1
     '''
     return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
 
-def ellipseXY(centre: Point, a: float, b: float, start_angle: float, segments: int=100, cw: bool=False) -> list:
+
+def circleXY_3pt(pt1: Point, pt2: Point, pt3: Point, start_angle: float, segments: int = 100, cw: bool = False) -> list:
+    '''generate 2d-xy circle with the specified number of segments (defaulting to 100), defined by three points
+    that the circle passes through. the start point in the returned list of points is defined by a polar angle 
+    (radians). the z-position is the same as that of p1. return list of Points
+    '''
+    D = 2 * (pt1.x * (pt2.y - pt3.y) + pt2.x * (pt3.y - pt1.y) + pt3.x * (pt1.y - pt2.y))
+    if D == 0:
+        raise Exception('The points are collinear, no unique circle')
+    x_centre = ((pt1.x**2 + pt1.y**2) * (pt2.y - pt3.y) + (pt2.x**2 + pt2.y**2) * (pt3.y - pt1.y) + (pt3.x**2 + pt3.y**2) * (pt1.y - pt2.y)) / D
+    y_centre = ((pt1.x**2 + pt1.y**2) * (pt3.x - pt2.x) + (pt2.x**2 + pt2.y**2) * (pt1.x - pt3.x) + (pt3.x**2 + pt3.y**2) * (pt2.x - pt1.x)) / D
+    radius = ((pt1.x - x_centre)**2 + (pt1.y - y_centre)**2)**0.5
+    centre = Point(x=x_centre, y=y_centre, z=pt1.z)
+    return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
+
+
+def ellipseXY(centre: Point, a: float, b: float, start_angle: float, segments: int = 100, cw: bool = False) -> list:
     '''generate 2d-xy ellipse with the specified number of segments (defaulting to 100), centred about a Point,
     with the given a (width) and b (height), starting at the specified polar angle (radians), with z-position the same as that
     of the centre Point. return list of Points
     '''
     return elliptical_arcXY(centre, a, b, start_angle, tau*(1-(2*cw)), segments)
+
 
 def polygonXY(centre: Point, enclosing_radius: float, start_angle: float, sides: int, cw: bool = False) -> list:
     '''generate 2d-xy polygon with the specified number of sides, centred about a Point, sized based on the enclosing radius,
@@ -41,6 +58,7 @@ def spiralXY(centre: Point, start_radius: float, end_radius: float, start_angle:
     and end at the Point at the end of the final segment
     '''
     return variable_arcXY(centre, start_radius, start_angle, arc_angle=n_turns*tau*(1-(2*cw)), segments=segments, radius_change=end_radius-start_radius, z_change=0)
+
 
 def helixZ(centre: Point, start_radius: float, end_radius: float, start_angle: float, n_turns: float, pitch_z: float, segments: int, cw: bool = False) -> list:
     '''generate a helix in the Z direction with the specified number of segments and turns (partial turns permitted), centred about the Point centre, sized based on the start and end radius,

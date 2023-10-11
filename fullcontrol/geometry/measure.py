@@ -18,3 +18,7 @@ def distance_forgiving(point1: Point, point2: Point) -> float:
 def angleXY_between_3_points(start_point: Point, mid_point: Point, end_point: Point) -> float:
     'returns the angle from start_point to end_point, about mid_point'
     return(point_to_polar(end_point, mid_point).angle - point_to_polar(start_point, mid_point).angle)
+
+
+def path_length(points: list) -> float:
+    return sum([distance(points[i], points[i+1]) for i in range(len(points)-1)])
