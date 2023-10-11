@@ -54,6 +54,7 @@ class Extruder(BaseExtruder):
     total_volume: Optional[float] = None
     # total extrusion volume reference value - this attribute is set to allow extrusion to be expressed relative to this point (for relative_gcode = True, it is reset for every line)
     total_volume_ref: Optional[float] = None
+    travel_format: Optional[str] = None
 
     def get_and_update_volume(self, volume):
         'DO THIS'
@@ -77,7 +78,7 @@ class Extruder(BaseExtruder):
             length = distance_forgiving(point1, state.point)
             return f'E{self.get_and_update_volume(length*state.extrusion_geometry.area)*self.volume_to_e:.6} '
         else:
-            return ''
+            return 'E0' if state.extruder.travel_format == 'G1_E0' else ''
 
     def update_e_ratio(self):
         'calculate the ratio for conversion from mm3 extrusion to units for E in gcode'

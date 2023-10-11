@@ -36,7 +36,8 @@ class State(BaseModel):
             units=initialization_data['e_units'],
             dia_feed=initialization_data['dia_feed'],
             total_volume=0,
-            total_volume_ref=0)
+            total_volume_ref=0,
+            travel_format=initialization_data['travel_format'])
         self.extruder.update_e_ratio()
 
         self.printer = Printer(
