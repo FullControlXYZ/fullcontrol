@@ -11,6 +11,7 @@ default_initial_settings = {
     "material_flow_percent": 100,
     "e_units": "mm",  # options: "mm" / "mm3"
     "relative_e": True,
+    "manual_e_ratio": None,
     "dia_feed": 1.75,
     "travel_format": "G0",  # options: "G0" / "G1_E0"
     "primer": "front_lines_then_y",

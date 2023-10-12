@@ -39,6 +39,8 @@ class State(BaseModel):
             total_volume_ref=0,
             travel_format=initialization_data['travel_format'])
         self.extruder.update_e_ratio()
+        if initialization_data['manual_e_ratio'] != None:
+            self.extruder.volume_to_e = initialization_data['manual_e_ratio']
 
         self.printer = Printer(
             command_list=initialization_data['printer_command_list'],
