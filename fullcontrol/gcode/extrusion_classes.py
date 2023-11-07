@@ -45,7 +45,7 @@ class Extruder(BaseExtruder):
     # GCode attributes, used to translate the design into gcode:
     # units for E in GCode ... options: 'mm' / 'mm3'
     units: Optional[str] = None
-    dia_feed: Optional[float] = None # diameter of the feedstock filament
+    dia_feed: Optional[float] = None  # diameter of the feedstock filament
     relative_gcode: Optional[bool] = None
     # attibutes not set by user ... calculated automatically:
     # factor to convert volume of material into the value of 'E' in gcode
@@ -76,7 +76,7 @@ class Extruder(BaseExtruder):
         if self.on:
             # length = pt1.distance_to_self(pt2)
             length = distance_forgiving(point1, state.point)
-            return f'E{self.get_and_update_volume(length*state.extrusion_geometry.area)*self.volume_to_e:.6} '
+            return f'E{round(self.get_and_update_volume(length*state.extrusion_geometry.area)*self.volume_to_e, 6)} '
         else:
             return 'E0' if state.extruder.travel_format == 'G1_E0' else ''
 
