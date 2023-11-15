@@ -72,6 +72,7 @@ def plot(data: PlotData, controls: PlotControls):
     annotations_pts = []
     annotations = []
     if controls.hide_annotations == False and not controls.neat_for_publishing:
+    # if controls.hide_annotations == False:  # and not controls.neat_for_publishing:
         for annotation in data.annotations:
             x, y, z = (annotation[axis] for axis in 'xyz')
             annotations_pts.append([x, y, z])
