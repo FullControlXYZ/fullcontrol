@@ -7,6 +7,7 @@ parametric models and a design template ([also available in colab](https://colab
     - [hex adapter](https://fullcontrol.xyz/#/models/ff1d4e)  - [open in colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/hex_adapter_colab.ipynb)
     - [fractional design engine (polar)](https://fullcontrol.xyz/#/models/a72616)  - [open in colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/fractional_design_engine_polar_colab.ipynb)
     - [ripple texture](https://fullcontrol.xyz/#/models/4a0397)  - [open in colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/ripple_texture_colab.ipynb)
+    - [blob printing](https://fullcontrol.xyz/#/models/800020)  - [open in colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/blob_printing.ipynb)
 1. a new model (not on the website) to produce nuts, bolts and threaded tubes - [nuts_and_bolts.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/nuts_and_bolts_colab.ipynb)
 
 more designs are available on the fullcontrol [gists page](https://gist.github.com/fullcontrol-xyz)
