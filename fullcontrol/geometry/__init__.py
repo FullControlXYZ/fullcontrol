@@ -10,8 +10,9 @@ from fullcontrol.geometry.polar import PolarPoint
 
 # import functions
 from fullcontrol.geometry.polar import point_to_polar, polar_to_point, polar_to_vector
-from fullcontrol.geometry.midpoint import midpoint
-from fullcontrol.geometry.measure import distance, angleXY_between_3_points, path_length # , distance_forgiving
+from fullcontrol.geometry.midpoint import midpoint, interpolated_point
+# , distance_forgiving
+from fullcontrol.geometry.measure import distance, angleXY_between_3_points, path_length
 from fullcontrol.geometry.move import move
 from fullcontrol.geometry.move_polar import move_polar
 from fullcontrol.geometry.reflect import reflectXY, reflectXY_mc
@@ -20,5 +21,5 @@ from fullcontrol.geometry.ramping import ramp_xyz, ramp_polar
 from fullcontrol.geometry.arcs import arcXY, variable_arcXY, elliptical_arcXY
 from fullcontrol.geometry.shapes import rectangleXY, circleXY, circleXY_3pt, ellipseXY, polygonXY, spiralXY, helixZ
 from fullcontrol.geometry.waves import squarewaveXY, squarewaveXYpolar, trianglewaveXYpolar, sinewaveXYpolar
-from fullcontrol.geometry.segmented_line import segmented_line
+from fullcontrol.geometry.segmentation import segmented_line, segmented_path
 from fullcontrol.geometry.travel_to import travel_to
