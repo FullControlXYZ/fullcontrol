@@ -13,9 +13,11 @@ notebook_names = ["contents.ipynb",
                   "other_functions.ipynb",
                   "design_tips.ipynb",
                   "lab_geometry.ipynb",
+                  "lab_four_axis_demo.ipynb",
                   "lab_five_axis_demo.ipynb"]
 
-notebook_addresses = ["../docs/" + notebook_name for notebook_name in notebook_names]
+notebook_addresses = ["../docs/" +
+                      notebook_name for notebook_name in notebook_names]
 notebook_colab_urls = [
     f'https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
 
@@ -43,11 +45,15 @@ for notebook_address in notebook_addresses:
         content_string = content_string.replace(old_import_5ax, new_import_5ax)
     if 'contents.ipynb' in notebook_address:
         content_string = content_string.replace(string_to_delete, '')
-        content_string = content_string.replace(design_template_old, design_template_new)
+        content_string = content_string.replace(
+            design_template_old, design_template_new)
     # replace links to models in contents.ipynb:
     for i in range(len(model_notebook_names)):
-        content_string = content_string.replace(f'({"../models/" + model_notebook_names[i]})', f'({model_notebook_colab_urls[i]})')
+        content_string = content_string.replace(
+            f'({"../models/" + model_notebook_names[i]})', f'({model_notebook_colab_urls[i]})')
     # replace links to notebooks with colab notebook links:
     for i in range(len(notebook_names)):
-        content_string = content_string.replace(f'({notebook_names[i]})', f'({notebook_colab_urls[i]})')
-    open(f'{notebook_address[:-6].replace("docs","docs/colab")}_colab.ipynb', 'w').write(content_string)
+        content_string = content_string.replace(
+            f'({notebook_names[i]})', f'({notebook_colab_urls[i]})')
+    open(f'{notebook_address[:-6].replace("docs","docs/colab")}_colab.ipynb',
+         'w').write(content_string)

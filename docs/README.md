@@ -32,5 +32,6 @@ for use on a local system, clone this repo and open the contents notebooks (cont
 
 ### FullControl lab:
 1. FullControl lab geometry - [lab_geometry.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/lab_geometry_colab.ipynb)
+1. four-axis example - [lab_four_axis_demo.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/lab_four_axis_demo_colab.ipynb)
 1. five-axis example - [lab_five_axis_demo.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/lab_five_axis_demo_colab.ipynb)
 
