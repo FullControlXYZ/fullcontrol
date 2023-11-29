@@ -24,6 +24,8 @@ notebook_colab_urls = [
 old_import = "import fullcontrol as fc"
 new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
 
+old_import_4ax = "import lab.fullcontrol.fouraxis as fc4"
+new_import_4ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_4ax
 old_import_5ax = "import lab.fullcontrol.fiveaxis as fc5"
 new_import_5ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax
 
@@ -41,6 +43,8 @@ for notebook_address in notebook_addresses:
     content_string = open(notebook_address).read()
     # replace import statement with install+import statements:
     content_string = content_string.replace(old_import, new_import)
+    if 'lab_four_axis_demo.ipynb' in notebook_address:
+        content_string = content_string.replace(old_import_4ax, new_import_4ax)
     if 'lab_five_axis_demo.ipynb' in notebook_address:
         content_string = content_string.replace(old_import_5ax, new_import_5ax)
     if 'contents.ipynb' in notebook_address:
