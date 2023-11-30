@@ -25,7 +25,8 @@ old_import = "import fullcontrol as fc"
 new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
 
 old_import_4ax = "import lab.fullcontrol.fouraxis as fc4"
-new_import_4ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_4ax
+new_import_4ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + \
+    old_import_4ax + '\\nfrom google.colab import files'
 old_import_5ax = "import lab.fullcontrol.fiveaxis as fc5"
 new_import_5ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax
 

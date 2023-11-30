@@ -17,7 +17,7 @@ class Point(BasePoint):
         if self_systemXYZ.z != None and self_systemXYZ.z != p.z:
             s += f'Z{round(self_systemXYZ.z, 6):.6} '
         if self_systemXYZ.b != None and self_systemXYZ.b != p.b:
-            s += f'B{round(self_systemXYZ.b, 6):.6} '
+            s += f'B{round(self_systemXYZ.b, 6):.6f} '
         return s if s != '' else None
 
     def inverse_kinematics(self, state):
@@ -44,7 +44,7 @@ class Point(BasePoint):
                 x_system = model_point.x + state.printer.b_offset_z * \
                     sin(radians(model_point.b))
                 y_system = model_point.y
-                z_system = model_point.z + state.printer.b_offset_z * \
+                z_system = model_point.z - state.printer.b_offset_z * \
                     (1-cos(radians(model_point.b)))
 
                 if state.printer.b_offset_x:
@@ -54,6 +54,7 @@ class Point(BasePoint):
             system_point.x = round(x_system, 6)
             system_point.y = round(y_system, 6)
             system_point.z = round(z_system, 6)
+            system_point.b = round(model_point.b, 6)
             return system_point
 
         # make sure undefined attributes of the current point (self) are taken from the point in state
