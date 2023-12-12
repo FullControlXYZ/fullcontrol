@@ -43,7 +43,7 @@ def set_up(user_overrides: dict):
 
     ending_procedure_steps = []
     ending_procedure_steps.append(ManualGcode(text='\n;-----\n; START OF ENDING PROCEDURE\n;-----'))
-    ending_procedure_steps.append(ManualGcode(text='print_end    ;end script from macro'))
+    ending_procedure_steps.append(ManualGcode(text='print_end    ;end script from macro\n; this final gcode line helps ensure the print_end macro is executed'))
 
     initialization_data['starting_procedure_steps'] = starting_procedure_steps
     initialization_data['ending_procedure_steps'] = ending_procedure_steps
