@@ -18,7 +18,7 @@ def gcode(steps: list, gcode_controls: GcodeControls = GcodeControls()):
         if gcode_line != None:
             state.gcode.append(gcode_line)
         state.i += 1
-    gc = os.linesep.join(state.gcode)
+    gc = '\n'.join(state.gcode)
 
     if gcode_controls.save_as != None:
         filename = gcode_controls.save_as + \
