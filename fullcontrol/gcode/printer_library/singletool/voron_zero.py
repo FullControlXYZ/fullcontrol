@@ -20,6 +20,11 @@ def set_up(user_overrides: dict):
         text='; Time to print!!!!!\n; GCode created with FullControl - tell us what you\'re printing!\n; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok \n'))
     starting_procedure_steps.append(ManualGcode(text='print_start EXTRUDER=' + str(initialization_data["nozzle_temp"]) + ' BED='+str(
         initialization_data["bed_temp"]) + ' CHAMBER=' + str(initialization_data['chamber_temp'])))
+    starting_procedure_steps.append(ManualGcode(text='M105'))
+    starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=False))
+    starting_procedure_steps.append(Buildplate(temp=initialization_data["bed_temp"], wait=True))
+    starting_procedure_steps.append(ManualGcode(text='M105'))
+    starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=True))
     starting_procedure_steps.append(PrinterCommand(id='absolute_coords'))
     starting_procedure_steps.append(PrinterCommand(id='units_mm'))
     starting_procedure_steps.append(Extruder(relative_gcode=initialization_data["relative_e"]))
