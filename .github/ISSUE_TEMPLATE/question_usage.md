@@ -1,7 +1,7 @@
 ---
 name: Question (usage)
 about: Ask how to use FullControl
-title: "[QUESTION] question_usage_title"
+title: "[QUESTION] replace_this_text_with_your_question"
 labels: question
 assignees: ''
 
