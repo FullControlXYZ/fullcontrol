@@ -46,7 +46,7 @@ class MeshExporter:
         mode = 'w' + 'b'*binary
         if combined_file or num_bodies == 1:
             if num_bodies > 1:
-                print('WARNING! Multi-object STL file - may not work in some softwares.')
+                print("WARNING! Multi-object STL file - may not work in some softwares, nor with stl_type='binary'.")
 
             with self.valid_path(path, overwrite).open(mode) as out:
                 write_header(out)
@@ -126,6 +126,7 @@ class MeshExporter:
     @staticmethod
     def valid_path(path: pathlib.Path | str, overwrite: bool = False) -> pathlib.Path:
         path = pathlib.Path(path) # ensure a valid Path object
+        # Add a timestamp if the file already exists and we don't want to overwrite it
         if not overwrite and path.is_file():
             path = path.with_stem(
                 f'{path.stem}__{datetime.today().strftime("%d-%m-%Y__%H-%M-%S")}'
@@ -138,14 +139,14 @@ class TubeMesh(MeshExporter):
     def __init__(
             self,
             path: np.ndarray | Sequence,
-            widths: Real | np.ndarray | Sequence = 0.2,
-            heights: Real | np.ndarray | Sequence | None = None,
+            widths: Real | np.ndarray | Sequence,
+            heights: Real | np.ndarray | Sequence,
             *, # make remaining arguments keyword-only
-            sides: int = 6,
-            rounding_strength: float = 1,
-            flat_sides: bool = True,
-            capped: bool = False,
-            inplace_path: bool = False,
+            sides: int,
+            rounding_strength: float,
+            flat_sides: bool,
+            capped: bool,
+            inplace_path: bool,
             metadata: dict | None = None,
     ):
         '''
@@ -772,7 +773,8 @@ if __name__ == '__main__':
         offsets.append(offset)
     side, up = offsets
 
-    kwargs = dict(sides=8, rounding_strength=0.5, inplace_path=True, capped=True)
+    kwargs = dict(sides=8, rounding_strength=0.5, flat_sides=False,
+                  inplace_path=True, capped=True)
     meshes = (
         TubeMesh(path+side, widths=widths, heights=heights, **kwargs),
         TubeMesh(path+side+up, widths=widths, heights=heights, **kwargs),

@@ -2,8 +2,37 @@ import numpy as np
 import plotly.graph_objects as go
 from fullcontrol.visualize.plot_data import PlotData
 from fullcontrol.visualize.controls import PlotControls
-from fullcontrol.visualize.tube_mesh import CylindersMesh, FlowTubeMesh
+from fullcontrol.visualize.tube_mesh import CylindersMesh, FlowTubeMesh, MeshExporter
 
+
+def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, rounding_strength, flat_sides, colors_now: list = None):
+    global local_max # allow external tracking for nice plot boundaries
+    path_points = np.array([path.xvals, path.yvals, path.zvals]).T
+    good_points = np.ones(len(path_points), dtype=bool)
+    dups = np.all(np.diff(path_points, axis=0)==0, axis=1)
+    if np.any(dups):
+        # remove successive duplicate points so TubeMesh can be generated
+        good_points[1:] = ~dups
+        # modify colors list so the new ones are accessible outside the function
+        colors_now[:] = np.array(colors_now, dtype=object)[good_points]
+    path_points = path_points[good_points]
+    capped = False
+    widths = path.widths
+    if not widths:  # TODO: check whether it's ever reasonable for a user to not define the widths for their extrusion path
+        local_max = widths = linewidth_now/10
+    else:
+        widths = np.array(widths)[good_points]
+        if Mesh == CylindersMesh:
+            widths = widths[1:]
+        local_max = max(widths)
+    heights = path.heights or None
+    if heights:
+        heights = np.array(heights)[good_points]
+        if Mesh == CylindersMesh:
+            heights = heights[1:]
+    return Mesh(path_points, widths=widths, heights=heights, sides=sides, capped=capped, inplace_path=True,
+                rounding_strength=rounding_strength, flat_sides=flat_sides)
+ 
 
 def plot(data: PlotData, controls: PlotControls):
     'plot data for x y z lines with RGB colors and annotations. style of plot governed by controls'
@@ -17,63 +46,23 @@ def plot(data: PlotData, controls: PlotControls):
 
     if controls.tube_type is not None:
         Mesh = {'flow': FlowTubeMesh, 'cylinders': CylindersMesh}[controls.tube_type]
-    else:
+    else:  # Fall back to FlowTubeMesh if no tube_type is explicitly specified
         Mesh = FlowTubeMesh
 
-    saving_stl = bool(controls.tube_stl_filename)
-    if saving_stl:
-        meshes = []
-
     # generate line plots
-    any_mesh_plots = False
     max_width = 0
     for path in data.paths:
         colors_now = [f'rgb({color[0]*255:.2f}, {color[1]*255:.2f}, {color[2]*255:.2f})' for color in path.colors]
         linewidth_now = controls.line_width * \
             2 if path.extruder.on == True else controls.line_width*0.5
         if path.extruder.on and controls.style == 'tube':
-            path_points = np.array([path.xvals, path.yvals, path.zvals]).T
-            good_points = np.ones(len(path_points), dtype=bool)
-            dups = np.all(np.diff(path_points, axis=0)==0, axis=1)
-            if np.any(dups):
-                # remove successive duplicate points so TubeMesh can be generated
-                good_points[1:] = ~dups
-                colors_now = np.array(colors_now, dtype=object)[good_points]
-            path_points = path_points[good_points]
-            num_path_points = len(path_points)
-            neat = bool(controls.neat_for_publishing)
-            # if automatic, dynamically reduce the number of sides when plotting large numbers of path points
-            sides = controls.tube_sides or (6 if num_path_points < 10 else 4 if num_path_points < 1_000_000 else 2)
-            capped = neat or num_path_points < 100
-            widths = path.widths
-            if not widths:
-                local_max = widths = linewidth_now/10
-            else:
-                widths = np.array(widths)[good_points]
-                if Mesh == CylindersMesh:
-                    widths = widths[1:]
-                local_max = max(widths)
-            heights = path.heights or None
-            if heights:
-                heights = np.array(heights)[good_points]
-                if Mesh == CylindersMesh:
-                    heights = heights[1:]
-            mesh = Mesh(path_points, widths=widths, heights=heights, sides=sides, capped=capped, inplace_path=True)
+            sides, rounding_strength, flat_sides = controls.tube_sides, 0.4, False
+            mesh = generate_mesh(path, linewidth_now, Mesh, sides, rounding_strength, flat_sides, colors_now)
             fig.add_trace(mesh.to_Mesh3d(colors=colors_now))
-            if saving_stl:
-                meshes.append(mesh)
-            any_mesh_plots = True
             max_width = max(max_width, local_max)
-        elif not controls.hide_travel or path.extruder.on:
+        elif not controls.hide_travel or path.extruder.on:  # plot travel lines for tube and line
             fig.add_trace(go.Scatter3d(mode='lines', x=path.xvals, y=path.yvals, z=path.zvals,
                                        showlegend=False, line=dict(width=linewidth_now, color=colors_now)))
-
-    # handle STL saving
-    if saving_stl:
-        binary_file = controls.tube_stl_type.lower()=='binary'
-        metadata = {'name': 'extrusion'}
-        MeshExporter(metadata, meshes).to_stl(controls.tube_stl_filename, binary_file,
-                                              combined_file=controls.tube_stls_combined)
 
     # find a bounding box, to create a plot with equally proportioned X Y Z scales (so a cuboid looks like a cuboid, not a cube)
     bounding_box_size = max(data.bounding_box.maxx-data.bounding_box.minx, data.bounding_box.maxy -
@@ -117,14 +106,14 @@ def plot(data: PlotData, controls: PlotControls):
 
     camera = dict(eye=dict(x=-0.5/controls.zoom, y=-1/controls.zoom, z=-0.5+0.5/controls.zoom),
                   center=dict(x=0, y=0, z=-0.5))
-    fig.update_layout(template='plotly_dark', paper_bgcolor="black", scene_aspectmode='cube', scene=dict(annotations=annotations,
-                                                                                                         xaxis=dict(backgroundcolor="black", nticks=10, range=[
-                                                                                                                    data.bounding_box.midx-bounding_box_size/2, data.bounding_box.midx+bounding_box_size/2],),
-                                                                                                         yaxis=dict(backgroundcolor="black", nticks=10, range=[
-                                                                                                             data.bounding_box.midy-bounding_box_size/2, data.bounding_box.midy+bounding_box_size/2],),
-                                                                                                         zaxis=dict(backgroundcolor="black", nticks=10, range=[min(0, data.bounding_box.minz), bounding_box_size],),),
-                      scene_camera=camera,
-                      width=800, height=500, margin=dict(l=10, r=10, b=10, t=10, pad=4))
+    fig.update_layout(template='plotly_dark', paper_bgcolor="black", scene_aspectmode='cube',
+                      scene=dict(annotations=annotations,
+                                 xaxis=dict(backgroundcolor="black", nticks=10,
+                                            range=[data.bounding_box.midx-bounding_box_size/2, data.bounding_box.midx+bounding_box_size/2],),
+                                 yaxis=dict(backgroundcolor="black", nticks=10,
+                                            range=[data.bounding_box.midy-bounding_box_size/2, data.bounding_box.midy+bounding_box_size/2],),
+                                 zaxis=dict(backgroundcolor="black", nticks=10, range=[min(0, data.bounding_box.minz), bounding_box_size],),
+                      ), scene_camera=camera, width=800, height=500, margin=dict(l=10, r=10, b=10, t=10, pad=4))
     if controls.hide_axes or controls.neat_for_publishing:
         for axis in ['xaxis', 'yaxis', 'zaxis']:
             fig.update_layout(
