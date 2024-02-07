@@ -578,7 +578,7 @@ class FlowTubeMesh(TubeMesh):
                 path_colors = colors
                 colors = np.empty((len(colors)+len(self._sharp_doubles),1), dtype=object)
                 colors[0] = path_colors[0]
-                colors[1:] = self._duplicate_sharp_corner_rows(path_colors)
+                colors[1:] = self._duplicate_sharp_corner_rows(path_colors[1:])
 
             if not isinstance(colors, str):
                 colors = colors.flatten()
