@@ -8,8 +8,8 @@ class PlotControls(BaseModel):
     color_type: Optional[str] = 'z_gradient'
     line_width: Optional[float] = 2
     style: Optional[str] = None # 'tube'/'line'
-    tube_type: Optional[str] = None # 'flow'/'cylinders'
-    tube_sides: Optional[int] = None
+    tube_type: Optional[str] = 'flow'  # 'flow'/'cylinders'
+    tube_sides: Optional[int] = 4
     zoom: Optional[float] = 1
     hide_annotations: Optional[bool] = False
     hide_travel: Optional[bool] = False

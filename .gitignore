@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# STL files
+*.stl
+
+# MacOS file viewer metadata
+**/.DS_Store
