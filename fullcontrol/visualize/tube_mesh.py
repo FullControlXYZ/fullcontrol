@@ -562,13 +562,10 @@ class FlowTubeMesh(TubeMesh):
             colors = self.metadata.get('colors')
 
         # turn high level path colors into low level path colors
-        if colors is not None:
-            if isinstance(colors, str):
-                n = 1
-            else:
-                n = len(colors)
-                # make into a column to allow row insertion
-                colors = np.array(colors, dtype=object).reshape((-1, 1))
+        if colors is not None and not isinstance(colors, str):
+            n = len(colors)
+            # make into a column to allow row insertion
+            colors = np.array(colors, dtype=object).reshape((-1, 1))
 
             if n == N:
                 colors = self._duplicate_sharp_corner_rows(colors)
@@ -580,8 +577,7 @@ class FlowTubeMesh(TubeMesh):
                 colors[0] = path_colors[0]
                 colors[1:] = self._duplicate_sharp_corner_rows(path_colors[1:])
 
-            if not isinstance(colors, str):
-                colors = colors.flatten()
+            colors = colors.flatten()
         return super().to_Mesh3d(colors, **mesh_kwargs)
 
 
