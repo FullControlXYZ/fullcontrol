@@ -40,16 +40,49 @@ class Point(BasePoint):
                 # y_system = y_with_b + state.printer.bc_intercept.y
                 # z_system = z_with_b + state.printer.bc_intercept.z
 
-                # calculate X Z changes due to b roations:
-                x_system = model_point.x + state.printer.b_offset_z * \
-                    sin(radians(model_point.b))
-                y_system = model_point.y
-                z_system = model_point.z - state.printer.b_offset_z * \
-                    (1-cos(radians(model_point.b)))
+                # OLD, WORKING STUFF:
+                # # calculate X Z changes due to b roations:
+                # x_system = model_point.x + state.printer.b_offset_z * sin(radians(model_point.b))
+                # y_system = model_point.y
+                # z_system = model_point.z - state.printer.b_offset_z * (1-cos(radians(model_point.b)))
 
-                if state.printer.b_offset_x:
-                    raise Exception(
-                        'b_offset_x parameter was set by the user but the inverse kinematicscode is not developed for that parameter yet')
+                # if state.printer.b_offset_x:
+                #     raise Exception(
+                #         'b_offset_x parameter was set by the user but the inverse kinematicscode is not developed for that parameter yet')
+
+                # calculate X Z changes due to b roations (these were identified intuitively):
+                # x_system = model_point.x + \
+                #     state.printer.b_offset_z * sin(radians(model_point.b)) - \
+                #     state.printer.b_offset_x * (1-cos(radians(model_point.b)))
+                # y_system = model_point.y
+                # z_system = model_point.z - \
+                #     state.printer.b_offset_z * (1-cos(radians(model_point.b))) - \
+                #     state.printer.b_offset_x * sin(radians(model_point.b))
+                b = radians(model_point.b)
+                nozzle_offset_x, nozzle_offset_z = - \
+                    state.printer.b_offset_x, -state.printer.b_offset_z
+                nozzle_offset_from_b0_x = - \
+                    (nozzle_offset_x*(1-cos(b))) + nozzle_offset_z*sin(b)
+                nozzle_offset_from_b0_z = - \
+                    (nozzle_offset_z*(1-cos(b))) + nozzle_offset_x*-sin(b)
+                x_system = model_point.x - nozzle_offset_from_b0_x
+                y_system = model_point.y
+                z_system = model_point.z - nozzle_offset_from_b0_z
+
+                # # the following lines are based on the standard equation to rotate a point about another point
+                # # they assume the nozzle is vertical when b=0
+                # # the next lines use -model_point.b because the y axis is oriented in the opposite direction from the z axis in XY rotations, which this equations were based on
+                # nozzle_offset_x = -state.printer.b_offset_x
+                # nozzle_offset_z = -state.printer.b_offset_z
+                # nozzle_move_x = nozzle_offset_x * cos(radians(-model_point.b)) - \
+                #     nozzle_offset_z * sin(radians(-model_point.b)) - \
+                #     nozzle_offset_x
+                # nozzle_move_z = nozzle_offset_x * sin(radians(-model_point.b)) + \
+                #     nozzle_offset_z * cos(radians(-model_point.b)) - \
+                #     nozzle_offset_z
+                # x_system = model_point.x - nozzle_move_x
+                # y_system = model_point.y
+                # z_system = model_point.z - nozzle_move_z
 
             system_point.x = round(x_system, 6)
             system_point.y = round(y_system, 6)
