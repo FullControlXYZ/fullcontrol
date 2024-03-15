@@ -11,6 +11,8 @@ class Printer(BasePrinter):
     # see controls.py for definition of the following terms
     b_offset_x: Optional[float] = None
     b_offset_z: Optional[float] = None
+    c_offset_x: Optional[float] = None
+    c_offset_y: Optional[float] = None
 
     def f_gcode(self, state):
         if self.speed_changed == True:

@@ -30,6 +30,8 @@ new_import_4ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install --no
     old_import_4ax + '\\nfrom google.colab import files'
 old_import_5ax = "import lab.fullcontrol.fiveaxis as fc5"
 new_import_5ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install --no-deps git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n  # --no-deps is included due to a pip 'dependency resolver' error in colab that began in Feb 2024\\n" + old_import_5ax
+old_import_5ax2 = "import lab.fullcontrol.fiveaxisC0B1 as fc5"
+new_import_5ax2 = "if 'google.colab' in str(get_ipython()):\\n  !pip install --no-deps git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n  # --no-deps is included due to a pip 'dependency resolver' error in colab that began in Feb 2024\\n" + old_import_5ax
 
 string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be accessed [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) and run in google colab'
 
@@ -49,6 +51,7 @@ for notebook_address in notebook_addresses:
         content_string = content_string.replace(old_import_4ax, new_import_4ax)
     if 'lab_five_axis_demo.ipynb' in notebook_address:
         content_string = content_string.replace(old_import_5ax, new_import_5ax)
+        content_string = content_string.replace(old_import_5ax2, new_import_5ax2)
     if 'contents.ipynb' in notebook_address:
         content_string = content_string.replace(string_to_delete, '')
         content_string = content_string.replace(
