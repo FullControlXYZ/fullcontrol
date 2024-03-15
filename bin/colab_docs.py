@@ -46,12 +46,14 @@ design_template_new = 'https://github.com/FullControlXYZ/fullcontrol/blob/master
 for notebook_address in notebook_addresses:
     content_string = open(notebook_address).read()
     # replace import statement with install+import statements:
-    content_string = content_string.replace(old_import, new_import)
     if 'lab_four_axis_demo.ipynb' in notebook_address:
         content_string = content_string.replace(old_import_4ax, new_import_4ax)
-    if 'lab_five_axis_demo.ipynb' in notebook_address:
+    elif 'lab_five_axis_demo.ipynb' in notebook_address:
         content_string = content_string.replace(old_import_5ax, new_import_5ax)
         content_string = content_string.replace(old_import_5ax2, new_import_5ax2)
+    else:
+        content_string = content_string.replace(old_import, new_import)
+
     if 'contents.ipynb' in notebook_address:
         content_string = content_string.replace(string_to_delete, '')
         content_string = content_string.replace(
