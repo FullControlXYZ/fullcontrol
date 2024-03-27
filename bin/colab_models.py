@@ -20,7 +20,7 @@ new_intro = "*this document is a jupyter notebook - if they're new to you, check
 old_intro_runall = 'run all cells in this notebook'
 new_intro_runall = 'press ctrl+F9 to run all cells in this notebook'
 old_import = "import fullcontrol as fc"
-new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install --no-deps git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n  # --no-deps is included due to a pip 'dependency resolver' error in colab that began in Feb 2024\\n" + \
+new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + \
     old_import + "\\nfrom google.colab import files"
 old_gcode = "gcode = fc.transform(steps, 'gcode', gcode_controls)"
 new_gcode = old_gcode + "\\nopen(f'{design_name}.gcode', 'w').write(gcode)\\nfiles.download(f'{design_name}.gcode')"
