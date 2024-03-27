@@ -11,3 +11,4 @@ from lab.fullcontrol.geometry.loop_between_lines import loop_between_lines
 from lab.fullcontrol.geometry.rotate import rotate
 from lab.fullcontrol.geometry.spherical import point_to_spherical, spherical_to_point, spherical_to_vector, angleZ
 from lab.fullcontrol.geometry.other_splines import catmull_rom_spline
+from lab.fullcontrol.geometry.orient import constant_polar_angle_with_c
