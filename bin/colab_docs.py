@@ -23,15 +23,15 @@ notebook_colab_urls = [
     f'https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
 
 old_import = "import fullcontrol as fc"
-new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install  git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
+new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
 
 old_import_4ax = "import lab.fullcontrol.fouraxis as fc4"
-new_import_4ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install  git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + \
+new_import_4ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + \
     old_import_4ax + '\\nfrom google.colab import files'
 old_import_5ax = "import lab.fullcontrol.fiveaxis as fc5"
-new_import_5ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install  git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax
+new_import_5ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax
 old_import_5ax2 = "import lab.fullcontrol.fiveaxisC0B1 as fc5"
-new_import_5ax2 = "if 'google.colab' in str(get_ipython()):\\n  !pip install  git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax2
+new_import_5ax2 = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax2
 
 string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be accessed [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) and run in google colab'
 
