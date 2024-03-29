@@ -8,11 +8,29 @@ from fullcontrol.visualize.controls import PlotControls
 
 
 class State(BaseModel):
-    ''' this tracks the state of instances of interest adjusted in the list 
-    of steps (points, extruder, etc.). some relevant shared variables and 
-    initialisation methods are also included. a list of steps must be passed
-    upon instantiation to allow initialization of point_count_total.
     '''
+    This class tracks the state of instances of interest adjusted in the list 
+    of steps (points, extruder, etc.). It also includes some relevant shared variables and 
+    initialization methods. A list of steps must be passed upon instantiation to allow 
+    initialization of `point_count_total`.
+
+    Attributes:
+        point (Optional[Point]): The current point.
+        extruder (Optional[Extruder]): The current extruder.
+        path_count_now (Optional[int]): The current path count.
+        point_count_now (Optional[int]): The current point count.
+        point_count_total (Optional[int]): The total point count.
+        extrusion_geometry (Optional[ExtrusionGeometry]): The extrusion geometry.
+
+    Methods:
+        count_points: Counts the number of points in the given list of steps.
+
+    Parameters:
+        steps (list): The list of steps.
+        plot_controls (PlotControls): The plot controls.
+
+    '''
+
     point: Optional[Point] = Point()
     extruder: Optional[Extruder] = Extruder(on=True)
     path_count_now: Optional[int] = 0
@@ -21,6 +39,15 @@ class State(BaseModel):
     extrusion_geometry: Optional[ExtrusionGeometry] = None
 
     def count_points(self, steps: list):
+        '''
+        Counts the number of points in the given list of steps.
+
+        Parameters:
+            steps (list): The list of steps.
+
+        Returns:
+            int: The number of points.
+        '''
         return sum(1 for step in steps if isinstance(step, Point))
 
     def __init__(self, steps: list, plot_controls: PlotControls):

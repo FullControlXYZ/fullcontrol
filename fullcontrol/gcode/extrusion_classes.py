@@ -9,12 +9,26 @@ from pydantic import root_validator
 
 
 class ExtrusionGeometry(BaseExtrusionGeometry):
-    'generic ExtrusionGeometry with gcode method added'
+    '''
+    A generic ExtrusionGeometry class with an added gcode method.
 
-    # gcode additions to generic ExtrusionGeometry class
+    Attributes:
+        width (float): The width of the extrusion geometry.
+        height (float): The height of the extrusion geometry.
+        diameter (float): The diameter of the extrusion geometry.
+        area_model (float): The area model of the extrusion geometry.
+    '''
 
     def gcode(self, state):
-        'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
+        '''
+        Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
+
+        Args:
+            state (State): The state object containing the extrusion geometry.
+
+        Returns:
+            str: The generated line of gcode.
+        '''
         # update all attributes of the tracking instance with the new instance (self)
         state.extrusion_geometry.update_from(self)
         if self.width != None \
@@ -28,9 +42,18 @@ class ExtrusionGeometry(BaseExtrusionGeometry):
 
 
 class StationaryExtrusion(BaseStationaryExtrusion):
-    'generic StationaryExtrusion with gcode method added'
-    # gcode additions to generic StationaryExtrusion class
+    '''
+    A generic StationaryExtrusion class with gcode method added.
 
+    This class represents a stationary extrusion in a 3D printer. It inherits from the BaseStationaryExtrusion class.
+
+    Attributes:
+        speed (float): The speed of the extrusion.
+        volume (float): The volume of the extrusion.
+
+    Methods:
+        gcode(state): Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
+    '''
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
         state.printer.speed_changed = True
@@ -38,7 +61,7 @@ class StationaryExtrusion(BaseStationaryExtrusion):
 
 
 class Extruder(BaseExtruder):
-    'generic Extruder with gcode method and attributes added'
+    '''generic Extruder with gcode method and attributes added'''
 
     # gcode additions to generic Extruder class
 
@@ -57,18 +80,41 @@ class Extruder(BaseExtruder):
     travel_format: Optional[str] = None
 
     def get_and_update_volume(self, volume):
-        'DO THIS'
+        '''Calculate the extrusion volume and update the total volume.
+
+        Args:
+            volume (float): The volume of material to be extruded.
+
+        Returns:
+            float: The extrusion volume relative to the total volume.
+        '''
         self.total_volume += volume
-        ret_val = self.total_volume-self.total_volume_ref
+        ret_val = self.total_volume - self.total_volume_ref
         if self.relative_gcode == True:
             self.total_volume_ref = self.total_volume
         # to make absolute extrusion work, check self.total_volume_ref and, if above a treshold value, reset extrusion (set extruder_now.e_total_vol_reference_for_gcode = extruder_now.e_total_vol; insert a G92 command next in the steplist)
         return ret_val
 
     def e_gcode(self, point1: Point, state) -> str:
-        'DO THIS'
+        '''Generate the gcode for extrusion.
+
+        Args:
+            point1 (Point): The starting point of the extrusion.
+            state: The current state of the printer.
+
+        Returns:
+            str: The gcode for extrusion.
+        '''
         def distance_forgiving(point1: Point, point2: Point) -> float:
-            'return distance between two points. x, y or z components are ignored unless defined in both points'
+            '''Calculate the distance between two points.
+
+            Args:
+                point1 (Point): The first point.
+                point2 (Point): The second point.
+
+            Returns:
+                float: The distance between the two points.
+            '''
             dist_x = 0 if point1.x == None or point2.x == None else point1.x - point2.x
             dist_y = 0 if point1.y == None or point2.y == None else point1.y - point2.y
             dist_z = 0 if point1.z == None or point2.z == None else point1.z - point2.z
@@ -81,7 +127,7 @@ class Extruder(BaseExtruder):
             return 'E0' if state.extruder.travel_format == 'G1_E0' else ''
 
     def update_e_ratio(self):
-        'calculate the ratio for conversion from mm3 extrusion to units for E in gcode'
+        '''Calculate the ratio for conversion from mm3 extrusion to units for E in gcode.'''
         try:  # try in case not all parameters set yet
             if self.units == "mm3":
                 self.volume_to_e = 1
@@ -91,7 +137,14 @@ class Extruder(BaseExtruder):
             pass
 
     def gcode(self, state):
-        'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
+        '''Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
+
+        Args:
+            state: The current state of the printer.
+
+        Returns:
+            str: The generated line of gcode.
+        '''
         # update all attributes of the tracking instance with the new instance (self)
         state.extruder.update_from(self)
         # do things for each attribute that was changed by the designer. check for changes in the new Extruder (self) but calculations consider the overall current Extruder (extruder_now)

@@ -4,7 +4,18 @@ from fullcontrol.common import linspace
 
 
 def segmented_line(point1: Point, point2: Point, segments: int) -> list:
-    'return a list of Points linearly spaced between the start Point and end Point. a total of Points in list = segments+1'
+    '''
+    Return a list of Points linearly spaced between the start Point and end Point.
+    The total number of Points in the list is segments+1.
+    
+    Parameters:
+        point1 (Point): The start Point of the line segment.
+        point2 (Point): The end Point of the line segment.
+        segments (int): The number of segments to divide the line into.
+    
+    Returns:
+        list: A list of Points linearly spaced between the start and end Points.
+    '''
     x_steps = linspace(point1.x, point2.x, segments+1)
     y_steps = linspace(point1.y, point2.y, segments+1)
     z_steps = linspace(point1.z, point2.z, segments+1)
@@ -12,6 +23,17 @@ def segmented_line(point1: Point, point2: Point, segments: int) -> list:
 
 
 def segmented_path(points: list, segments: int) -> int:
+    """
+    Calculate a segmented path based on a list of points and the desired number of segments.
+
+    Args:
+        points (list): A list of points representing the path.
+        segments (int): The desired number of segments.
+
+    Returns:
+        list: A list of points representing the segmented path.
+
+    """
     lengths = [distance(points[i], points[i+1])
                for i in range(len(points)-1)]
     cumulative_length = [0]

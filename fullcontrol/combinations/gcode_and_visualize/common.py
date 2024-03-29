@@ -10,9 +10,22 @@ from fullcontrol.geometry import *
 
 
 def transform(steps: list, result_type: str, controls: Union[GcodeControls, PlotControls] = None):
-    '''transform a fullcontrol design (a list of function class instances) into result_type
-    "gcode" or "plot". Optionally, GcodeControls or PlotControls can be passed to control 
-    how the gcode or plot are generated.
+    '''
+    Transform a fullcontrol design (a list of function class instances) into the specified result_type.
+    
+    Parameters:
+        - steps (list): A list of function class instances representing the fullcontrol design.
+        - result_type (str): The desired result type. Valid options are "gcode" or "plot".
+        - controls (Union[GcodeControls, PlotControls], optional): Controls to customize the generation of gcode or plot. Defaults to None.
+    
+    Returns:
+        - The transformed result based on the specified result_type.
+    
+    Raises:
+        - None
+    
+    Example usage:
+        transform(steps, "gcode", controls)
     '''
 
     if result_type == 'gcode':

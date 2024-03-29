@@ -11,11 +11,27 @@ if TYPE_CHECKING:
 
 
 class Point(BasePoint):
-    'generic fullcontrol Point with a color attribute and color/visualisation methods added'
+    '''
+    A generic fullcontrol Point with a color attribute and color/visualization methods added.
+
+    Attributes:
+        color (Optional[list]): The color of the point in RGB format [r, g, b].
+    '''
+
     color: Optional[list] = None  # [r,g,b]
 
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
-        'process a Point in a list of steps supplied by the designer to update plot_data and state'
+        '''
+        Process a Point in a list of steps supplied by the designer to update plot_data and state.
+
+        Args:
+            state ('State'): The current state of the plot.
+            plot_data ('PlotData'): The data used for plotting.
+            plot_controls ('PlotControls'): The controls for plotting.
+
+        Returns:
+            None
+        '''
 
         change_check = False
         precision_xyz = 3  # number of decimal places to use for x y z values in plot_data
@@ -37,7 +53,18 @@ class Point(BasePoint):
             state.point_count_now += 1
 
     def update_color(self, state: 'State', plot_data: 'PlotData', plot_controls: 'PlotControls'):
-        'update the color attribute of this point with [R, G, B] based on the color_type specified in plot_controls'
+        '''
+        Update the color attribute of this point with [R, G, B] based on the color_type specified in plot_controls.
+
+        Args:
+            state ('State'): The current state of the plot.
+            plot_data ('PlotData'): The data used for plotting.
+            plot_controls ('PlotControls'): The controls for plotting.
+
+        Returns:
+            None
+        '''
+
         precision_color = 3  # number of decimal places to use for colors in plot_data
 
         def travel():

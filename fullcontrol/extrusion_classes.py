@@ -4,10 +4,12 @@ from math import pi
 
 
 class ExtrusionGeometry(BaseModelPlus):
-    ''' geometric description of the printed extrudate. 'area_model' is used to specify how cross-sectional
-    area of the extrudate is defined. area_model options: rectangle (requires width and height) / stadium 
-    (requires width and height) / circle (requires diameter) / manual (requires area attribute to be set
-    manually). the 'area' attribute is automatically calculated unless area_model=='manual' 
+    '''Geometric description of the printed extrudate.
+    
+    The 'area_model' is used to specify how the cross-sectional area of the extrudate is defined. The available
+    options for 'area_model' are: rectangle (requires width and height), stadium (requires width and height),
+    circle (requires diameter), and manual (requires area attribute to be set manually). The 'area' attribute is
+    automatically calculated unless 'area_model' is set to 'manual'.
     '''
     # area_model options: 'rectangle' / 'stadium' / 'circle' / 'manual':
     area_model: Optional[str] = None
@@ -21,23 +23,32 @@ class ExtrusionGeometry(BaseModelPlus):
     area: Optional[float] = None
 
     def update_area(self) -> float:
+        '''Update the area attribute based on the area_model and relevant attributes.'''
         if self.area_model == "rectangle":
-            self.area = self.width*self.height
+            self.area = self.width * self.height
         elif self.area_model == "stadium":
-            self.area = ((self.width-self.height)*self.height)+(pi*(self.height/2)**2)
+            self.area = ((self.width - self.height) * self.height) + (pi * (self.height / 2) ** 2)
         elif self.area_model == "circle":
-            self.area = (pi*(self.diameter/2)**2)
+            self.area = (pi * (self.diameter / 2) ** 2)
         elif self.area_model == "manual":
             pass
 
 
 class StationaryExtrusion(BaseModelPlus):
-    'extrude a set volume of material at the set speed while the nozzle is stationary. negative volumes indicate retraction'
+    '''
+    Extrude a set volume of material at the set speed while the nozzle is stationary.
+    Negative volumes indicate retraction.
+    '''
+
     # design attributes to control one-off extrusion without nozzle movement:
     volume: float
     speed: int
 
 
 class Extruder(BaseModelPlus):
-    'control whether extrusion is on or off'
+    """Represents an extruder for controlling extrusion.
+
+    Attributes:
+        on (bool, optional): Indicates whether extrusion is on or off.
+    """
     on: Optional[bool] = None
