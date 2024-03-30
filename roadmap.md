@@ -7,6 +7,7 @@ sooner:
     - stl using [VOLCO](https://doi.org/10.1016/j.addma.2018.04.004)
 - real time control
 - add tutorial info about path length function, circleXY_3pt, catmull_rom, bezier_through_points, interpolated_point, segmented_path
+- warn user if they set `line_width` in PlotControls but `style` is not set to 'line' (default = 'tube')
 
 
 later:
