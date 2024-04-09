@@ -7,7 +7,7 @@ class Printer(BasePrinter):
     '''
     A class representing a 3D printer.
 
-    Attributes:
+    Additional Attributes:
         command_list (Optional[dict]): A dictionary containing the printer's command list.
         new_command (Optional[dict]): A dictionary containing a new command to be added to the command list.
         speed_changed (Optional[bool]): A flag indicating whether the print speed or travel speed has changed.

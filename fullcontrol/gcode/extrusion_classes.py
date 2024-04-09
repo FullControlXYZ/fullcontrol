@@ -11,12 +11,6 @@ from pydantic import root_validator
 class ExtrusionGeometry(BaseExtrusionGeometry):
     '''
     A generic ExtrusionGeometry class with an added gcode method.
-
-    Attributes:
-        width (float): The width of the extrusion geometry.
-        height (float): The height of the extrusion geometry.
-        diameter (float): The diameter of the extrusion geometry.
-        area_model (float): The area model of the extrusion geometry.
     '''
 
     def gcode(self, state):
@@ -44,15 +38,6 @@ class ExtrusionGeometry(BaseExtrusionGeometry):
 class StationaryExtrusion(BaseStationaryExtrusion):
     '''
     A generic StationaryExtrusion class with gcode method added.
-
-    This class represents a stationary extrusion in a 3D printer. It inherits from the BaseStationaryExtrusion class.
-
-    Attributes:
-        speed (float): The speed of the extrusion.
-        volume (float): The volume of the extrusion.
-
-    Methods:
-        gcode(state): Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
     '''
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
@@ -99,14 +84,14 @@ class Extruder(BaseExtruder):
         '''Generate the gcode for extrusion.
 
         Args:
-            point1 (Point): The starting point of the extrusion.
+            point1 (Point): The point at the end of the extrusion.
             state: The current state of the printer.
 
         Returns:
-            str: The gcode for extrusion.
+            str: The gcode component for extrusion.
         '''
         def distance_forgiving(point1: Point, point2: Point) -> float:
-            '''Calculate the distance between two points.
+            '''Calculate the distance between two points. x, y or z components are ignored unless defined in both points
 
             Args:
                 point1 (Point): The first point.

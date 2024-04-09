@@ -11,7 +11,7 @@ from fullcontrol.geometry import *
 
 def transform(steps: list, result_type: str, controls: Union[GcodeControls, PlotControls] = None):
     '''
-    Transform a fullcontrol design (a list of function class instances) into the specified result_type.
+    Transform a fullcontrol design (a list of class instances) into the specified result_type.
     
     Parameters:
         - steps (list): A list of function class instances representing the fullcontrol design.

@@ -72,10 +72,16 @@ class Point(gc.Point, vis.Point):
 
 
 class Extruder(gc.Extruder, vis.Extruder):
-    '''A class representing an extruder.
+    '''
+    Represents an extruder in a 3D printer.
+
+    This class is used to manage the state of the extruder and translate the design into GCode.
 
     Attributes:
         on (bool): The state of the extruder. Set to True for on and False for off.
+        units (str, optional): The units for E in GCode. Options include 'mm' and 'mm3'. If not specified, a default unit is used.
+        dia_feed (float, optional): The diameter of the feedstock filament.
+        relative_gcode (bool, optional): A flag indicating whether to use relative GCode. If not specified, a default value is used.
 
     Note:
         For more information about other attributes, please refer to the documentation.
