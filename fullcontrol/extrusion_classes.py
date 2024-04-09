@@ -35,10 +35,15 @@ class ExtrusionGeometry(BaseModelPlus):
 
 
 class StationaryExtrusion(BaseModelPlus):
-    '''
-    Extrude a set volume of material at the set speed while the nozzle is stationary.
-    Negative volumes indicate retraction.
-    '''
+    """
+    Represents stationary extrusion in a 3D printer.
+
+    This class is used to manage and control the extrusion of a specific volume of material at a set speed while the printer's nozzle is stationary. Negative volumes indicate retraction.
+
+    Attributes:
+        volume (float): The volume of material to extrude. Negative values indicate retraction.
+        speed (int): The speed at which to extrude the material - the units depend on the gcode format used but are typically mm/min.
+    """
 
     # design attributes to control one-off extrusion without nozzle movement:
     volume: float

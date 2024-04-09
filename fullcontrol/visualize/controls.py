@@ -8,7 +8,7 @@ class PlotControls(BaseModel):
     Control class to adjust the style of the plot.
 
     Attributes:
-        color_type (Optional[str]): The type of color gradient to use. Default is 'z_gradient'.
+        color_type (Optional[str]): The type of color gradient to use. Default is 'z_gradient'. Options are 'manual', 'random_blue', 'z_gradient', 'print_sequence' and 'print_sequence_fluctuating'
         line_width (Optional[float]): The width of the lines in the plot. Default is 2.
         style (Optional[str]): The style of the plot. Can be 'tube' or 'line'. Default is None.
         tube_type (Optional[str]): The type of tube to use. Can be 'flow' or 'cylinders'. Default is 'flow'.
@@ -20,8 +20,7 @@ class PlotControls(BaseModel):
         neat_for_publishing (Optional[bool]): Whether to optimize the plot for publishing. Default is False.
         raw_data (Optional[bool]): Whether to show raw data in the plot. Default is False.
         printer_name (Optional[str]): The name of the printer. Default is 'generic'.
-        initialization_data (Optional[dict]): Information about initial printing conditions. Default is an empty dictionary.
-            Values passed for initialization_data overwrite the default initialization_data of the printer.
+        initialization_data (Optional[dict]): Information about initial printing conditions. Default is an empty dictionary. Values passed for initialization_data overwrite the default initialization_data of the printer.
     """
     color_type: Optional[str] = 'z_gradient'
     line_width: Optional[float] = 2
