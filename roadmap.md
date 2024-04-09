@@ -12,6 +12,8 @@ sooner:
 - checks to implement before transform()
     - first point in steps has a z value? is this required for sure?
     - first point has color value (if color specified anywhere?) or if color_type = 'manual' in PlotControls
+- add checks for common mistakes (e.g. list included in 'steps'; first point not fully defined; decorator to check xy or xyz values set for all points for certain geometric functions)
+- make travel_to work with lists (copy relevant code from extra_functions.first_point())
 
 
 later:
