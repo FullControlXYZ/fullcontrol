@@ -30,4 +30,5 @@ packages = ["fullcontrol", "lab"]
 "Homepage" = "https://fullcontrol.xyz"
 "Repository" = "https://github.com/FullControlXYZ/fullcontrol"
 "Documentation" = "https://github.com/FullControlXYZ/fullcontrol/tree/master/docs"
+"Documentation" = "https://github.com/FullControlXYZ/fullcontrol/tree/master/tutorials"
 "Bug Tracker" = "https://github.com/FullControlXYZ/fullcontrol/issues"
