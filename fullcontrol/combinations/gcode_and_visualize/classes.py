@@ -14,41 +14,42 @@ from fullcontrol.base import BaseModelPlus
 # 1. classes used to add a visualize or gcode method to class that simply passes
 
 class PassGcode(BaseModelPlus):
-    """A class representing a pass Gcode."""
+    """A placeholder class that allows for the calling of the gcode() method on all objects in a list, 
+    even if some objects do not have a meaningful implementation of this method.
+    
+    This class inherits from BaseModelPlus.
+    """
 
     def gcode(self, state):
-        """Generate Gcode based on the given state.
+        """A placeholder method that allows for the calling of gcode() on all objects in a list.
 
         Args:
-            state: The state of the pass.
+            state: The state of the pass. This argument is ignored in this implementation.
 
         Returns:
-            The generated Gcode.
+            None
         """
         pass
 
 
 class PassVisualize(BaseModelPlus):
     """
-    A class for visualizing the state, plot data, and plot controls.
+    A placeholder class that allows for the calling of the visualize() method on all objects in a list, 
+    even if some objects do not have a meaningful implementation of this method.
+
+    This class inherits from BaseModelPlus and has the following attributes:
 
     Attributes:
         state (State): The state object containing the current state information.
         plot_data (PlotData): The plot data object containing the data to be plotted.
         plot_controls (PlotControls): The plot controls object containing the settings for plotting.
-
-    Methods:
-        visualize(): Visualizes the state, plot data, and plot controls.
     """
 
-    def visualize(self, state, plot_data, plot_controls):
-        """
-        Visualizes the state, plot data, and plot controls.
+    def visualize(self):
+        """A placeholder method that allows for the calling of visualize() on all objects in a list.
 
-        Args:
-            state (State): The state object containing the current state information.
-            plot_data (PlotData): The plot data object containing the data to be plotted.
-            plot_controls (PlotControls): The plot controls object containing the settings for plotting.
+        Returns:
+            None
         """
         pass
 
