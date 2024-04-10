@@ -1,6 +1,8 @@
 from datetime import datetime
 import subprocess, difflib, os
 from PIL import Image, ImageDraw, ImageFont
+import subprocess
+import os
 
 
 # usage: run this script in the tests directory with 'python CICD_test.py'
@@ -20,8 +22,12 @@ def run_tutorials():
     ]
     # Write the modified script to a temporary file, run it, then delete it
     with open('temp.py', 'w') as file: file.write(''.join(script))
-    with open('test_print_output.txt', 'w') as f: subprocess.run(['python', 'temp.py'], stdout=f)
-    os.remove('temp.py')
+    try:
+        with open('test_print_output.txt', 'w') as f: subprocess.run(['python', 'temp.py'], stdout=f, check=True)
+        os.remove('temp.py')
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while running combined_tutorials.py (temporarily saved as temp.py with minor changes): {e}")
+        exit()
 
 def compare_files(file1, file2, str_result):
     with open(file1, 'r') as f1, open(file2, 'r') as f2:
@@ -30,10 +36,10 @@ def compare_files(file1, file2, str_result):
     differences = list(difflib.ndiff(text1, text2))
     differences = [line for line in differences if line.startswith('- ') or line.startswith('+ ')] # get rid of excess lines of into about differences
     if differences:
-        str_result.append(f"warning: {len(differences)} differences found between tutorial printouts now and the reference printouts - unless difference are expected and/or explainable, a pull request being rejected")
+        str_result.append(f"warning: {len(differences)} differences found between tutorial printouts now and the reference printouts - unless differences are expected or explainable (e.g. tutorials changes; e.g. printout order for non-ordered sets/dictionaries), they may cause a pull request to be rejected")
         print(str_result[-1])
         str_result.append(''.join(differences))
-        user_input = input("do you want the differences to be printed out here? (y/n):")
+        user_input = input("\ndo you want the differences to be printed out here? (y/n):")
         if user_input.lower() == "y": print(str_result[-1])
     else:
         str_result.append("great! no differences found between tutorial printouts now and the reference printouts.")
@@ -71,7 +77,9 @@ def delete_redundant_files():
 
 os.environ['FULLCONTROL_CICD_TESTING'] = 'True'
 str_result = [datetime.now().strftime("test results generated %d-%m-%Y__%H-%M-%S\n")]
-print('tests may take a few minutes - images and printouts from all tutorial notebooks being generated')
+print('tests may take a few minutes - images and printouts from all tutorial notebooks are being generated')
+print('if an error occurs, check the error message and consider debugging with the original tutorial notebook rather than via this script.')
+print("if you've changed one of the tutorial notebooks, you'll need to run tutorials_to_py.py in the bin directory to update combined_tutorials.py.")
 run_tutorials()
 del os.environ['FULLCONTROL_CICD_TESTING']
 compare_files('test_print_output.txt','test_print_output_reference.txt', str_result)

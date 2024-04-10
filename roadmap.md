@@ -16,6 +16,7 @@ sooner:
 - add checks for common mistakes (e.g. list included in 'steps'; first point not fully defined; decorator to check xy or xyz values set for all points for certain geometric functions)
 - make travel_to work with lists (copy relevant code from extra_functions.first_point())
 - release new version (changed docstrings and repo structure), modify installation instructions + notebooks to use pip install fullcontrol instead of git+https://github.com/FullControlXYZ/fullcontrol - and update version on pypi
+- add instructions for cicd testing - clarify how the user can ensure tests are completed using the correct version of fullcontrol (temporatily place scripts in the root directory and run there?). explain that any updates to tutorials will mean tutorial_to_py.py will need to be run again.
 
 
 later:

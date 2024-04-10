@@ -1,26 +1,22 @@
-stl file created. remember to set ModelControls(tube_type='cylinders') for more accurate widths/heights but a less-smooth model than ModelControls(tube_type='flow') (default)
-distance between pt1 and pt2: 10.0
-
-'polar radius' of pt2 relative to x=0,y=0,z=0: 10.0
-'polar angle' of pt2 relative to x=0,y=0,z=0: 1.5707963267948966 (radians: 0 to tau)
-'polar angle' of pt2 relative to x=0,y=0,z=0: 90.0 (degrees: 0 to 360)
-
-angle between pt1-pt2-pt3: 0.7853981633974483 (radians: -tau to tau)
-angle between pt1-pt2-pt3: 45.0 (degrees: -360 to 360)
-start_point: x=0.0 y=0.0 z=0.0 color=None
-moved_start_point: x=0.0 y=0.0 z=0.5 color=None
-
-original points for a rectangle: [Point(x=0.0, y=0.0, z=0.0, color=None), Point(x=50.0, y=0.0, z=0.0, color=None), Point(x=50.0, y=20.0, z=0.0, color=None), Point(x=0.0, y=20.0, z=0.0, color=None), Point(x=0.0, y=0.0, z=0.0, color=None)]
-moved rectangle: [Point(x=0.0, y=0.0, z=0.5, color=None), Point(x=50.0, y=0.0, z=0.5, color=None), Point(x=50.0, y=20.0, z=0.5, color=None), Point(x=0.0, y=20.0, z=0.5, color=None), Point(x=0.0, y=0.0, z=0.5, color=None)]
-
-list with non-point object: [Point(x=0.0, y=0.0, z=0.0, color=None), Fan(speed_percent=90), Point(x=0.0, y=0.0, z=0.5, color=None)]
-moved list with non-point object [Point(x=0.0, y=0.0, z=0.5, color=None), Fan(speed_percent=90), Point(x=0.0, y=0.0, z=1.0, color=None)]
-point before reflecting: 
-x=50.0 y=50.0 z=0.0 color=None
-point after reflecting about x-axis using 'reflectXY()': 
-x=50.0 y=-50.0 z=0.0 color=None
-point after reflecting about y-axis using 'reflect_polar()': 
-x=-50.0 y=50.0 z=0.0 color=None
+G1 F1000 Y1.0 E0.03326
+G1 Y2.0 E0.03326
+G1 Y3.0 E0.03326
+x=40.0 y=40.0 z=0.0 color=None
+x=40.0 y=41.0 z=0.0 color=None
+x=41.0 y=41.0 z=0.0 color=None
+e.g. "fc.linspace(0,1,5)": [0.0, 0.25, 0.5, 0.75, 1.0]
+x=10.0 y=0.0 z=0.0 color=None
+x=10.0 y=0.0 z=0.0 color=None
+x=7.0710678118654755 y=7.071067811865475 z=0.0 color=None
+x=6.123233995736766e-16 y=10.0 z=0.0 color=None
+x=6.123233995736766e-16 y=-10.0 z=0.0 color=None
+the design specifically for the 'plot' result contains 6 steps:
+Point
+Point
+Point
+Point
+Point
+Point
 ; Time to print!!!!!
 ; GCode created with FullControl - tell us what you're printing!
 ; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
@@ -94,25 +90,270 @@ G0 F4000 X10.0 Y10.0 Z0.4
 
 G0 X0.0 Y0.0 Z0.2
 G1 F2000 X10.0 E2.4
-G1 F1000 Y1.0 E0.03326
-G1 Y2.0 E0.03326
-G1 Y3.0 E0.03326
-x=40.0 y=40.0 z=0.0 color=None
-x=40.0 y=41.0 z=0.0 color=None
-x=41.0 y=41.0 z=0.0 color=None
-e.g. "fc.linspace(0,1,5)": [0.0, 0.25, 0.5, 0.75, 1.0]
-x=10.0 y=0.0 z=0.0 color=None
-x=10.0 y=0.0 z=0.0 color=None
-x=7.0710678118654755 y=7.071067811865475 z=0.0 color=None
-x=6.123233995736766e-16 y=10.0 z=0.0 color=None
-x=6.123233995736766e-16 y=-10.0 z=0.0 color=None
-the design specifically for the 'plot' result contains 6 steps:
-Point
-Point
-Point
-Point
-Point
-Point
+distance between pt1 and pt2: 10.0
+
+'polar radius' of pt2 relative to x=0,y=0,z=0: 10.0
+'polar angle' of pt2 relative to x=0,y=0,z=0: 1.5707963267948966 (radians: 0 to tau)
+'polar angle' of pt2 relative to x=0,y=0,z=0: 90.0 (degrees: 0 to 360)
+
+angle between pt1-pt2-pt3: 0.7853981633974483 (radians: -tau to tau)
+angle between pt1-pt2-pt3: 45.0 (degrees: -360 to 360)
+start_point: x=0.0 y=0.0 z=0.0 color=None
+moved_start_point: x=0.0 y=0.0 z=0.5 color=None
+
+original points for a rectangle: [Point(x=0.0, y=0.0, z=0.0, color=None), Point(x=50.0, y=0.0, z=0.0, color=None), Point(x=50.0, y=20.0, z=0.0, color=None), Point(x=0.0, y=20.0, z=0.0, color=None), Point(x=0.0, y=0.0, z=0.0, color=None)]
+moved rectangle: [Point(x=0.0, y=0.0, z=0.5, color=None), Point(x=50.0, y=0.0, z=0.5, color=None), Point(x=50.0, y=20.0, z=0.5, color=None), Point(x=0.0, y=20.0, z=0.5, color=None), Point(x=0.0, y=0.0, z=0.5, color=None)]
+
+list with non-point object: [Point(x=0.0, y=0.0, z=0.0, color=None), Fan(speed_percent=90), Point(x=0.0, y=0.0, z=0.5, color=None)]
+moved list with non-point object [Point(x=0.0, y=0.0, z=0.5, color=None), Fan(speed_percent=90), Point(x=0.0, y=0.0, z=1.0, color=None)]
+point before reflecting: 
+x=50.0 y=50.0 z=0.0 color=None
+point after reflecting about x-axis using 'reflectXY()': 
+x=50.0 y=-50.0 z=0.0 color=None
+point after reflecting about y-axis using 'reflect_polar()': 
+x=-50.0 y=50.0 z=0.0 color=None
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X0.0 Y0.0 Z0.0 B0.0 C0.0 ; start point
+G1 F1000 X1.0 E0.03326 ; set x=1 - since b=0 and c=0, the model x-axis is oriented the same as the system x-axis
+G1 X0.707107 Z-0.707107 B45.0 E0.0 ; set b=45 - this causes a change to x and z in system coordinates
+G1 X0.0 Z-1.0 B90.0 E0.0 ; set b=90 - although x and z change, E=0 because the nozzle stays in the same point on the model
+G1 X1.0 Z0.0 B0.0 E0.0 ; set b=0
+G1 X0.0 Y1.0 C90.0 E0.0 ; set c=90 - this causes a change to x and y in system coordinates
+G1 X-1.0 E0.03326 ; set y=1 - this causes a change to x in system coordinates since the model is rotated 90 degrees
+final ten gcode lines:
+G1 X-0.333145 Y5.81234 Z5.07841 B-3.75323 C17983.8 E0.011812
+G1 X0.162418 Y6.09403 Z4.94632 B1.8807 C17985.6 E0.012176
+G1 X0.623722 Y6.37251 Z4.76964 B7.45026 C17987.4 E0.012226
+G1 X1.03307 Y6.6379 Z4.56255 B12.7581 C17989.2 E0.011976
+G1 X1.37914 Y6.8808 Z4.3434 B17.6159 C17991.0 E0.011459
+G1 X1.65694 Y7.09258 Z4.13186 B21.8516 C17992.8 E0.010732
+G1 X1.8667 Y7.26573 Z3.94642 B25.3146 C17994.6 E0.00988
+G1 X2.01182 Y7.39411 Z3.80254 B27.8821 C17996.4 E0.00902
+G1 X2.09675 Y7.47314 Z3.71163 B29.4627 C17998.2 E0.008302
+G1 X2.125 Y7.5 Z3.68061 B30.0 C18000.0 E0.007885
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X0.0 Y0.0 Z-10.0 B90.0 C0.0
+G1 F1000 Y3.82683 Z-9.23879 E0.129775
+G1 Y7.07107 Z-7.07107 E0.129775
+G1 Y9.23879 Z-3.82683 E0.129775
+G1 Y10.0 Z-0.0 E0.129775
+G1 Y9.23879 Z3.82683 E0.129775
+G1 Y7.07107 Z7.07107 E0.129775
+G1 Y3.82683 Z9.23879 E0.129775
+G1 Y0.0 Z10.0 E0.129775
+G1 Y-3.82683 Z9.23879 E0.129775
+G1 Y-7.07107 Z7.07107 E0.129775
+G1 Y-9.23879 Z3.82683 E0.129775
+G1 Y-10.0 Z0.0 E0.129775
+G1 Y-9.23879 Z-3.82683 E0.129775
+G1 Y-7.07107 Z-7.07107 E0.129775
+G1 Y-3.82683 Z-9.23879 E0.129775
+G1 Y-0.0 Z-10.0 E0.129775
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+M104 S250 ; set hotend temp and continue
+M109 S250  ; set hotend temp and wait
+G0 F8000 X10.0 Y0.0 Z0.0 B0.0 C0.0 ; start point (x=0 in the model but x=10 in gcode due to the bc_intercept being at x=10)
+G1 F1000 X11.0 E0.03326 ; set x=1 - since b=0 and c=0, the model x-axis is oriented the same as the system x-axis
+G1 X10.7071 Z-0.707107 B45.0 E0.0 ; set b=45 - this causes a change to x and z in system coordinates
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X0.0 Y0.0 Z0.0 B0.0 C0.0 ; start point
+G1 F1000 X1.0 E0.03326 ; x=1
+G1 X0.0 Y1.0 C90.0 E0.0 ; c=90
+G1 X-1.0 Y0.0 C180.0 E0.0 ; c=180
+G1 X-0.0 Y-1.0 C270.0 E0.0 ; c=270
+G1 Y1.0 C0.0 E0.047037 ; x=0, y=1, c=0
+G1 X-1.0 Y0.0 C90.0 E0.0 ; c=90
+G1 X-0.0 Y-1.0 C180.0 E0.0 ; c=180
+G1 X1.0 Y-0.0 C270.0 E0.0 ; c=270
+G1 X41.0 Z-40.0 B90.0 E0.0 ; b=90
+G1 X-39.0 B-90.0 E0.0 ; b=-90
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X10.0 Y0.0 Z0.0 B0.0 C0.0
+G1 F1000 X9.23879 Y3.82683 E0.129775
+G1 X7.07107 Y7.07107 E0.129775
+G1 X3.82683 Y9.23879 E0.129775
+G1 X0.0 Y10.0 E0.129775
+G1 X-3.82683 Y9.23879 E0.129775
+G1 X-7.07107 Y7.07107 E0.129775
+G1 X-9.23879 Y3.82683 E0.129775
+G1 X-10.0 Y0.0 E0.129775
+G1 X-9.23879 Y-3.82683 E0.129775
+G1 X-7.07107 Y-7.07107 E0.129775
+G1 X-3.82683 Y-9.23879 E0.129775
+G1 X-0.0 Y-10.0 E0.129775
+G1 X3.82683 Y-9.23879 E0.129775
+G1 X7.07107 Y-7.07107 E0.129775
+G1 X9.23879 Y-3.82683 E0.129775
+G1 X10.0 Y-0.0 E0.129775
+
+
+gcode with C rotation to keep nozzle directly in +X direction from bed centre:
+
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X10.0 Y0.0 Z0.0 B0.0 C-0.0
+G1 F1000 C-22.5 E0.129775
+G1 C-45.0 E0.129775
+G1 C-67.5 E0.129775
+G1 C-90.0 E0.129775
+G1 C-112.5 E0.129775
+G1 C-135.0 E0.129775
+G1 C-157.5 E0.129775
+G1 C-180.0 E0.129775
+G1 C-202.5 E0.129775
+G1 C-225.0 E0.129775
+G1 C-247.5 E0.129775
+G1 C-270.0 E0.129775
+G1 C-292.5 E0.129775
+G1 C-315.0 E0.129775
+G1 C-337.5 E0.129775
+G1 C-360.0 E0.129775
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X0.0 Y0.0 Z0.0 B0.000000 ; start point
+G1 F1000 X1.0 E0.03326 ; set x=1 - gcode for this is simple... just move in x
+G1 X40.8372 Z-23.0 B60.000000 E0.0 ; set b=45 - this causes a change to x and z in system coordinates
+G1 X47.0 Z-46.0 B90.000000 E0.0 ; set b=90 - although x and z change, the nozzle tip doesn't move (hence E=0)
+G1 Z-45.0 E0.03326 ; set z=1 - just like the x-movement above, this z-movement is simple. it's only changes to nozzle angle that affect other axes
+G1 X-45.0 B-90.000000 E0.0 ; set b=-90 - the print head moves to the opposite side when the nozzle rotates 180 degrees to ensure the nozzle stays at x=1
+final ten gcode lines:
+G1 X126.562 Y68.5704 Z4.01133 B39.777973 E0.151447
+G1 X127.582 Y69.2205 Z3.37264 B40.825180 E0.151339
+G1 X128.49 Y69.8926 Z2.78859 B41.767898 E0.151206
+G1 X129.284 Y70.5844 Z2.26623 B42.599718 E0.151059
+G1 X129.959 Y71.2933 Z1.81199 B43.314957 E0.150911
+G1 X130.516 Y72.0168 Z1.43148 B43.908709 E0.15077
+G1 X130.952 Y72.7521 Z1.12943 B44.376882 E0.150646
+G1 X131.266 Y73.4963 Z0.909649 B44.716242 E0.150547
+G1 X131.458 Y74.2466 Z0.774902 B44.924432 E0.150479
+G1 X131.527 Y75.0 Z0.726912 B45.000000 E0.150445
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X31.2132 Y0.0 Z-8.7868 B45.000000
+G1 F1000 X30.452 Y3.82683 E0.129775
+G1 X28.2843 Y7.07107 E0.129775
+G1 X25.04 Y9.23879 E0.129775
+G1 X21.2132 Y10.0 E0.129775
+G1 X17.3864 Y9.23879 E0.129775
+G1 X14.1421 Y7.07107 E0.129775
+G1 X11.9744 Y3.82683 E0.129775
+G1 X11.2132 Y0.0 E0.129775
+G1 X11.9744 Y-3.82683 E0.129775
+G1 X14.1421 Y-7.07107 E0.129775
+G1 X17.3864 Y-9.23879 E0.129775
+G1 X21.2132 Y-10.0 E0.129775
+G1 X25.04 Y-9.23879 E0.129775
+G1 X28.2843 Y-7.07107 E0.129775
+G1 X30.452 Y-3.82683 E0.129775
+G1 X31.2132 Y-0.0 E0.129775
+yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
+yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
+yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
+yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
+extrusion width varies from 0.46 to 0.72 mm
+speed varies from 1395 to 2190 mm/min, to maintain constant volumetric flow rate
+x=0.0 y=0.0 z=0.0 color=None
+x=1.0 y=1.0 z=0.0 color=None
+x=3.0 y=1.0 z=0.0 color=None
+x=4.0 y=0.0 z=0.0 color=None
+
+test 1... intersection at Point: x=0.5 y=0.5 z=0.0 color=None
+
+test 2... intersection at Point: x=1.0 y=1.0 z=0.0 color=None
+
+test 3... intersection between lines (within their length): True
+fclab.spherical_to_point() for angle_xy=90 degrees, angle_z = 0 degrees: 
+    Point(x=100.0, y=0.0, z=1.0, color=None)
+fclab.spherical_to_point() for angle_xy=90 degrees, angle_z = 45 degrees: 
+    Point(x=100.0, y=0.7071067811865475, z=0.7071067811865476, color=None)
+fclab.spherical_to_point() for angle_xy=90 degrees, angle_z = 90 degrees: 
+    Point(x=100.0, y=1.0, z=6.123233995736766e-17, color=None)
+fclab.spherical_to_vector() for angle_xy=90 degrees, angle_z = 45 degrees: 
+    Vector(x=4.329780281177466e-16, y=7.071067811865475, z=7.0710678118654755)
+fclab.point_to_spherical() returns:
+    SphericalPoint(radius=10.0, angle_xy=0.0, angle_z=0.0)
+fclab.angleZ() returns:
+    0.0
+recreated point 2 using spherical data:
+    Point(x=10.0, y=0.0, z=10.0, color=None)
+stl file created. remember to set ModelControls(tube_type='cylinders') for more accurate widths/heights but a less-smooth model than ModelControls(tube_type='flow') (default)
+[1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
+x=50.0 y=50.0 z=0.2 color=None
+x=50.0 y=60.0 z=0.2 color=None
+x=60.0 y=60.0 z=0.2 color=None
+x=60.0 y=50.0 z=0.2 color=None
+check 1:
+check results:
+  step types {'Point', 'Fan', 'Extruder'}
+
+check 2 (extended steps with a list):
+check results:
+  step types {'Point', 'Fan', 'Extruder'}
+
+check 3: (appended steps with a list)
+check results:
+  warning - the list of steps must be a 1D list of fullcontrol class instances, it currently includes a 'list'
+  use fc.flatten() to convert it to 1D or check for accidental use of append() instead of extend()
+  step types {'Point', 'list', 'Fan', 'Extruder'}
+original steps:
+Point(x=0.0, y=0.0, z=0.0, color=None)
+[Point(x=10.0, y=10.0, z=None, color=None), ManualGcode(text='G4 P2000 ; pause for 2 seconds')]
+[Point(x=20.0, y=20.0, z=None, color=None), ManualGcode(text='G4 P2000 ; pause for 2 seconds')]
+[Point(x=30.0, y=30.0, z=None, color=None), ManualGcode(text='G4 P2000 ; pause for 2 seconds')]
+
+original steps 'check':
+check results:
+  warning - the list of steps must be a 1D list of fullcontrol class instances, it currently includes a 'list'
+  use fc.flatten() to convert it to 1D or check for accidental use of append() instead of extend()
+  step types {'Point', 'list'}
+
+flat steps:
+Point(x=0.0, y=0.0, z=0.0, color=None)
+Point(x=10.0, y=10.0, z=None, color=None)
+ManualGcode(text='G4 P2000 ; pause for 2 seconds')
+Point(x=20.0, y=20.0, z=None, color=None)
+ManualGcode(text='G4 P2000 ; pause for 2 seconds')
+Point(x=30.0, y=30.0, z=None, color=None)
+ManualGcode(text='G4 P2000 ; pause for 2 seconds')
+
+flat steps 'check':
+check results:
+  step types {'Point', 'ManualGcode'}
+first step in the design: Fan
+first point in the design (not fully defined): x=1.0 y=None z=None color=None
+first point in the design (fully defined): x=1.0 y=1.0 z=1.0 color=None
+steps: [Point(x=1.0, y=1.0, z=0.0, color=None), Fan(speed_percent=75), Point(x=None, y=3.0, z=None, color=None)]
+points in steps (no tracking): [Point(x=1.0, y=1.0, z=0.0, color=None), Point(x=None, y=3.0, z=None, color=None)]
+points in steps (tracking): [Point(x=1.0, y=1.0, z=0.0, color=None), Point(x=1.0, y=3.0, z=0.0, color=None)]
+; Time to print!!!!!
+; GCode created with FullControl - tell us what you're printing!
+; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
+M83 ; relative extrusion
+G0 F8000 X0.0 Y0.0 Z0.0
+G1 F1000 X10.0 E0.332601
+M106 S191 ; set fan speed
+G0 F8000 X20.0
 ; Time to print!!!!!
 ; GCode created with FullControl - tell us what you're printing!
 ; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
@@ -230,62 +471,22 @@ G1 X1.8667 Y7.26573 Z3.94642 B25.3146 C17994.6 E0.00988
 G1 X2.01182 Y7.39411 Z3.80254 B27.8821 C17996.4 E0.00902
 G1 X2.09675 Y7.47314 Z3.71163 B29.4627 C17998.2 E0.008302
 G1 X2.125 Y7.5 Z3.68061 B30.0 C18000.0 E0.007885
-[1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
-x=50.0 y=50.0 z=0.2 color=None
-x=50.0 y=60.0 z=0.2 color=None
-x=60.0 y=60.0 z=0.2 color=None
-x=60.0 y=50.0 z=0.2 color=None
-check 1:
-check results:
-  step types {'Point', 'Extruder', 'Fan'}
-
-check 2 (extended steps with a list):
-check results:
-  step types {'Point', 'Extruder', 'Fan'}
-
-check 3: (appended steps with a list)
-check results:
-  warning - the list of steps must be a 1D list of fullcontrol class instances, it currently includes a 'list'
-  use fc.flatten() to convert it to 1D or check for accidental use of append() instead of extend()
-  step types {'Point', 'Extruder', 'Fan', 'list'}
-original steps:
-Point(x=0.0, y=0.0, z=0.0, color=None)
-[Point(x=10.0, y=10.0, z=None, color=None), ManualGcode(text='G4 P2000 ; pause for 2 seconds')]
-[Point(x=20.0, y=20.0, z=None, color=None), ManualGcode(text='G4 P2000 ; pause for 2 seconds')]
-[Point(x=30.0, y=30.0, z=None, color=None), ManualGcode(text='G4 P2000 ; pause for 2 seconds')]
-
-original steps 'check':
-check results:
-  warning - the list of steps must be a 1D list of fullcontrol class instances, it currently includes a 'list'
-  use fc.flatten() to convert it to 1D or check for accidental use of append() instead of extend()
-  step types {'Point', 'list'}
-
-flat steps:
-Point(x=0.0, y=0.0, z=0.0, color=None)
-Point(x=10.0, y=10.0, z=None, color=None)
-ManualGcode(text='G4 P2000 ; pause for 2 seconds')
-Point(x=20.0, y=20.0, z=None, color=None)
-ManualGcode(text='G4 P2000 ; pause for 2 seconds')
-Point(x=30.0, y=30.0, z=None, color=None)
-ManualGcode(text='G4 P2000 ; pause for 2 seconds')
-
-flat steps 'check':
-check results:
-  step types {'Point', 'ManualGcode'}
-first step in the design: Fan
-first point in the design (not fully defined): x=1.0 y=None z=None color=None
-first point in the design (fully defined): x=1.0 y=1.0 z=1.0 color=None
-steps: [Point(x=1.0, y=1.0, z=0.0, color=None), Fan(speed_percent=75), Point(x=None, y=3.0, z=None, color=None)]
-points in steps (no tracking): [Point(x=1.0, y=1.0, z=0.0, color=None), Point(x=None, y=3.0, z=None, color=None)]
-points in steps (tracking): [Point(x=1.0, y=1.0, z=0.0, color=None), Point(x=1.0, y=3.0, z=0.0, color=None)]
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X0.0 Y0.0 Z0.0
-G1 F1000 X10.0 E0.332601
-M106 S191 ; set fan speed
-G0 F8000 X20.0
+first five values of the first path:
+    x values: [70.0, 69.901, 69.611, 69.131]
+    y values: [50.0, 51.96, 53.901, 55.803]
+    z values: [0.0, 0.002, 0.005, 0.007]
+    extrusion width values: [0.4, 0.4, 0.4, 0.4]
+    extrusion height values: [0.2, 0.2, 0.2, 0.2]
+    color values [r, g, b]: [[0, 0.0, 1], [0, 0.0, 1], [0, 0.001, 1], [0, 0.001, 1]]
+    extruder state: True
+second path (travel line of two points):
+    xvals=[65.0, 50.0] yvals=[50.0, 50.0] zvals=[4.5, 0.0] colors=[[0.75, 0.5, 0.5], [0.75, 0.5, 0.5]] extruder=Extruder(on=False) widths=[0.4, 0.4] heights=[0.2, 0.2]
+final path (vertical line of two points):
+    xvals=[50.0, 50.0] yvals=[50.0, 50.0] zvals=[0.0, 5.0] colors=[[0, 0.0, 1], [0, 1.0, 1]] extruder=Extruder(on=True) widths=[0.4, 0.4] heights=[0.2, 0.2]
+plot_data.annotations:
+    [{'label': 'extruder off', 'x': 65.0, 'y': 50.0, 'z': 4.5}, {'label': 'extruder on', 'x': 50.0, 'y': 50.0, 'z': 0.0}, {'label': 'finish', 'x': 50.0, 'y': 50.0, 'z': 5.0}, {'label': 'start', 'x': 70.0, 'y': 50.0, 'z': 0.0}]
+plot_data.bounding_box:
+    minx=30.083333333333332 midx=50.041666666666664 maxx=70.0 rangex=39.91666666666667 miny=30.125 midy=50.041666666666664 maxy=69.95833333333333 rangey=39.83333333333333 minz=0.0 midz=2.5 maxz=5.0 rangez=5.0
 ; Time to print!!!!!
 ; GCode created with FullControl - tell us what you're printing!
 ; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
@@ -416,204 +617,3 @@ M83 ; relative extrusion
 G0 F8000 X0.0 Y0.0 Z0.0
 G4 P2000 ; pause for 2 seconds
 G1 F1000 X10.0 E0.332601
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X0.0 Y0.0 Z0.0 B0.0 C0.0 ; start point
-G1 F1000 X1.0 E0.03326 ; set x=1 - since b=0 and c=0, the model x-axis is oriented the same as the system x-axis
-G1 X0.707107 Z-0.707107 B45.0 E0.0 ; set b=45 - this causes a change to x and z in system coordinates
-G1 X0.0 Z-1.0 B90.0 E0.0 ; set b=90 - although x and z change, E=0 because the nozzle stays in the same point on the model
-G1 X1.0 Z0.0 B0.0 E0.0 ; set b=0
-G1 X0.0 Y1.0 C90.0 E0.0 ; set c=90 - this causes a change to x and y in system coordinates
-G1 X-1.0 E0.03326 ; set y=1 - this causes a change to x in system coordinates since the model is rotated 90 degrees
-final ten gcode lines:
-G1 X-0.333145 Y5.81234 Z5.07841 B-3.75323 C17983.8 E0.011812
-G1 X0.162418 Y6.09403 Z4.94632 B1.8807 C17985.6 E0.012176
-G1 X0.623722 Y6.37251 Z4.76964 B7.45026 C17987.4 E0.012226
-G1 X1.03307 Y6.6379 Z4.56255 B12.7581 C17989.2 E0.011976
-G1 X1.37914 Y6.8808 Z4.3434 B17.6159 C17991.0 E0.011459
-G1 X1.65694 Y7.09258 Z4.13186 B21.8516 C17992.8 E0.010732
-G1 X1.8667 Y7.26573 Z3.94642 B25.3146 C17994.6 E0.00988
-G1 X2.01182 Y7.39411 Z3.80254 B27.8821 C17996.4 E0.00902
-G1 X2.09675 Y7.47314 Z3.71163 B29.4627 C17998.2 E0.008302
-G1 X2.125 Y7.5 Z3.68061 B30.0 C18000.0 E0.007885
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X0.0 Y0.0 Z-10.0 B90.0 C0.0
-G1 F1000 Y3.82683 Z-9.23879 E0.129775
-G1 Y7.07107 Z-7.07107 E0.129775
-G1 Y9.23879 Z-3.82683 E0.129775
-G1 Y10.0 Z-0.0 E0.129775
-G1 Y9.23879 Z3.82683 E0.129775
-G1 Y7.07107 Z7.07107 E0.129775
-G1 Y3.82683 Z9.23879 E0.129775
-G1 Y0.0 Z10.0 E0.129775
-G1 Y-3.82683 Z9.23879 E0.129775
-G1 Y-7.07107 Z7.07107 E0.129775
-G1 Y-9.23879 Z3.82683 E0.129775
-G1 Y-10.0 Z0.0 E0.129775
-G1 Y-9.23879 Z-3.82683 E0.129775
-G1 Y-7.07107 Z-7.07107 E0.129775
-G1 Y-3.82683 Z-9.23879 E0.129775
-G1 Y-0.0 Z-10.0 E0.129775
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-M104 S250 ; set hotend temp and continue
-M109 S250  ; set hotend temp and wait
-G0 F8000 X10.0 Y0.0 Z0.0 B0.0 C0.0 ; start point (x=0 in the model but x=10 in gcode due to the bc_intercept being at x=10)
-G1 F1000 X11.0 E0.03326 ; set x=1 - since b=0 and c=0, the model x-axis is oriented the same as the system x-axis
-G1 X10.7071 Z-0.707107 B45.0 E0.0 ; set b=45 - this causes a change to x and z in system coordinates
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X0.0 Y0.0 Z0.0 B0.0 C0.0 ; start point
-G1 F1000 X1.0 E0.03326 ; x=1
-G1 X0.0 Y1.0 C90.0 E0.0 ; c=90
-G1 X-1.0 Y0.0 C180.0 E0.0 ; c=180
-G1 X-0.0 Y-1.0 C270.0 E0.0 ; c=270
-G1 Y1.0 C0.0 E0.047037 ; x=0, y=1, c=0
-G1 X-1.0 Y0.0 C90.0 E0.0 ; c=90
-G1 X-0.0 Y-1.0 C180.0 E0.0 ; c=180
-G1 X1.0 Y-0.0 C270.0 E0.0 ; c=270
-G1 X41.0 Z-40.0 B90.0 E0.0 ; b=90
-G1 X-39.0 B-90.0 E0.0 ; b=-90
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X10.0 Y0.0 Z0.0 B0.0 C0.0
-G1 F1000 X9.23879 Y3.82683 E0.129775
-G1 X7.07107 Y7.07107 E0.129775
-G1 X3.82683 Y9.23879 E0.129775
-G1 X0.0 Y10.0 E0.129775
-G1 X-3.82683 Y9.23879 E0.129775
-G1 X-7.07107 Y7.07107 E0.129775
-G1 X-9.23879 Y3.82683 E0.129775
-G1 X-10.0 Y0.0 E0.129775
-G1 X-9.23879 Y-3.82683 E0.129775
-G1 X-7.07107 Y-7.07107 E0.129775
-G1 X-3.82683 Y-9.23879 E0.129775
-G1 X-0.0 Y-10.0 E0.129775
-G1 X3.82683 Y-9.23879 E0.129775
-G1 X7.07107 Y-7.07107 E0.129775
-G1 X9.23879 Y-3.82683 E0.129775
-G1 X10.0 Y-0.0 E0.129775
-
-
-gcode with C rotation to keep nozzle directly in +X direction from bed centre:
-
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X10.0 Y0.0 Z0.0 B0.0 C-0.0
-G1 F1000 C-22.5 E0.129775
-G1 C-45.0 E0.129775
-G1 C-67.5 E0.129775
-G1 C-90.0 E0.129775
-G1 C-112.5 E0.129775
-G1 C-135.0 E0.129775
-G1 C-157.5 E0.129775
-G1 C-180.0 E0.129775
-G1 C-202.5 E0.129775
-G1 C-225.0 E0.129775
-G1 C-247.5 E0.129775
-G1 C-270.0 E0.129775
-G1 C-292.5 E0.129775
-G1 C-315.0 E0.129775
-G1 C-337.5 E0.129775
-G1 C-360.0 E0.129775
-first five values of the first path:
-    x values: [70.0, 69.901, 69.611, 69.131]
-    y values: [50.0, 51.96, 53.901, 55.803]
-    z values: [0.0, 0.002, 0.005, 0.007]
-    extrusion width values: [0.4, 0.4, 0.4, 0.4]
-    extrusion height values: [0.2, 0.2, 0.2, 0.2]
-    color values [r, g, b]: [[0, 0.0, 1], [0, 0.0, 1], [0, 0.001, 1], [0, 0.001, 1]]
-    extruder state: True
-second path (travel line of two points):
-    xvals=[65.0, 50.0] yvals=[50.0, 50.0] zvals=[4.5, 0.0] colors=[[0.75, 0.5, 0.5], [0.75, 0.5, 0.5]] extruder=Extruder(on=False) widths=[0.4, 0.4] heights=[0.2, 0.2]
-final path (vertical line of two points):
-    xvals=[50.0, 50.0] yvals=[50.0, 50.0] zvals=[0.0, 5.0] colors=[[0, 0.0, 1], [0, 1.0, 1]] extruder=Extruder(on=True) widths=[0.4, 0.4] heights=[0.2, 0.2]
-plot_data.annotations:
-    [{'label': 'extruder off', 'x': 65.0, 'y': 50.0, 'z': 4.5}, {'label': 'extruder on', 'x': 50.0, 'y': 50.0, 'z': 0.0}, {'label': 'finish', 'x': 50.0, 'y': 50.0, 'z': 5.0}, {'label': 'start', 'x': 70.0, 'y': 50.0, 'z': 0.0}]
-plot_data.bounding_box:
-    minx=30.083333333333332 midx=50.041666666666664 maxx=70.0 rangex=39.91666666666667 miny=30.125 midy=50.041666666666664 maxy=69.95833333333333 rangey=39.83333333333333 minz=0.0 midz=2.5 maxz=5.0 rangez=5.0
-yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
-yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
-yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
-yay! CONVEX function used :) please cite our CONVEX research study: https://www.researchgate.net/publication/346098541
-extrusion width varies from 0.46 to 0.72 mm
-speed varies from 1395 to 2190 mm/min, to maintain constant volumetric flow rate
-x=0.0 y=0.0 z=0.0 color=None
-x=1.0 y=1.0 z=0.0 color=None
-x=3.0 y=1.0 z=0.0 color=None
-x=4.0 y=0.0 z=0.0 color=None
-
-test 1... intersection at Point: x=0.5 y=0.5 z=0.0 color=None
-
-test 2... intersection at Point: x=1.0 y=1.0 z=0.0 color=None
-
-test 3... intersection between lines (within their length): True
-fclab.spherical_to_point() for angle_xy=90 degrees, angle_z = 0 degrees: 
-    Point(x=100.0, y=0.0, z=1.0, color=None)
-fclab.spherical_to_point() for angle_xy=90 degrees, angle_z = 45 degrees: 
-    Point(x=100.0, y=0.7071067811865475, z=0.7071067811865476, color=None)
-fclab.spherical_to_point() for angle_xy=90 degrees, angle_z = 90 degrees: 
-    Point(x=100.0, y=1.0, z=6.123233995736766e-17, color=None)
-fclab.spherical_to_vector() for angle_xy=90 degrees, angle_z = 45 degrees: 
-    Vector(x=4.329780281177466e-16, y=7.071067811865475, z=7.0710678118654755)
-fclab.point_to_spherical() returns:
-    SphericalPoint(radius=10.0, angle_xy=0.0, angle_z=0.0)
-fclab.angleZ() returns:
-    0.0
-recreated point 2 using spherical data:
-    Point(x=10.0, y=0.0, z=10.0, color=None)
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X0.0 Y0.0 Z0.0 B0.000000 ; start point
-G1 F1000 X1.0 E0.03326 ; set x=1 - gcode for this is simple... just move in x
-G1 X40.8372 Z-23.0 B60.000000 E0.0 ; set b=45 - this causes a change to x and z in system coordinates
-G1 X47.0 Z-46.0 B90.000000 E0.0 ; set b=90 - although x and z change, the nozzle tip doesn't move (hence E=0)
-G1 Z-45.0 E0.03326 ; set z=1 - just like the x-movement above, this z-movement is simple. it's only changes to nozzle angle that affect other axes
-G1 X-45.0 B-90.000000 E0.0 ; set b=-90 - the print head moves to the opposite side when the nozzle rotates 180 degrees to ensure the nozzle stays at x=1
-final ten gcode lines:
-G1 X126.562 Y68.5704 Z4.01133 B39.777973 E0.151447
-G1 X127.582 Y69.2205 Z3.37264 B40.825180 E0.151339
-G1 X128.49 Y69.8926 Z2.78859 B41.767898 E0.151206
-G1 X129.284 Y70.5844 Z2.26623 B42.599718 E0.151059
-G1 X129.959 Y71.2933 Z1.81199 B43.314957 E0.150911
-G1 X130.516 Y72.0168 Z1.43148 B43.908709 E0.15077
-G1 X130.952 Y72.7521 Z1.12943 B44.376882 E0.150646
-G1 X131.266 Y73.4963 Z0.909649 B44.716242 E0.150547
-G1 X131.458 Y74.2466 Z0.774902 B44.924432 E0.150479
-G1 X131.527 Y75.0 Z0.726912 B45.000000 E0.150445
-; Time to print!!!!!
-; GCode created with FullControl - tell us what you're printing!
-; info@fullcontrol.xyz or tag FullControlXYZ on Twitter/Instagram/LinkedIn/Reddit/TikTok
-M83 ; relative extrusion
-G0 F8000 X31.2132 Y0.0 Z-8.7868 B45.000000
-G1 F1000 X30.452 Y3.82683 E0.129775
-G1 X28.2843 Y7.07107 E0.129775
-G1 X25.04 Y9.23879 E0.129775
-G1 X21.2132 Y10.0 E0.129775
-G1 X17.3864 Y9.23879 E0.129775
-G1 X14.1421 Y7.07107 E0.129775
-G1 X11.9744 Y3.82683 E0.129775
-G1 X11.2132 Y0.0 E0.129775
-G1 X11.9744 Y-3.82683 E0.129775
-G1 X14.1421 Y-7.07107 E0.129775
-G1 X17.3864 Y-9.23879 E0.129775
-G1 X21.2132 Y-10.0 E0.129775
-G1 X25.04 Y-9.23879 E0.129775
-G1 X28.2843 Y-7.07107 E0.129775
-G1 X30.452 Y-3.82683 E0.129775
-G1 X31.2132 Y-0.0 E0.129775
