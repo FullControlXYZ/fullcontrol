@@ -6,6 +6,22 @@ from fullcontrol.visualize.tube_mesh import CylindersMesh, FlowTubeMesh, MeshExp
 
 
 def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, rounding_strength, flat_sides, colors_now: list = None):
+    """
+    Generate a mesh using the given parameters.
+
+    Args:
+        path: The path object representing the extrusion path.
+        linewidth_now: The current linewidth value.
+        Mesh: The mesh class to use for generating the mesh.
+        sides: The number of sides for the tube in the mesh.
+        rounding_strength: The rounding strength for cross-sectional shape of the mesh.
+        flat_sides: Boolean value to indicate whether the sides of the tube are flat (as opposed to an edge) instead of the top and bottom (imagine a hexagonal tube).
+        colors_now: The list of colors for the mesh at each point along the length.
+
+    Returns:
+        The generated mesh object.
+
+    """
     global local_max # allow external tracking for nice plot boundaries
     path_points = np.array([path.xvals, path.yvals, path.zvals]).T
     good_points = np.ones(len(path_points), dtype=bool)
@@ -34,8 +50,21 @@ def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, roundin
                 rounding_strength=rounding_strength, flat_sides=flat_sides)
  
 
+
+
 def plot(data: PlotData, controls: PlotControls):
-    'plot data for x y z lines with RGB colors and annotations. style of plot governed by controls'
+    '''
+    Plot data for x y z lines with RGB colors and annotations.
+    The style of the plot is governed by the controls.
+
+    Args:
+        data (PlotData): The data to be plotted.
+        controls (PlotControls): The controls for customizing the plot.
+
+    Returns:
+        None
+    '''
+    
     fig = go.Figure()
 
     if controls.style is None:

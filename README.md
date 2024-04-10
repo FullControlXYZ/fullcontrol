@@ -6,7 +6,7 @@ fullcontrol allows you to control 3D printers, or other cnc systems, in ways tha
 
 you design everything about the print path and print settings, giving you the design freedom to do anything you want
 
-get started without installing anything: go through the [interactive tutorial notebooks](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb) then use the [design template](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/design_template_colab.ipynb) - or install and run things locally as described below
+get started without installing anything: go through the [interactive tutorial notebooks](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/contents_colab.ipynb) then use the [design template](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/models/colab/design_template_colab.ipynb) - or install and run things locally as described below
 
 <a href="https://youtu.be/qaQe-YgDPgo">
   <p align="center">
@@ -57,7 +57,7 @@ FullControl allows designs to be created that control changes the ***state*** of
 
 ## using FullControl
 
-jupyter notebooks are provided in the [docs](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) folder of this github repository (repo) to introduce FullControl and demonstrate its use - browse tutorials: [github](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs/README.md) / [colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/contents_colab.ipynb)
+jupyter notebooks are provided in the [tutorials](https://github.com/FullControlXYZ/fullcontrol/tree/master/tutorials) folder of this github repository (repo) to introduce FullControl and demonstrate its use - browse tutorials: [github](https://github.com/FullControlXYZ/fullcontrol/tree/master/tutorials/README.md) / [colab](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/contents_colab.ipynb)
 
 you can either use a cloud-based jupyter notebook environment like google colab, or run things locally by installing python and then either jupyterlab or vscode with python and jupyter extensions
 
@@ -89,7 +89,7 @@ import fullcontrol as fc
 
 the FullControl repository is organized as follows:
 
-* `docs`: jupyter notebooks describing FullControl and its use. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs/README.md) or jump straight in to the [1-minute demo](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/fast_demo_colab.ipynb)
+* `tutorials`: jupyter notebooks describing FullControl and its use. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/tutorials/README.md) or jump straight in to the [1-minute demo](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/fast_demo_colab.ipynb)
 * `fullcontrol`: the FullControl python package. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/fullcontrol/README.md)
 * `models`: example models that use FullControl. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/models/README.md)
 * `lab`: the FullControl lab python package for experimental features. For more details, check the readme [here](https://github.com/FullControlXYZ/fullcontrol/tree/master/lab/README.md)
@@ -112,9 +112,9 @@ please submit pull requests for bugfixes, optimizations, documentation correctio
 
 for revisions that change the structure, behaviour, or usage of the software, please email us ([info@fullcontrol.xyz](mailto:info@fullcontrol.xyz)) prior to submitting a pull request. this is to ensure alignment between the changes and any planned/unpublished revisions already in progress. note that this version of FullControl is not targeted at developers - the structure of the repo may change and more information about the code structure will be provided at a later date to accommodate contribution more readily
 
-note that the docs folder of this repo contains tutorial notebooks. executing cells in these notebooks leads to timestamp changes, even if the cell content remains unchanged. this may cause unexpected issues and complications for pull requests. until a more automated solution is implemented, consider two options before submitting a pull request:
+note that the tutorials folder of this repo contains tutorial notebooks. executing cells in these notebooks leads to timestamp changes, even if the cell content remains unchanged. this may cause unexpected issues and complications for pull requests. until a more automated solution is implemented, consider two options before submitting a pull request:
 1. create a fresh clone of the FullControl repo and copy the relevant changes across (recommended)
-1. use the git stash operation on the docs folder (be careful not to unintentionally stash any of your proper changes though)
+1. use the git stash operation on the tutorials folder (be careful not to unintentionally stash any of your proper changes though)
 
 ## license
 FullControl is released under the [GPL v3 License](https://github.com/FullControlXYZ/fullcontrol/blob/master/LICENSE).

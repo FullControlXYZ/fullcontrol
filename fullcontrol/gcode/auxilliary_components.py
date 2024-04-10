@@ -5,8 +5,7 @@ from fullcontrol.common import Buildplate as BaseBuildplate
 
 
 class Fan(BaseFan):
-    'generic Fan with gcode method added'
-    # gcode additions to generic Fan class
+    'Extend generic class with gcode method to convert the object to gcode'
 
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
@@ -15,8 +14,7 @@ class Fan(BaseFan):
 
 
 class Hotend(BaseHotend):
-    'generic Fan with gcode method added'
-    # gcode additions to generic Hotend class
+    'Extend generic class with gcode method to convert the object to gcode'
 
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
@@ -27,8 +25,7 @@ class Hotend(BaseHotend):
 
 
 class Buildplate(BaseBuildplate):
-    'generic BuildPlate with gcode method added'
-    # gcode additions to generic Buildplate class
+    'Extend generic class with gcode method to convert the object to gcode'
 
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'

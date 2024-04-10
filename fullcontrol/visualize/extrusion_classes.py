@@ -10,10 +10,21 @@ if TYPE_CHECKING:
 
 
 class Extruder(BaseExtruder):
-    'generic Extruder with a visualisation method added'
+    'Extend generic class with visualize method to convert the object to visualisation data'
+
 
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
-        'process an Extruder in a list of steps supplied by the designer to update plot_data and state'
+        '''
+        Process an Extruder in a list of steps supplied by the designer to update plot_data and state.
+
+        Args:
+            state (State): The current state of the extruder.
+            plot_data (PlotData): The data used for plotting.
+            plot_controls (PlotControls): The controls for plotting.
+
+        Returns:
+            None
+        '''
         if self.on != None and self.on != state.extruder.on:
             state.extruder.on = self.on
             # if path has more than one point in it (so there is at least a single line plotted), add new path, otherwise change state of the current path
@@ -25,10 +36,17 @@ class Extruder(BaseExtruder):
 
 
 class ExtrusionGeometry(BaseExtrusionGeometry):
-    'generic Extrusion_Geometry with a visualisation method added'
-    
+    'Extend generic class with visualize method to convert the object to visualisation data'
+
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
-        'process an Extrusion_Geometry in a list of steps supplied by the designer to update state'
+        '''
+        Process an Extrusion_Geometry in a list of steps supplied by the designer to update state.
+
+        Args:
+            state (State): The state object to be updated.
+            plot_data (PlotData): The plot data object.
+            plot_controls (PlotControls): The plot controls object.
+        '''
         from math import pi 
         if self.width != None and self.width != state.extrusion_geometry.width:
             state.extrusion_geometry.width = round(self.width, 3)

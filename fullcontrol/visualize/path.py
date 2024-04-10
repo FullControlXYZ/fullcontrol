@@ -9,7 +9,19 @@ if TYPE_CHECKING:
 
 
 class Path(BaseModel):
-    ' lists of x, y, z, and [r,g,b] values for a line to be plotted. plus info about the extruder state for the path'
+    """
+    A class representing a path to be plotted.
+
+    Attributes:
+        xvals (Optional[list]): List of x-values for the line.
+        yvals (Optional[list]): List of y-values for the line.
+        zvals (Optional[list]): List of z-values for the line.
+        colors (Optional[list]): List of [r, g, b] values for the line color.
+        extruder (Optional[Extruder]): Information about the extruder state for the path.
+        widths (Optional[list]): List of widths for the line.
+        heights (Optional[list]): List of heights for the line.
+    """
+
     xvals: Optional[list] = []
     yvals: Optional[list] = []
     zvals: Optional[list] = []
@@ -19,7 +31,12 @@ class Path(BaseModel):
     heights: Optional[list] = []
 
     def add_point(self, state: 'State'):
-        'append a point to this path'
+        """
+        Append a point to this path.
+
+        Args:
+            state ('State'): The state containing the point to be added.
+        """
         self.xvals.append(state.point.x)
         self.yvals.append(state.point.y)
         self.zvals.append(state.point.z)

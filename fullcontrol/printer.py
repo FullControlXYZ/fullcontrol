@@ -3,7 +3,12 @@ from fullcontrol.common import BaseModelPlus
 
 
 class Printer(BaseModelPlus):
-    'set print_speed and travel_speed of the 3D printer.'
+    """
+    A class representing a 3D printer.
 
+    Attributes:
+        print_speed (Optional[int]): The speed at which the printer prints, in units per minute.
+        travel_speed (Optional[int]): The speed at which the printer moves between printing locations, in units per minute.
+    """
     print_speed: Optional[int] = None
     travel_speed: Optional[int] = None
