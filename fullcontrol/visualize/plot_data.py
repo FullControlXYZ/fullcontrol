@@ -33,10 +33,9 @@ class PlotData(BaseModel):
     paths: Optional[list] = []  # list of Paths
     bounding_box: Optional[BoundingBox] = BoundingBox()
     annotations: Optional[list] = []
-    
-    class PlotData:
-        def __init__(self, steps: list, state: 'State'):
-            """
+
+    def __init__(self, steps: list, state: 'State'):
+        """
             Initializes a PlotData object.
 
             Args:
@@ -46,12 +45,12 @@ class PlotData(BaseModel):
             Returns:
                 None
             """
-            super().__init__()
-            # calculate and assign initial values in plot_data'
-            self.bounding_box.calc_bounds(steps)
-            self.paths.append(Path())
-            state.path_count_now += 1  # increased since plot_data is initialised with 1 path
-            self.paths[-1].extruder = Extruder(on=state.extruder.on)
+        super().__init__()
+        # calculate and assign initial values in plot_data'
+        self.bounding_box.calc_bounds(steps)
+        self.paths.append(Path())
+        state.path_count_now += 1  # increased since plot_data is initialised with 1 path
+        self.paths[-1].extruder = Extruder(on=state.extruder.on)
 
 
     def add_path(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):

@@ -10,12 +10,8 @@ if TYPE_CHECKING:
 
 
 class Extruder(BaseExtruder):
-    '''
-    A generic Extruder with a visualisation method added.
+    'Extend generic class with visualize method to convert the object to visualisation data'
 
-    Attributes:
-        on (bool): Indicates whether the extruder is turned on or off.
-    '''
 
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
         '''
@@ -40,15 +36,7 @@ class Extruder(BaseExtruder):
 
 
 class ExtrusionGeometry(BaseExtrusionGeometry):
-    '''
-    A generic Extrusion_Geometry with a visualization method added.
-
-    Attributes:
-        width (float): The width of the extrusion geometry.
-        height (float): The height of the extrusion geometry.
-        diameter (float): The diameter of the extrusion geometry.
-        area (float): The area of the extrusion geometry.
-    '''
+    'Extend generic class with visualize method to convert the object to visualisation data'
 
     def visualize(self, state: 'State', plot_data: 'PlotData', plot_controls: PlotControls):
         '''

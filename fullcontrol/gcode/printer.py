@@ -5,18 +5,12 @@ from fullcontrol.common import Printer as BasePrinter
 
 class Printer(BasePrinter):
     '''
-    A class representing a 3D printer.
+    Extend generic class with gcode methods and attributes to convert the object to gcode
 
     Additional Attributes:
         command_list (Optional[dict]): A dictionary containing the printer's command list.
         new_command (Optional[dict]): A dictionary containing a new command to be added to the command list.
         speed_changed (Optional[bool]): A flag indicating whether the print speed or travel speed has changed.
-
-    Methods:
-        f_gcode(state): Generates and returns a line of gcode based on the current state of the printer.
-        gcode(state): Processes the printer instance and generates a line of gcode based on the supplied list of steps.
-
-    See the documentation for more information about other attributes.
     '''
     command_list: Optional[dict] = None
     new_command: Optional[dict] = None

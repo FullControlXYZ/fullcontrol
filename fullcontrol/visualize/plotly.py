@@ -13,10 +13,10 @@ def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, roundin
         path: The path object representing the extrusion path.
         linewidth_now: The current linewidth value.
         Mesh: The mesh class to use for generating the mesh.
-        sides: The number of sides for the mesh.
-        rounding_strength: The rounding strength for the mesh.
-        flat_sides: The number of flat sides for the mesh.
-        colors_now: The list of colors for the mesh.
+        sides: The number of sides for the tube in the mesh.
+        rounding_strength: The rounding strength for cross-sectional shape of the mesh.
+        flat_sides: Boolean value to indicate whether the sides of the tube are flat (as opposed to an edge) instead of the top and bottom (imagine a hexagonal tube).
+        colors_now: The list of colors for the mesh at each point along the length.
 
     Returns:
         The generated mesh object.
@@ -150,4 +150,11 @@ def plot(data: PlotData, controls: PlotControls):
                 scene={axis: dict(showgrid=False, zeroline=False, visible=False)})
     if controls.neat_for_publishing:
         fig.update_layout(width=500, height=500)
-    fig.show()
+    show_fig = False  # only set this to be False for CICD testing
+    if show_fig:
+        fig.show()
+    else:
+        import plotly.io as pio
+        from datetime import datetime
+        pio.write_image(fig, datetime.now().strftime(
+            "figure__%d-%m-%Y__%H-%M-%S.png"))

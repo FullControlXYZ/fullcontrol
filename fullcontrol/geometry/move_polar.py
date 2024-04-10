@@ -18,7 +18,7 @@ def move_polar(geometry: Union[Point, list], centre: Point, radius: float, angle
     of each respective point in the previous copy of the geometry.
 
     Parameters:
-        geometry (Union[Point, list]): The geometry to be moved.
+        geometry (Union[Point, list]): The geometry to be moved. 
         centre (Point): The centre point about which the geometry is moved.
         radius (float): The radius of movement.
         angle (float): The angle of movement in radians.
@@ -35,7 +35,10 @@ def move_polar(geometry: Union[Point, list], centre: Point, radius: float, angle
 
 
 def move_geometry_polar(geometry: Union[Point, list], centre: Point, radius: float, angle: float) -> Union[Point, list]:
-    '''Move 'geometry' (a Point or list of steps including Points) about a 
+    '''
+    Function called by move_polar()
+    
+    Move 'geometry' (a Point or list of steps including Points) about a 
     centre point by the given radius and angle (radians) relative to the 
     current radius and angle of each Point. Return the moved geometry (original 
     geometry is not edited). Elements in a list that are not Points pass 
@@ -68,10 +71,8 @@ def move_geometry_polar(geometry: Union[Point, list], centre: Point, radius: flo
         - The moved point, which is a copy of the original point with updated coordinates.
         '''
         polar_data = point_to_polar(point, centre)
-        point_new_xy = polar_to_point(
-            centre, polar_data.radius+radius, polar_data.angle+angle)
-        # deepcopy so that color and z attributes are copied
-        point_new = deepcopy(point)
+        point_new_xy = polar_to_point(centre, polar_data.radius+radius, polar_data.angle+angle)
+        point_new = deepcopy(point)  # deepcopy so that color and z attributes are copied
         point_new.x, point_new.y = point_new_xy.x, point_new_xy.y
         return point_new
 
@@ -81,8 +82,7 @@ def move_geometry_polar(geometry: Union[Point, list], centre: Point, radius: flo
         geometry_new = []
         for i in range(len(geometry)):
             if type(geometry[i]).__name__ == 'Point':
-                geometry_new.append(move_point_about_point(
-                    geometry[i], centre, radius, angle))
+                geometry_new.append(move_point_about_point(geometry[i], centre, radius, angle))
             else:
                 geometry_new.append(geometry[i])
         return geometry_new
@@ -90,6 +90,8 @@ def move_geometry_polar(geometry: Union[Point, list], centre: Point, radius: flo
 
 def copy_geometry_polar(geometry: Union[Point, list], centre: Point, radius: float, angle: float, quantity: int) -> list:
     '''
+    Function called by move_polar()
+    
     Creates multiple copies of 'geometry' (a Point or list of steps including Points).
     Elements in a list that are not Points pass through and are replicated without modification.
     Each copy is moved about a centre point by the given radius and angle (in radians) relative to the radius and angle of each respective point in the previous copy of the geometry.
@@ -112,9 +114,7 @@ def copy_geometry_polar(geometry: Union[Point, list], centre: Point, radius: flo
         radius_now = radius * i
         angle_now = angle * i
         if type(geometry).__name__ == "Point":
-            steps_new.append(move_geometry_polar(
-                geometry, centre, radius_now, angle_now))
+            steps_new.append(move_geometry_polar(geometry, centre, radius_now, angle_now))
         else:
-            steps_new.extend(move_geometry_polar(
-                geometry, centre, radius_now, angle_now))
+            steps_new.extend(move_geometry_polar(geometry, centre, radius_now, angle_now))
     return steps_new

@@ -15,7 +15,7 @@ class Point(BasePoint):
     A generic fullcontrol Point with a color attribute and color/visualization methods added.
 
     Attributes:
-        color (Optional[list]): The color of the point in RGB format [r, g, b].
+        color (Optional[list]): The color of the point in RGB format [r, g, b] with values 0-1.
     '''
 
     color: Optional[list] = None  # [r,g,b]

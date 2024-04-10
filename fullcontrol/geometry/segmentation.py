@@ -24,10 +24,10 @@ def segmented_line(point1: Point, point2: Point, segments: int) -> list:
 
 def segmented_path(points: list, segments: int) -> int:
     """
-    Calculate a segmented path based on a list of points and the desired number of segments.
+    Calculate a segmented path (equidistant points) based on a list of points and the desired number of segments.
 
     Args:
-        points (list): A list of points representing the path.
+        points (list): A list of equidistant points along the path.
         segments (int): The desired number of segments.
 
     Returns:

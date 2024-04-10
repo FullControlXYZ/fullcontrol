@@ -5,7 +5,7 @@ from math import tau
 
 def rectangleXY(start_point: Point, x_size: float, y_size: float, cw: bool = False) -> list:
     '''
-    Generate a 2D XY rectangle starting from a given Point, with specified size.
+    Generate a 2D XY rectangle starting and ending at a given Point (5 points returned), with specified size.
     
     Args:
         start_point (Point): The starting point of the rectangle.
@@ -27,7 +27,7 @@ def rectangleXY(start_point: Point, x_size: float, y_size: float, cw: bool = Fal
 def circleXY(centre: Point, radius: float, start_angle: float, segments: int = 100, cw: bool = False) -> list:
     '''
     Generate a 2D-XY circle with the specified number of segments (defaulting to 100), centred about a Point,
-    with the given radius, starting at the specified polar angle (in radians), and with the z-position the same as that
+    with the given radius, starting at the specified polar angle (radians), and with the z-position the same as that
     of the centre Point.
 
     Parameters:
@@ -44,11 +44,10 @@ def circleXY(centre: Point, radius: float, start_angle: float, segments: int = 1
     return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
 
 
-
 def circleXY_3pt(pt1: Point, pt2: Point, pt3: Point, start_angle: float, segments: int = 100, cw: bool = False) -> list:
     '''Generate a 2D-XY circle with the specified number of segments (defaulting to 100), defined by three points
     that the circle passes through. The start point in the returned list of points is defined by a polar angle 
-    (in radians). The z-position is the same as that of pt1. Returns a list of Points.
+    (radians). The z-position is the same as that of pt1. Returns a list of Points.
     
     Args:
         pt1 (Point): The first point that the circle passes through.
@@ -74,7 +73,6 @@ def circleXY_3pt(pt1: Point, pt2: Point, pt3: Point, start_angle: float, segment
     return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
 
 
-
 def ellipseXY(centre: Point, a: float, b: float, start_angle: float, segments: int = 100, cw: bool = False) -> list:
     '''
     Generate a 2D-XY ellipse with the specified number of segments (defaulting to 100), centred about a Point,
@@ -95,11 +93,10 @@ def ellipseXY(centre: Point, a: float, b: float, start_angle: float, segments: i
     return elliptical_arcXY(centre, a, b, start_angle, tau*(1-(2*cw)), segments)
 
 
-
 def polygonXY(centre: Point, enclosing_radius: float, start_angle: float, sides: int, cw: bool = False) -> list:
     '''
     Generate a 2D-XY polygon with the specified number of sides, centered about a Point, sized based on the enclosing radius,
-    starting at the specified polar angle (in radians). The default direction is counter-clockwise.
+    starting at the specified polar angle (radians). The default direction is counter-clockwise.
     
     Parameters:
         - centre (Point): The center point of the polygon.
@@ -115,11 +112,9 @@ def polygonXY(centre: Point, enclosing_radius: float, start_angle: float, sides:
     return arcXY(centre, enclosing_radius, start_angle, tau*(1-(2*cw)), sides)  # cw parameter used to achieve +1 or -1
 
 
-
-
 def spiralXY(centre: Point, start_radius: float, end_radius: float, start_angle: float, n_turns: float, segments: int, cw: bool = False) -> list:
     '''
-    Generate a 2D-XY spiral with the specified number of segments and turns (partial turns permitted), centred about a Point.
+    Generate a 2D-XY spiral with the specified number of segments and turns (partial turns permitted), centred about a Point, defaulting to anti-clockwise.
     
     Parameters:
     - centre: The centre point of the spiral.
@@ -139,8 +134,7 @@ def spiralXY(centre: Point, start_radius: float, end_radius: float, start_angle:
 def helixZ(centre: Point, start_radius: float, end_radius: float, start_angle: float, n_turns: float, pitch_z: float, segments: int, cw: bool = False) -> list:
     '''
     Generate a helix in the Z direction with the specified number of segments and turns (partial turns permitted), centred about the Point centre, sized based on the start and end radius,
-    starting at the specified polar angle (radians), defaulting to counter-clockwise. The returned list will begin with the Point at the start of the first segment 
-    and end at the Point at the end of the final segment.
+    starting at the specified polar angle (radians), defaulting to counter-clockwise.
 
     Parameters:
     - centre: The centre Point of the helix.

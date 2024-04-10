@@ -20,11 +20,12 @@ class PolarPoint(BaseModel):
 def polar_to_point(centre: Point, radius: float, angle: float) -> Point:
     '''
     Convert polar coordinates to Cartesian coordinates.
+    Point XY coordinates of a point based on polar angle (radians) and radius from a centre point. The new Point has z = centre.z'
 
     Args:
         centre (Point): The center point.
         radius (float): The radius.
-        angle (float): The angle in radians.
+        angle (float): The angle (radians).
 
     Returns:
         Point: A new Point object with x, y, and z coordinates calculated based on the given polar coordinates.
@@ -35,13 +36,15 @@ def polar_to_point(centre: Point, radius: float, angle: float) -> Point:
 def point_to_polar(target_point: Point, origin_point: Point) -> PolarPoint:
     '''
     Convert a Cartesian point to polar coordinates.
+    Find polar radius and angle (radians: 0 to 2pi) in XY plane of the given target point relative 
+    to a given origin Point.
 
     Args:
         target_point (Point): The target point in Cartesian coordinates.
         origin_point (Point): The origin point in Cartesian coordinates.
 
     Returns:
-        PolarPoint: The polar coordinates of the target point relative to the origin point.
+        PolarPoint: The polar coordinates of the target point relative to the origin point, accessed with .radius and .angle
     '''
     r = ((target_point.x - origin_point.x) ** 2 + (target_point.y - origin_point.y) ** 2) ** 0.5
     angle = atan2((target_point.y - origin_point.y), (target_point.x - origin_point.x))
@@ -51,6 +54,7 @@ def point_to_polar(target_point: Point, origin_point: Point) -> PolarPoint:
 def polar_to_vector(length: float, angle: float) -> Vector:
     '''
     Convert polar coordinates to a vector.
+    Find an xy Vector based on an angle (radians) and length defined in polar coordinates.
 
     Args:
         length (float): The length of the vector.

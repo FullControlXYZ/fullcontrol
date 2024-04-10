@@ -9,10 +9,7 @@ from pydantic import root_validator
 
 
 class ExtrusionGeometry(BaseExtrusionGeometry):
-    '''
-    A generic ExtrusionGeometry class with an added gcode method.
-    '''
-
+    'Extend generic class with gcode method to convert the object to gcode'
     def gcode(self, state):
         '''
         Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
@@ -36,9 +33,7 @@ class ExtrusionGeometry(BaseExtrusionGeometry):
 
 
 class StationaryExtrusion(BaseStationaryExtrusion):
-    '''
-    A generic StationaryExtrusion class with gcode method added.
-    '''
+    'Extend generic class with gcode method to convert the object to gcode'
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
         state.printer.speed_changed = True
@@ -46,7 +41,20 @@ class StationaryExtrusion(BaseStationaryExtrusion):
 
 
 class Extruder(BaseExtruder):
-    '''generic Extruder with gcode method and attributes added'''
+    '''
+    Extend generic class with gcode methods and attributes to convert the object to gcode.
+
+    This class is used to manage the state of the extruder and translate the design into GCode.
+
+    Attributes:
+        units (str, optional): The units for E in GCode. Options include 'mm' and 'mm3'. If not specified, a default unit is used.
+        dia_feed (float, optional): The diameter of the feedstock filament.
+        relative_gcode (bool, optional): A flag indicating whether to use relative GCode. If not specified, a default value is used.
+        volume_to_e (float, optional): A factor to convert the volume of material into the value of 'E' in GCode. Calculated automatically.
+        total_volume (float, optional): The current extrusion volume for the whole print. Calculated automatically.
+        total_volume_ref (float, optional): The total extrusion volume reference value. This attribute is set to allow extrusion to be expressed relative to this point. For relative_gcode = True, it is reset for every line. Calculated automatically.
+        travel_format (str, optional): The format for travel moves in the GCode. If not specified, a default format is used.
+    '''
 
     # gcode additions to generic Extruder class
 

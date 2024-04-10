@@ -35,6 +35,8 @@ def move(geometry: Union[Point, list], vector: Vector, copy: bool = False, copy_
 
 def move_geometry(geometry: Union[Point, list], vector: Vector) -> Union[Point, list]:
     '''
+    Function called by move()
+    
     Move 'geometry' (a Point or list of steps including Points) by 'vector' 
     and return the moved geometry (original geometry is not edited). Elements 
     in a list that are not Points pass through without modification.
@@ -83,6 +85,8 @@ def move_geometry(geometry: Union[Point, list], vector: Vector) -> Union[Point, 
 
 def copy_geometry(geometry: Union[Point, list], vector: Vector, quantity: int) -> list:
     '''
+    Function called by move()
+    
     Creates multiple copies of 'geometry' (a Point or list of steps including Points),
     each offset by 'vector' from the previous copy. Elements in a list that are not Points
     pass through and are replicated without modification. 'quantity' includes the position

@@ -3,14 +3,7 @@ from fullcontrol.common import Point as BasePoint
 
 
 class Point(BasePoint):
-    '''
-    generic Point with gcode methods added
-
-    Attributes:
-        x (float): The x-coordinate of the point.
-        y (float): The y-coordinate of the point.
-        z (float): The z-coordinate of the point.
-    '''
+    'Extend generic class with gcode methods to convert the object to gcode'
 
     def XYZ_gcode(self, p) -> float:
         '''

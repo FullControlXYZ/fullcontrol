@@ -27,13 +27,13 @@ def ramp_xyz(steplist: list, x_change: float = 0, y_change: float = 0, z_change:
 
 def ramp_polar(steplist: list, centre: Point, radius_change: float = 0, angle_change: float = 0) -> list:
     '''
-    Linearly changes the angle and radius of a list of Points about a given centre point.
+    Linearly changes the angle (radians) and radius of a list of Points about a given centre point.
     
     Args:
         steplist (list): A list of Points to be modified.
         centre (Point): The centre point about which the Points are modified.
         radius_change (float, optional): The amount by which to change the radius of each Point. Defaults to 0.
-        angle_change (float, optional): The amount by which to change the angle of each Point. Defaults to 0.
+        angle_change (float, optional): The amount by which to change the angle (radians) of each Point. Defaults to 0.
     
     Returns:
         list: A list of modified Points.
