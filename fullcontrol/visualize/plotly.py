@@ -150,11 +150,4 @@ def plot(data: PlotData, controls: PlotControls):
                 scene={axis: dict(showgrid=False, zeroline=False, visible=False)})
     if controls.neat_for_publishing:
         fig.update_layout(width=500, height=500)
-    show_fig = False  # only set this to be False for CICD testing
-    if show_fig:
-        fig.show()
-    else:
-        import plotly.io as pio
-        from datetime import datetime
-        pio.write_image(fig, datetime.now().strftime(
-            "figure__%d-%m-%Y__%H-%M-%S.png"))
+    fig.show()
