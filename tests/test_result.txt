@@ -1,0 +1,11 @@
+test results generated 10-04-2024__21-54-20
+
+warning: 8 differences found between tutorial printouts now and the reference printouts - unless difference are expected and/or explainable, a pull request being rejected
+-   step types {'Fan', 'Point', 'Extruder'}
++   step types {'Point', 'Extruder', 'Fan'}
+-   step types {'Fan', 'Point', 'Extruder'}
++   step types {'Point', 'Extruder', 'Fan'}
+-   step types {'list', 'Fan', 'Point', 'Extruder'}
++   step types {'Point', 'Extruder', 'Fan', 'list'}
+-   step types {'ManualGcode', 'Point'}
++   step types {'Point', 'ManualGcode'}

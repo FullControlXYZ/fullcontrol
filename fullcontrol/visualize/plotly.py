@@ -1,5 +1,6 @@
 import numpy as np
 import plotly.graph_objects as go
+import os
 from fullcontrol.visualize.plot_data import PlotData
 from fullcontrol.visualize.controls import PlotControls
 from fullcontrol.visualize.tube_mesh import CylindersMesh, FlowTubeMesh, MeshExporter
@@ -66,6 +67,8 @@ def plot(data: PlotData, controls: PlotControls):
     '''
     
     fig = go.Figure()
+    cicd_testing = True if os.environ.get('FULLCONTROL_CICD_TESTING') == 'True' else False
+    
 
     if controls.style is None:
         if controls.tube_type is None:
@@ -150,4 +153,11 @@ def plot(data: PlotData, controls: PlotControls):
                 scene={axis: dict(showgrid=False, zeroline=False, visible=False)})
     if controls.neat_for_publishing:
         fig.update_layout(width=500, height=500)
-    fig.show()
+
+    # cicd_testing is a flag set by the CICD testing script (as a temporary environmental variable) to save the plot as a .png file
+    if not cicd_testing:
+        fig.show()
+    else:
+        import plotly.io as pio
+        from datetime import datetime
+        pio.write_image(fig, datetime.now().strftime("figure__%d-%m-%Y__%H-%M-%S.png"))
