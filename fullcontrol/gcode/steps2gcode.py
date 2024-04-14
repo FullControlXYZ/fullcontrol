@@ -9,7 +9,16 @@ from datetime import datetime
 
 
 def gcode(steps: list, gcode_controls: GcodeControls = GcodeControls()):
-    'return a gcode string generated from a list of steps'
+    '''
+    Generate a gcode string from a list of steps.
+
+    Args:
+        steps (list): A list of step objects.
+        gcode_controls (GcodeControls, optional): An instance of GcodeControls class. Defaults to GcodeControls().
+
+    Returns:
+        str: The generated gcode string.
+    '''
 
     # state = initialize(steps, gcode_controls)
     state = State(steps, gcode_controls)

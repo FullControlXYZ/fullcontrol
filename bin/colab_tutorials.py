@@ -1,7 +1,8 @@
 
-# colab_docs.py - save new copies of docs notebooks with updated links to work with google colab (new notebooks saved in docs/colab directory)
+# colab_tutorials.py - save new copies of tutorials notebooks with updated links to work with google colab (new notebooks saved in tutorials/colab directory)
 
-usage = '  usage: python colab_docs.py'  # executed from the bin folder of repo
+# executed from the bin folder of repo
+usage = '  usage: python colab_tutorials.py'
 
 notebook_names = ["contents.ipynb",
                   "fast_demo.ipynb",
@@ -17,10 +18,10 @@ notebook_names = ["contents.ipynb",
                   "lab_five_axis_demo.ipynb",
                   "lab_stl_output.ipynb"]
 
-notebook_addresses = ["../docs/" +
+notebook_addresses = ["../tutorials/" +
                       notebook_name for notebook_name in notebook_names]
 notebook_colab_urls = [
-    f'https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/docs/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
+    f'https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/{notebook_name[0:-6]}_colab.ipynb' for notebook_name in notebook_names]
 
 old_import = "import fullcontrol as fc"
 new_import = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import
@@ -33,7 +34,7 @@ new_import_5ax = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+
 old_import_5ax2 = "import lab.fullcontrol.fiveaxisC0B1 as fc5"
 new_import_5ax2 = "if 'google.colab' in str(get_ipython()):\\n  !pip install git+https://github.com/FullControlXYZ/fullcontrol --quiet\\n" + old_import_5ax2
 
-string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be accessed [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/docs) and run in google colab'
+string_to_delete = 'links will work in vscode, jupyter lab, etc. - the notebooks can also be accessed [online](https://github.com/FullControlXYZ/fullcontrol/tree/master/tutorials) and run in google colab'
 
 model_notebook_names = ["nonplanar_spacer.ipynb",
                         "nuts_and_bolts.ipynb"]
@@ -66,5 +67,5 @@ for notebook_address in notebook_addresses:
     for i in range(len(notebook_names)):
         content_string = content_string.replace(
             f'({notebook_names[i]})', f'({notebook_colab_urls[i]})')
-    open(f'{notebook_address[:-6].replace("docs","docs/colab")}_colab.ipynb',
+    open(f'{notebook_address[:-6].replace("tutorials","tutorials/colab")}_colab.ipynb',
          'w').write(content_string)

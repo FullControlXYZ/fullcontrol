@@ -9,12 +9,17 @@ from pydantic import root_validator
 
 
 class ExtrusionGeometry(BaseExtrusionGeometry):
-    'generic ExtrusionGeometry with gcode method added'
-
-    # gcode additions to generic ExtrusionGeometry class
-
+    'Extend generic class with gcode method to convert the object to gcode'
     def gcode(self, state):
-        'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
+        '''
+        Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
+
+        Args:
+            state (State): The state object containing the extrusion geometry.
+
+        Returns:
+            str: The generated line of gcode.
+        '''
         # update all attributes of the tracking instance with the new instance (self)
         state.extrusion_geometry.update_from(self)
         if self.width != None \
@@ -28,9 +33,7 @@ class ExtrusionGeometry(BaseExtrusionGeometry):
 
 
 class StationaryExtrusion(BaseStationaryExtrusion):
-    'generic StationaryExtrusion with gcode method added'
-    # gcode additions to generic StationaryExtrusion class
-
+    'Extend generic class with gcode method to convert the object to gcode'
     def gcode(self, state):
         'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
         state.printer.speed_changed = True
@@ -38,7 +41,20 @@ class StationaryExtrusion(BaseStationaryExtrusion):
 
 
 class Extruder(BaseExtruder):
-    'generic Extruder with gcode method and attributes added'
+    '''
+    Extend generic class with gcode methods and attributes to convert the object to gcode.
+
+    This class is used to manage the state of the extruder and translate the design into GCode.
+
+    Attributes:
+        units (str, optional): The units for E in GCode. Options include 'mm' and 'mm3'. If not specified, a default unit is used.
+        dia_feed (float, optional): The diameter of the feedstock filament.
+        relative_gcode (bool, optional): A flag indicating whether to use relative GCode. If not specified, a default value is used.
+        volume_to_e (float, optional): A factor to convert the volume of material into the value of 'E' in GCode. Calculated automatically.
+        total_volume (float, optional): The current extrusion volume for the whole print. Calculated automatically.
+        total_volume_ref (float, optional): The total extrusion volume reference value. This attribute is set to allow extrusion to be expressed relative to this point. For relative_gcode = True, it is reset for every line. Calculated automatically.
+        travel_format (str, optional): The format for travel moves in the GCode. If not specified, a default format is used.
+    '''
 
     # gcode additions to generic Extruder class
 
@@ -57,18 +73,41 @@ class Extruder(BaseExtruder):
     travel_format: Optional[str] = None
 
     def get_and_update_volume(self, volume):
-        'DO THIS'
+        '''Calculate the extrusion volume and update the total volume.
+
+        Args:
+            volume (float): The volume of material to be extruded.
+
+        Returns:
+            float: The extrusion volume relative to the total volume.
+        '''
         self.total_volume += volume
-        ret_val = self.total_volume-self.total_volume_ref
+        ret_val = self.total_volume - self.total_volume_ref
         if self.relative_gcode == True:
             self.total_volume_ref = self.total_volume
         # to make absolute extrusion work, check self.total_volume_ref and, if above a treshold value, reset extrusion (set extruder_now.e_total_vol_reference_for_gcode = extruder_now.e_total_vol; insert a G92 command next in the steplist)
         return ret_val
 
     def e_gcode(self, point1: Point, state) -> str:
-        'DO THIS'
+        '''Generate the gcode for extrusion.
+
+        Args:
+            point1 (Point): The point at the end of the extrusion.
+            state: The current state of the printer.
+
+        Returns:
+            str: The gcode component for extrusion.
+        '''
         def distance_forgiving(point1: Point, point2: Point) -> float:
-            'return distance between two points. x, y or z components are ignored unless defined in both points'
+            '''Calculate the distance between two points. x, y or z components are ignored unless defined in both points
+
+            Args:
+                point1 (Point): The first point.
+                point2 (Point): The second point.
+
+            Returns:
+                float: The distance between the two points.
+            '''
             dist_x = 0 if point1.x == None or point2.x == None else point1.x - point2.x
             dist_y = 0 if point1.y == None or point2.y == None else point1.y - point2.y
             dist_z = 0 if point1.z == None or point2.z == None else point1.z - point2.z
@@ -81,7 +120,7 @@ class Extruder(BaseExtruder):
             return 'E0' if state.extruder.travel_format == 'G1_E0' else ''
 
     def update_e_ratio(self):
-        'calculate the ratio for conversion from mm3 extrusion to units for E in gcode'
+        '''Calculate the ratio for conversion from mm3 extrusion to units for E in gcode.'''
         try:  # try in case not all parameters set yet
             if self.units == "mm3":
                 self.volume_to_e = 1
@@ -91,7 +130,14 @@ class Extruder(BaseExtruder):
             pass
 
     def gcode(self, state):
-        'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
+        '''Process this instance in a list of steps supplied by the designer to generate and return a line of gcode.
+
+        Args:
+            state: The current state of the printer.
+
+        Returns:
+            str: The generated line of gcode.
+        '''
         # update all attributes of the tracking instance with the new instance (self)
         state.extruder.update_from(self)
         # do things for each attribute that was changed by the designer. check for changes in the new Extruder (self) but calculations consider the overall current Extruder (extruder_now)

@@ -5,7 +5,16 @@ from fullcontrol.visualize.controls import PlotControls
 
 
 def visualize(steps: list, plot_controls: PlotControls = PlotControls()):
-    'visualize the list of steps. optionally, the style of the plot can be adjusted by passing a PlotControls instance'
+    '''
+    Visualize the list of steps.
+
+    Parameters:
+    - steps (list): The list of steps to visualize.
+    - plot_controls (PlotControls, optional): The style of the plot can be adjusted by passing a PlotControls instance.
+
+    Returns:
+    - plot_data (PlotData): The plot data if `plot_controls.raw_data` is True, otherwise None.
+    '''
     state = State(steps, plot_controls)
     plot_data = PlotData(steps, state)
     for step in steps:

@@ -1,11 +1,28 @@
 import numpy as np
 import plotly.graph_objects as go
+import os
 from fullcontrol.visualize.plot_data import PlotData
 from fullcontrol.visualize.controls import PlotControls
 from fullcontrol.visualize.tube_mesh import CylindersMesh, FlowTubeMesh, MeshExporter
 
 
 def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, rounding_strength, flat_sides, colors_now: list = None):
+    """
+    Generate a mesh using the given parameters.
+
+    Args:
+        path: The path object representing the extrusion path.
+        linewidth_now: The current linewidth value.
+        Mesh: The mesh class to use for generating the mesh.
+        sides: The number of sides for the tube in the mesh.
+        rounding_strength: The rounding strength for cross-sectional shape of the mesh.
+        flat_sides: Boolean value to indicate whether the sides of the tube are flat (as opposed to an edge) instead of the top and bottom (imagine a hexagonal tube).
+        colors_now: The list of colors for the mesh at each point along the length.
+
+    Returns:
+        The generated mesh object.
+
+    """
     global local_max # allow external tracking for nice plot boundaries
     path_points = np.array([path.xvals, path.yvals, path.zvals]).T
     good_points = np.ones(len(path_points), dtype=bool)
@@ -34,9 +51,24 @@ def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, roundin
                 rounding_strength=rounding_strength, flat_sides=flat_sides)
  
 
+
+
 def plot(data: PlotData, controls: PlotControls):
-    'plot data for x y z lines with RGB colors and annotations. style of plot governed by controls'
+    '''
+    Plot data for x y z lines with RGB colors and annotations.
+    The style of the plot is governed by the controls.
+
+    Args:
+        data (PlotData): The data to be plotted.
+        controls (PlotControls): The controls for customizing the plot.
+
+    Returns:
+        None
+    '''
+    
     fig = go.Figure()
+    cicd_testing = True if os.environ.get('FULLCONTROL_CICD_TESTING') == 'True' else False
+    
 
     if controls.style is None:
         if controls.tube_type is None:
@@ -121,4 +153,11 @@ def plot(data: PlotData, controls: PlotControls):
                 scene={axis: dict(showgrid=False, zeroline=False, visible=False)})
     if controls.neat_for_publishing:
         fig.update_layout(width=500, height=500)
-    fig.show()
+
+    # cicd_testing is a flag set by the CICD testing script (as a temporary environmental variable) to save the plot as a .png file
+    if not cicd_testing:
+        fig.show()
+    else:
+        import plotly.io as pio
+        from datetime import datetime
+        pio.write_image(fig, datetime.now().strftime("figure__%d-%m-%Y__%H-%M-%S.png"))

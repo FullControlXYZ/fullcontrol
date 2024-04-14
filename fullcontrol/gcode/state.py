@@ -10,11 +10,24 @@ from fullcontrol.common import first_point
 
 
 class State(BaseModel):
-    ''' this tracks the state of instances of interest adjusted in the list 
-    of steps (points, extruder, etc.). some relevant shared variables and 
-    initialisation methods are also included. a list of steps and 
-    GcodeControls must be passed upon instantiation to allow initialization
-    of various attributes
+    '''
+    This class tracks the state of instances of interest adjusted in the list 
+    of steps (points, extruder, etc.). It also includes some relevant shared variables and 
+    initialization methods. Upon instantiation, a list of steps and GcodeControls must be passed
+    to allow initialization of various attributes.
+
+    Attributes:
+        extruder (Optional[Extruder]): The extruder instance.
+        printer (Optional[Printer]): The printer instance.
+        extrusion_geometry (Optional[ExtrusionGeometry]): The extrusion geometry instance.
+        steps (Optional[list]): The list of steps.
+        point (Optional[Point]): The current point.
+        i (Optional[int]): The current index.
+        gcode (Optional[list]): The list of Gcode.
+
+    Methods:
+        __init__: Initializes the State object.
+
     '''
 
     extruder: Optional[Extruder] = None
@@ -26,6 +39,16 @@ class State(BaseModel):
     gcode: Optional[list] = []
 
     def __init__(self, steps: list, gcode_controls: GcodeControls):
+        """
+        Initializes a State object.
+
+        Args:
+            steps (list): A list of steps for the state.
+            gcode_controls (GcodeControls): An instance of the GcodeControls class.
+
+        Returns:
+            None
+        """
         super().__init__()
         # initialize state based on the named-printer default initialization_data and initialization_data over-rides passed by designer in gcode_controls
 
