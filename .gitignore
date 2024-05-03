@@ -131,6 +131,9 @@ dmypy.json
 # STL files
 *.stl
 
+# Gcode files
+*.gcode
+
 # Testing data
 tests/test_print_output.txt
 
