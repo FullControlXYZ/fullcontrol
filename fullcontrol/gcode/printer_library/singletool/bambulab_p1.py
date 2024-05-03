@@ -8,16 +8,16 @@ def set_up(user_overrides: dict):
 
     # overrides for this specific printer relative those defined in base_settings.py
     printer_overrides = {
-        "print_speed": 2000,
+        "print_speed": 1000,
         "travel_speed": 5000,
         "area_model": "rectangle",
         "extrusion_width": 0.4,
         "extrusion_height": 0.2,
         "nozzle_temp": 220,
         "bed_temp": 55,
-        "part_fan_percent": 40,
-        "aux_fan_percent": 0,
-        "chamber_fan_percent": 20,
+        "parts_fan_percent": 50,
+        "aux_fan_percent": 50,
+        "chamber_fan_percent": 50,
         "print_speed_percent": 100,
         "material_flow_percent": 100,
         "e_units": "mm",  # options: "mm" / "mm3"
