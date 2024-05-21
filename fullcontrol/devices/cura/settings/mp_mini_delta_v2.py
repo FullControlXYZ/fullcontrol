@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "MP Mini Delta V2",
+    "manufacturer": "Monoprice",
+    "start_gcode": ";(**** start.gcode for MP Mini Delta V2****)\nG21\nG90\nM82\nM107\nM104 S170\nG28 X0 Y0\nG28 Z0\nG29 Z0.4\nG1 Z15 F300\nM109 S{data['nozzle_temp']}\nG92 E0\nG1 F200 E3\nG92 E0\nG1 F2000\n",
+    "end_gcode": ";(**** end.gcode for MP Mini Delta V2****)\nG28;(Stick out the part)\nM190 S0;(Turn off heat bed, don't wait.)\nG92 E10;(Set extruder to 10)\nG1 E7 F200;(retract 3mm)\nM104 S0;(Turn off nozzle, don't wait)\nG4 S300;(Delay 5 minutes)\nM107;(Turn off part fan)\nM84;(Turn off stepper motors.)",
+    "bed_temp": 40,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 110,
+    "build_volume_y": 110,
+    "build_volume_z": 120,
+}

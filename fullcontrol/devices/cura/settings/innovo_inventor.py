@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Innovo Inventor",
+    "manufacturer": "Innovo",
+    "start_gcode": "G28 ; Home extruder\nM107 ; Turn off fan\nG90 ; Absolute positioning\nM82 ; Extruder in absolute mode\nM190 S{data['bed_temp']}\nM104 T0 S{data['nozzle_temp']}\nM109 T0 S{data['nozzle_temp']}\nM104 T1 S{data['nozzle_temp']}\nM109 T1 S{data['nozzle_temp']}\n;G32 S3 ; auto level\nG92 E0 ; Reset extruder position",
+    "end_gcode": "M104 S0 ; turn off extruders\nM140 S0 ; heated bed heater off\nG91 ; relative positioning\nG1 E-2 F5000; retract 2mm\nG28 Z; move bed down\nG90 ; absolute positioning\nM84   ; disable motors",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 340,
+    "build_volume_y": 300,
+    "build_volume_z": 290,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Erzay3D",
+    "manufacturer": "Robokinetika",
+    "start_gcode": "G28\nG1 Z15.0 F6000\nG92 E0",
+    "end_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 220,
+    "material_flow_percent": 100,
+    "print_speed": 40,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 210,
+    "build_volume_y": 210,
+    "build_volume_z": 230,
+}

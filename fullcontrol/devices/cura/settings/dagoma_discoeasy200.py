@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Dagoma DiscoEasy200",
+    "manufacturer": "Dagoma",
+    "start_gcode": ";Begin Start Gcode for Dagoma DiscoEasy 200\n\nG90 ;Absolute positioning\nM106 S255 ;Fan on full\nG28 X Y ;Home stop X Y\nG1 X100 ;Centre back during cooldown in case of oozing\nM109 R{90} ;Cooldown in case too hot\nG28 ;Centre\nG29 ;Auto-level\nM104 S{data['nozzle_temp']} ;Pre-heat\nM107 ;Fan off\nG0 X100 Y5 Z0.5 ;Front centre for degunk\nM109 S{data['nozzle_temp']} ;Wait for initial temp\nM83 ;E Relative\nG1 E10 F200 ;Degunk\nG1 E-3 F5000 ;Retract\nG0 Z3 ;Withdraw\nM82 ;E absolute\nG92 E0 ;E reset\nG1 F6000 ;Set feedrate\n\n;Finish Start Gcode for Dagoma DiscoEasy 200\n",
+    "end_gcode": ";Begin End Gcode for Dagoma DiscoEasy 200\n\nM106 S255 ;Fan on full\nM104 S0 ;Cool hotend\nM140 S0 ;Cool heated bed\nG91 ;Relative positioning\nG1 E-3 F5000 ;Retract filament to stop oozing\nG0 Z+3 ;Withdraw\nG90 ;Absolute positioning\nG28 X Y ;Home\nM109 R{data['nozzle_temp_standby']} ;Wait until head has cooled to standby temp\nM107 ;Fan off\nM18 ;Stepper motors off\n\n;Finish End Gcode for Dagoma DiscoEasy 200\n",
+    "bed_temp": 60,
+    "nozzle_temp": 205,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 205,
+    "build_volume_y": 205,
+    "build_volume_z": 205,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Flsun V400",
+    "manufacturer": "Flsun",
+    "start_gcode": "G21\nG90\nM82\nM107 T0\nM140 S{data['bed_temp']}\nM104 S{data['nozzle_temp']} T0\nM190 S{data['bed_temp']}\nM109 S{data['nozzle_temp']} T0\nG28\nG1 F3000 Z1\nG1 X-150 Y0 Z0.4\nG92 E0\nG3 X0 Y-130 I150 Z0.3 E30 F2000\nG92 E0\n",
+    "end_gcode": "M107 T0\nM104 S0\nM104 S0 T1\nM140 S0\nG92 E0\nG91\nG1 E-1 F300\nG1 Z+0.5  F6000\nG28 \nG90 ;absolute positioning\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 300,
+    "build_volume_y": 300,
+    "build_volume_z": 410,
+}

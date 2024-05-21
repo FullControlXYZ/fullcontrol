@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "DXU",
+    "manufacturer": "DXU",
+    "start_gcode": "M190 S{data['bed_temp']}\nG21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nM200 D0 T{data['extruder_number']} ;reset filament diameter\nG28 ;home all\nT{data['extruder_number']} ;switch to the first nozzle used for print\nM104 T{data['extruder_number']} S{110, data['extruder_number']}\nG0 X25 Y20 F7200\nG0 Z20 F2400\nM109 T{data['extruder_number']} S{data['nozzle_temp'], data['extruder_number']}\nG0 X210 Y20 F7200\nG92 E-7.0\nG1 E0 F45 ;purge nozzle\nG1 E-6.5 F1500\nG1 E0 F1500\nM400 ;finish all moves\nT{data['extruder_number']}\n;end of startup sequence\n",
+    "end_gcode": "G90 ;absolute positioning\nM104 S0 T0 ;extruder heater off\nM104 S0 T1\nM140 S0 ;turn off bed\nT0 ; move to the first head\nM107 ;fan off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 238,
+    "build_volume_y": 223,
+    "build_volume_z": 203,
+}

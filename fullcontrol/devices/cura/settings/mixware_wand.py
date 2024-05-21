@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Wand",
+    "manufacturer": "Mixware",
+    "start_gcode": "G28 ;Home\n;Prime the extruder\nM117 Print\nG92 E0\nG1 F1500 X-2 Y0 Z0.28\nG1 F2400 X-2 Y70 Z0.28 E8\nG1 F1500 X-1.7 Y70 Z0.28\nG1 F2400 X-1.7 Y0 Z0.28 E16\nG92 E0\nG92 E0\nG1 Z0.18 F2400 ;Move Z Axis up",
+    "end_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E3 F300\nG1 F1500 Z100\nG28 X0 Y0\nM25\nM84",
+    "bed_temp": 0,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 40,
+    "travel_speed": 80,
+    "dia_feed": 2.85,
+    "build_volume_x": 102,
+    "build_volume_y": 102,
+    "build_volume_z": 102,
+}

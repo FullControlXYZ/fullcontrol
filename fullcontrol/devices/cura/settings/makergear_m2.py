@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "MakerGear M2",
+    "manufacturer": "MakerGear",
+    "start_gcode": "G21 ; use mms\nM140 S{data['bed_temp']} ; heat bed\nM104 S{data['nozzle_temp']} ; heat extruder\nG90 ; abs coords\nM82 ; abs extruder\nM107 ; fan off\nG28 Z ; home Z\nG1 Z10 F1200 ; lift nozzle\nG28 X Y ; home XY\nG92 E0 ; zero extruder\nG1 X230 Y50 F9600 ; move nozzle to priming location\nM190 S{data['bed_temp']} ; wait for bed\nM109 S{data['nozzle_temp']} ; wait for nozzle\nG1 E10 Z0.3 F225 ; prime and lower nozzle\nG1 X190 Z0.1 F1200 ; wipe nozzle\nG92 E0 ; zero extruder",
+    "end_gcode": "G92 E0           ; zero extruder\nG1 E-2.0000 F2000 ; retract filament\nM104 S0           ; extruder off\nM140 S0           ; bed off\nM107              ; fan off\nG90               ; absolute coords\nG28 X0            ; home X\nM18 S0            ; disable steppers",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 200,
+    "build_volume_y": 250,
+    "build_volume_z": 190,
+}

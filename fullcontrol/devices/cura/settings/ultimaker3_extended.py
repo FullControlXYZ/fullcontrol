@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Ultimaker 3 Extended",
+    "manufacturer": "Ultimaker B.V.",
+    "start_gcode": "",
+    "end_gcode": "G91 ;Relative movement\nG0 F15000 X8.0 Z0.5 E-4.5 ;Wiping+material retraction\nG0 F10000 Z1.5 E4.5 ;Compensation for the retraction\nG90 ;Disable relative movement",
+    "bed_temp": 60,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 35,
+    "travel_speed": 250,
+    "dia_feed": 2.85,
+    "build_volume_x": 233,
+    "build_volume_y": 215,
+    "build_volume_z": 300,
+}

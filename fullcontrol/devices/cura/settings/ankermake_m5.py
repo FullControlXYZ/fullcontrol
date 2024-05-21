@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "AnkerMake M5",
+    "manufacturer": "AnkerMake",
+    "start_gcode": "M104 S{data['nozzle_temp']} ; set final nozzle temp\nM190 S{data['bed_temp']} ; set and wait for nozzle temp to stabilize\nM109 S{data['nozzle_temp']} ; wait for nozzle temp to stabilize\nG28 ;Home\nG1 E10 F3600; push out retracted filament(fix for over retraction after prime)",
+    "end_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 250.0,
+    "travel_speed": 250.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 235,
+    "build_volume_y": 235,
+    "build_volume_z": 250,
+}

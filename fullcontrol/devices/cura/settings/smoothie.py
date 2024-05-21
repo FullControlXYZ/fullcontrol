@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Smoothie Custom Printer",
+    "manufacturer": "Custom",
+    "start_gcode": "G28 X0 Y0 ; Home X Y\nM375; Load Bed Leveling Grid\nG1 X300 Y275 F15000 ; Move to bed center\nM280 S3.0 ; Deploy probe pin\n## NOTE: Adjust \"ZX.XX\" after G30 to be the Z-offset (in mm) between the probe and the nozzle\n## This is how you adjust nozzle printing height!\nG30 Z1.25 ; Move down to find bed & set Z home offset\nM280 S7.0 ; Retract probe\nG1 Z15.0 F600 ; move extruder up 15mm\nT0; Activate Extruder 1",
+    "end_gcode": "G28 X0 Y0; Home X and Y\nM104 S0 ; turn off extruder\nM140 S0 ; turn off bed\nM107; turn off fans\nM84 ; disable motors",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 100,
+    "build_volume_y": 100,
+    "build_volume_z": 100,
+}

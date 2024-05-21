@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Rigid3D 2. Nesil",
+    "manufacturer": "Rigid3D",
+    "start_gcode": "  ; -- START GCODE --\n  G21\n  G28 ; Home extruder\n  G29 ; Autolevel bed\n  M107 ; Turn off fan\n  G90 ; Absolute positioning\n  M82 ; Extruder in absolute mode\n  G92 E0 ; Reset extruder position\n  ; -- end of START GCODE --\n\n",
+    "end_gcode": "  ; -- END GCODE --\n  G1 X0 Y230 ; Get extruder out of way.\n  M107 ; Turn off fan\n  G91 ; Relative positioning\n  G0 Z20 ; Lift extruder up\n  T0\n  G1 E-1 ; Reduce filament pressure\n  M104 T0 S0 ; Turn ectruder heater off\n  G90 ; Absolute positioning\n  G92 E0 ; Reset extruder position\n  M140 S0 ; Disable heated bed\n  M84 ; Turn steppers off\n  ; -- end of END GCODE --\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 80.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 250,
+    "build_volume_y": 250,
+    "build_volume_z": 210,
+}

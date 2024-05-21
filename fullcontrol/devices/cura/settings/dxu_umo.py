@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "UMO+ DXU",
+    "manufacturer": "DXU",
+    "start_gcode": "; Script based on an original created by tjjfvi (https://github.com/tjjfvi)\n; An up-to-date version of the tjjfvi's original script can be found\n; here:  https://csi.t6.fyi/\n; Note - This script will only work in Cura V4.2 and above!\n; --- Global Settings\n; --- Single Extruder Settings\n\nM355 S1 P25;turn on case light\n\nM190 S{data['bed_temp']}\nG21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nM200 D0 T{data['extruder_number']} ;reset filament diameter\nG28 ;home all\nT{data['extruder_number']} ;switch to the first nozzle used for print\nM104 T{data['extruder_number']} S{110, data['extruder_number']}\nG0 X25 Y20 F7200 ;change Y20 to Y0 ansonl\nG0 Z20 F2400\nM109 T{data['extruder_number']} S{data['nozzle_temp'], data['extruder_number']}\nG0 X210 Y0 F7200\nG92 E-12.0 ; increase purge 6.5 to 12\nG1 E0 F200 ;purge nozzle ;change F45 to F200 like ultimaker code ansonl\nG1 E-6.5 F1500\nG1 E0 F1500\nG1 Y50 F9000 ;add quick movement to Y50 like ultimaker code ansonl\nM400 ;finish all moves\nT{data['extruder_number']}\n;end of startup sequence\n\nM355 S1 P50;turn on case light",
+    "end_gcode": ";end code from UM3\nG91 ;Relative movement\nG0 F15000 X8.0 Y8.0 Z3.5 E-4.5 ;Wiping+material retraction ;increase bed lower 0.5>5.0 and add Y movement\nG0 F10000 Z1.5 E4.5 ;Compensation for the retraction\nG90 ;Disable relative movement\n\nG90 ;absolute positioning\nM104 S0 T0 ;extruder heater off\nM104 S0 T1\nM140 S0 ;turn off bed\nT0 ; move to the first head\nM107 ;fan off\nM355 S0 ;turn off case light",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 220,
+    "build_volume_y": 205,
+    "build_volume_z": 200,
+}

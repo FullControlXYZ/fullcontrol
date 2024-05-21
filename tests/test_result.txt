@@ -1,11 +1,13 @@
-test results generated 10-04-2024__23-00-26
+test results generated 21-05-2024__22-47-53
 
-warning: 8 differences found between tutorial printouts now and the reference printouts - unless differences are expected or explainable (e.g. tutorials changes; e.g. printout order for sets/dictionaries), they may cause a pull request to be rejected
--   step types {'Fan', 'Extruder', 'Point'}
+warning: 10 differences found between tutorial printouts now and the reference printouts - unless differences are expected or explainable (e.g. tutorials changes; e.g. printout order for non-ordered sets/dictionaries), they may cause a pull request to be rejected
+-   step types {'Extruder', 'Fan', 'Point'}
 +   step types {'Point', 'Fan', 'Extruder'}
--   step types {'Fan', 'Extruder', 'Point'}
+-   step types {'Extruder', 'Fan', 'Point'}
 +   step types {'Point', 'Fan', 'Extruder'}
--   step types {'Fan', 'Extruder', 'Point', 'list'}
+-   step types {'list', 'Extruder', 'Fan', 'Point'}
 +   step types {'Point', 'list', 'Fan', 'Extruder'}
+-   step types {'list', 'Point'}
++   step types {'Point', 'list'}
 -   step types {'ManualGcode', 'Point'}
 +   step types {'Point', 'ManualGcode'}

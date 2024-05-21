@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Snapmaker 2 A350 Dual Extruder",
+    "manufacturer": "Snapmaker",
+    "start_gcode": "M104 S{data['nozzle_temp']} ;Set Hotend Temperature\nM140 S{data['bed_temp']} ;Set Bed Temperature\nG28 ;home\nG90 ;absolute positioning\nG1 X-10 Y-10 F3000 ;Move to corner \nG1 Z0 F1800 ;Go to zero offset\nM109 S{data['nozzle_temp']} ;Wait for Hotend Temperature\nM190 S{data['bed_temp']} ;Wait for Bed Temperature\nG92 E0 ;Zero set extruder position\nG1 E20 F200 ;Feed filament to clear nozzle\nG92 E0 ;Zero set extruder position",
+    "end_gcode": "M104 S0 ;Extruder heater off\nM140 S0 ;Heated bed heater off\nG90 ;absolute positioning\nG92 E0 ;Retract the filament\nG1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z{data['build_volume_z']} E-1 F3000 ;move Z up a bit and retract filament even more\nG1 X0 F3000 ;move X to min endstops, so the head is out of the way\nG1 Y{data['build_volume_y']} F3000 ;so the head is out of the way and Plate is moved forward",
+    "bed_temp": 60,
+    "nozzle_temp": 205,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 320,
+    "build_volume_y": 350,
+    "build_volume_z": 330,
+}

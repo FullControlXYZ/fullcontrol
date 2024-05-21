@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Malyan M180",
+    "manufacturer": "Malyan",
+    "start_gcode": "M136\nM73 P0\nM103\nG21\nG90\nM320\n;(**** begin homing ****)\nG162 X Y F4000\nG161 Z F3500\nG92 Z-5\nG1 Z0.0\nG161 Z F100\nM132 X Y Z A B\n;(**** end homing ****)\nG92 X147 Y66 Z5\nG1 X105 Y-60 Z10 F4000.0\nG130 X127 Y127 A127 B127\nG0 X105 Y-60\nG1 Z0.3 F300\nG92 E0\nG1 X100 E10 F300\nG92 E0\nG1 Z0.0 F300\nM320",
+    "end_gcode": "G92 Z0\nG1 Z10 F400\nM18\nM109 S0 T0\nM104 S0 T0\nM73 P100 (end  build progress)\nG162 X Y F3000\nM18",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 230,
+    "build_volume_y": 145,
+    "build_volume_z": 165,
+}

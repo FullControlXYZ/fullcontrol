@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Crazy3DPrint CZ-300",
+    "manufacturer": "Crazy3DPrint",
+    "start_gcode": "G28 ; home all axes\nG1 Z15 F5000 ; lift nozzle\nG92 E0\nG1 F200 E3\n",
+    "end_gcode": "M104 S0 ; turn off temperature\nM105 S0;  \nG28 X0  ; home X axis\nM84     ; disable motors\n",
+    "bed_temp": 70,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 40,
+    "travel_speed": 60,
+    "dia_feed": 2.85,
+    "build_volume_x": 300.0,
+    "build_volume_y": 300.0,
+    "build_volume_z": 300.0,
+}

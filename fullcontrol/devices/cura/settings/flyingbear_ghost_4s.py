@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Flying Bear Ghost 4S",
+    "manufacturer": "Flying Bear",
+    "start_gcode": "M220 S100 ;reset feedrate\nM221 S100 ;reset flowrate\nG90 ;use absolute coordinates\nM82 ;absolute extrusion mode\nG28 ;home\nG1 Z2 F1500 ;raise z\nG92 E0 ;reset extruder\n\nG1 X75 Y5 F5000 ;start position\nG1 Z0.28 F1500 ;lower z\nG1 E4 F500 ;prime the filament\nG1 X180 E10 F500 ;1st line\nG1 Y5.4 F5000\nG1 X75 E20 F500 ;2nd line\nG1 Z2 F1500 ;raise z\nG92 E0 ;reset extruder",
+    "end_gcode": "G91 ;use relative coordinates\nG1 E-4 F1500 ;retract the filament\nG1 X5 Y5 Z0.2 F5000 ;wipe\nG1 Z5 F1500 ;raise z\nG90 ;use absolute coordinates\nG1 X10 Y{data['build_volume_y']} F5000 ;park print head\n\nM107 ;turn off fan\nM104 S0 ;turn off hotend\nM140 S0 ;turn off heatbed\nM84 ;disable motors",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 150.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 255,
+    "build_volume_y": 210,
+    "build_volume_z": 200,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Eryone Thinker DirectDrive",
+    "manufacturer": "Eryone",
+    "start_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nG28 X0 Y0 ;move X/Y to min endstops\nG28 Z0 ;move Z to min endstops\nG1 Z10.0 F600 ;move the platform down 10mm\nG92 E0 ;zero the extruded length\nG1 F200 E3 ;extrude 3mm of feed stock\nG92 E0 ;zero the extruded length again\nG1 Y-3 F1200 ;move to prime\nG1 X10 F1200 ;\nG1 Z0.1 F600 ;get ready to prime\nG1 X120 E15 F1200 ;prime nozzle \nG1 X120 F3600 ;quick wipe\nG92 E0 ;zero the extruded length\nM413 S1 ;enable resume from power failure\nM117 Printing...",
+    "end_gcode": "M104 S0 ;turn off extruder\nM140 S0 ;turn off bed\nM107 ;turn off all fans\nG91 ;relative positioning\nG1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-5 ;move Z up a bit and retract filament even more\nG90 ;absolute positioning\nG1 X0 Y250 F4800 ; position for easy part removal\nM84 ;steppers off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 300,
+    "build_volume_y": 300,
+    "build_volume_z": 400,
+}

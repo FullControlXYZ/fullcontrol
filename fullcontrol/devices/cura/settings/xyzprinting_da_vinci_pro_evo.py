@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "XYZprinting da Vinci Pro EVO",
+    "manufacturer": "XYZprinting",
+    "start_gcode": "M191\nG28 ; home all axes\nG1 Z15 F5000 ; lift nozzle\nG92 E0\nG1 F200 E3\n",
+    "end_gcode": "M106 P1 S255 ; turn on fan\nG92 E0\nG28; home X,Y,Z axis\nM84     ; disable motors\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 220.0,
+    "build_volume_y": 200.0,
+    "build_volume_z": 200.0,
+}

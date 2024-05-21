@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "SecKit SK-Go",
+    "manufacturer": "SecKit 3DP Design",
+    "start_gcode": "M569 S1 X Y ; enable StealthChop for Sensorless Homing\nG28 ; Home\nM569 S0 X Y ; disable StealthChop for normal print\nM900 K0.07 ; K factor of linear advance\nG1 Z15.0 F6000 ;Move the platform down 15mm\n;Prime the extruder\nG92 E0\nG1 F200 E3\nG92 E0\nG90 ; abs position",
+    "end_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 310,
+    "build_volume_y": 310,
+    "build_volume_z": 350,
+}

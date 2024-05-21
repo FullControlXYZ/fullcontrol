@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Ultimaker 2+ Connect",
+    "manufacturer": "Ultimaker B.V.",
+    "start_gcode": "",
+    "end_gcode": "",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 223,
+    "build_volume_y": 220,
+    "build_volume_z": 205,
+}

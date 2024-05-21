@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Atom 3",
+    "manufacturer": "Layer One",
+    "start_gcode": ";MACHINE START CODE\nG21 ;metric values\nG90 ;absolute positioning\nG28 ;home\nG1 Z5 F9000\n;MACHINE START CODE",
+    "end_gcode": ";MACHINE END CODE\nG91 ;relative positioning\nG1 E-1 F300  ;retract  filament release pressure\nG1 Z+1.0 E-5 F9000 ;move up a and retract more\nG90 ;absolute positioning\nG28; home\nM84 ;steppers off\n;MACHINE END CODE",
+    "bed_temp": 65,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 40,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 270,
+    "build_volume_y": 270,
+    "build_volume_z": 340,
+}

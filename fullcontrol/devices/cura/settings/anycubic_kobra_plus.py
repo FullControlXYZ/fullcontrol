@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Anycubic Kobra Plus",
+    "manufacturer": "Anycubic",
+    "start_gcode": "G28 ;Home\nG1 Z15.0 F6000 ;Move the platform down 15mm\n;Prime the extruder\nG92 E0\nM355 S1; Turn LED on\n; Add Custom purge lines\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X1.0 Y30 Z0.3 F5000.0 ; Move to start position\nG1 X1.0 Y100.0 Z0.3 F1500.0 E15 ; Draw the first line\nG1 X1.3 Y100.0 Z0.3 F5000.0 ; Move to side a little\nG1 X1.3 Y30 Z0.3 F1500.0 E30 ; Draw the second line\nG92 E0 ; Reset Extruder\nG1 E-2 F500 ; Retract a little \nG1 X50 F500 ; wipe away from the filament line\nG1 X100 F9000 ; Quickly wipe away from the filament line\nG1 Z5.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\n; End custom purge lines",
+    "end_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84\nM355 S0; led off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 302,
+    "build_volume_y": 302,
+    "build_volume_z": 352,
+}

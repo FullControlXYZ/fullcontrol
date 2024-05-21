@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "HCTECH_HC300-M2H",
+    "manufacturer": "HCTECH",
+    "start_gcode": "G1 Z2 ;Raise Z\nG28 X Y ;Home XY\nT1 ;switch to right extruder\nG1 X5 Y319 F4000 ;Move to Start Position\nG92 E0 ;Reset Extruder\nG1 E20 F60 ;extrude\nM400 ;Wait move\nG92 E0 ;Reset Extruder\nG1 E-2 F2700 ;Retract\nG92 E0 ;Reset Extruder\nG1 X150 F5000 ;Clean Nozzle\nG1 X5 ;Clean Nozzle\nG1 X220 ;Repeat\nG1 X5 ;Back to start posotion\nT0 ;switch to left extruder\nG1 X5 Y319 F4000 ;Move to Start Position\nG92 E0 ;Reset Extruder\nG1 E20 F60 ;extrude\nM400 ;Wait move\nG92 E0 ;Reset Extruder\nG4 S15 ;Wait 15s\nG1 E-2 F2700; Retract\nG92 E0 ;Reset Extruder\nG1 X150 F5000 ;Clean Nozzle\nG1 X5 ;Clean nozzle\nG1 X220 ;Repeat\nG1 X5 ;Back to start position\nG28 Z ;home Z\nG29 ;Measure the bed\nM500 ;Store parameters\nG1 X0 Y300 F4000 ;Move to corner",
+    "end_gcode": "G91 ;Relative positioning\nG1 E-1 F2700 ;Retract a bit\nG1 Z1 E-1 F2400 ;Retract and raise Z\nG1 Z2 ;Raise Z\nG90 ;Absolute positioning\nG12 ;clean nozzle\nG1 X5 Y319 ;Return to Start Point\nM106 S0 ;Switch off part cooling fan\nM104 S0 ;turn off temperature\nM140 S0 ;turn off Heated Bed\nM84 X Y E ;Disable all steppers but Z\nM81 ;turn-off power",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60.0,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 300,
+    "build_volume_y": 300,
+    "build_volume_z": 300,
+}

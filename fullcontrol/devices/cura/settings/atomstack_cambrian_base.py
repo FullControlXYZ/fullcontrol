@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "AtomStack Cambrian Base Printer",
+    "manufacturer": "AtomStack",
+    "start_gcode": "; AtomStack Cambrian Start G-code\nG92 E0 ; Reset Extruder\nG28 ; Home all axes\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X0.1 Y20 Z0.3 F5000.0 ; Move to start position\nG1 X0.1 Y200.0 Z0.3 F1500.0 E15 ; Draw the first line\nG1 X0.9 Y200.0 Z0.3 F5000.0 ; Move to side a little\nG1 X0.9 Y20 Z0.3 F1500.0 E30 ; Draw the second line\nG1 E29 ;Retract the filament\nG92 E0 ; Reset Extruder\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X5 Y20 Z0.3 F5000.0 ; Move over to prevent blob squish",
+    "end_gcode": "; AtomStack Cambrian End G-code\nG91 ;Relative positioning\nG1 E-2 F2700 ;Retract a bit\nG1 E-8 Z0.2 F2400 ;Retract and raise Z\nG1 X5 Y5 F3000 ;Wipe out\nG1 Z10 ;Raise Z more\nG90 ;Absolute position\n\nG1 X0 Y210 ;Present print\nM106 S0 ;Turn-off fan\nM104 S0 ;Turn-off nozzle\nM140 S0 ;Turn-off bed\n\nM84 X Y E ;Disable all steppers but Z",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 100,
+    "build_volume_y": 100,
+    "build_volume_z": 100,
+}

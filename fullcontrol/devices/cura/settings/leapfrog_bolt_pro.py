@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Leapfrog Bolt Pro",
+    "manufacturer": "Leapfrog B.V.",
+    "start_gcode": "G90\nG28 X0 Y0 Z0\nG1 Z5 F1000\nG92 E0\nG1 Y-32 F12000\nG1 E15 F1000\nG1 E45 F150\nG4 S5",
+    "end_gcode": "G92 E0\nG1 E-3 F300\nM104 S0 T0\nM104 S0 T1\nM140 S0\nG28 X0 Y0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 200,
+    "dia_feed": 2.85,
+    "build_volume_x": 302,
+    "build_volume_y": 322,
+    "build_volume_z": 205,
+}

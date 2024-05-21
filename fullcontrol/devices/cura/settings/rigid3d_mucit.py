@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Rigid3D Mucit",
+    "manufacturer": "Rigid3D",
+    "start_gcode": "G21\nG28 ; Home extruder\nM420 S1 ; Enable MBL\nM107 ; Turn off fan\nG91 ; Relative positioning\nG1 Z5 F180;\nG1 X30 Y30 F3000;\nG90 ; Absolute positioning\nM82 ; Extruder in absolute mode\nG92 E0 ; Reset extruder position\n",
+    "end_gcode": "G1 X0 Y145 ; Get extruder out of way.\nM107 ; Turn off fan\nG91 ; Relative positioning\nG0 Z20 ; Lift extruder up\nT0\nG1 E-1 ; Reduce filament pressure\nM104 T0 S0 ; Turn extruder heater off\nG90 ; Absolute positioning\nG92 E0 ; Reset extruder position\nM84 ; Turn steppers off\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 80.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 150,
+    "build_volume_y": 150,
+    "build_volume_z": 150,
+}

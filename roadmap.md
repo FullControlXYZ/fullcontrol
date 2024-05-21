@@ -24,16 +24,14 @@ sooner:
     - return f'E{round(self.get_and_update_volume(length*state.extrusion_geometry.area)*self.volume_to_e, 6)} '
     - to
     - return f'E{round(self.get_and_update_volume(length*state.extrusion_geometry.area)*self.volume_to_e, 6):.6f} '
-- create new meta repo for fullcontrol_profile_integration
-    - rename the json variables to be my own terms (start_gcode instead of machine_start_gcode) so that all the other data soruces can translate into the same FC format
-    - one directory in that will be for cura
-        - only include a script (or description) of which commit to pull and the git command to do that, full-variable folder, filtered-variable json folder (these will go into fc), and bin folder
-    - explain how to import and printer in fc
-        - show how to edit the imported printer profile (edit parameters, or edit line X of start_gcode)
-        - allow users the option to supply tranform function with a printer_data object as opposed to a string id.
-- add 'devices' directory to fullcontrol repo (devices.[VENDOR].[MANUFACTURER_MODEL.json]) /w enum,selection api
-    - cura is in here as well as fullcontrol (original printers?) and community? (for people to add printers too?) ... not quite logical... community and fullcontrol are the same thing atm.
+- add docs explaining how to import and printer in fc from Cura/ and Community/
+    - show how to edit the imported printer profile (edit parameters, or edit line X of start_gcode)
+    - explain how to find printer names (link to github list or add a search function)
+- consider moving 'devices' directory to top level fullcontrol repo (devices.[VENDOR].[MANUFACTURER_MODEL.json]) /w enum,selection api (not done at present becuase cura manufacturer and model data are inconsistent)
 
+- create new meta repo for fullcontrol_profile_integration
+    - one directory in that will be for cura
+        - include script to extract printer profiles from cura library and state which commit of the cura repo to pull and the git command to do that, full-variable folder, filtered-variable json folder, minimal variable folder (duplicated in main fc repo), and bin folder
 
 later:
 - refactor documentation - [issue](https://github.com/FullControlXYZ/fullcontrol/issues/10)

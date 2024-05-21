@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "MP Mini Delta",
+    "manufacturer": "Monoprice",
+    "start_gcode": ";MPMD V1 Basic Calibration Tutorial: \n; https://www.thingiverse.com/thing:3892011 \n; \n; If you want to put calibration values in your \n; Start Gcode, put them here. \n; \n;If on stock firmware, at minimum, consider adding \n;M665 R here since there is a firmware bug.  \n; \n; Calibration part ends here \n; \nG90 ; switch to absolute positioning \nG92 E0 ; reset extrusion distance \nG1 E20 F200 ; purge 20mm of filament to prime nozzle. \nG92 E0 ; reset extrusion distance \nG4 S5 ; Pause for 5 seconds to allow time for removing extruded filament \nG28 ; start from home position \nG1 E-6 F900 ; retract 6mm of filament before starting the bed leveling process \nG92 E0 ; reset extrusion distance \nG4 S5 ; pause for 5 seconds to allow time for removing extruded filament \nG29 P2 Z0.28 ; Auto-level ; ADJUST Z higher or lower to set first layer height. Start with 0.02 adjustments. \nG1 Z30 ; raise Z 30mm to prepare for priming the nozzle \nG1 E5 F200 ; extrude 5mm of filament to help prime the nozzle just prior to the start of the print \nG92 E0 ; reset extrusion distance \nG4 S5 ; pause for 5 seconds to allow time for cleaning the nozzle and build plate if needed ",
+    "end_gcode": "M107; \nM104 S0; turn off hotend heater \nM140 S0; turn off bed heater \nG91; Switch to use Relative Coordinates \nG1 E-2 F300; retract the filament a bit before lifting the nozzle to release some of the pressure \nG1 Z5 E-5 F4800; move nozzle up a bit and retract filament even more \nG28 X0; return to home positions so the nozzle is out of the way \nM84; turn off stepper motors \nG90; switch to absolute positioning \nM82; absolute extrusion mode",
+    "bed_temp": 40,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 110,
+    "build_volume_y": 110,
+    "build_volume_z": 120,
+}

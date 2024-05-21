@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "JGAurora A6",
+    "manufacturer": "JGAurora",
+    "start_gcode": "M190 S{data['bed_temp']} ;bed temperature line\nM109 S{data['nozzle_temp']} ;temperature line\nG21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107;start with the fan off\nG28 X0 Y0 ;move X/Y to min endstops\nG28 Z0 ;move Z to min endstops\nG1 Z15.0 F{data['travel_speed']} ;move the platform down 15mm\nG92 E0 ;zero the extruded length\nF200 E3;extrude 3mm of feed stock\nG92 E0 ;zero the extruded length again\nG1 F{data['travel_speed']}\nG1 Z0.0 F{data['travel_speed']}\nM117 Printing... ;LCD Message",
+    "end_gcode": "M104 S0 ;extruder heater off\nM140 S0;heated bed heater off\nG91;relative positioning\nG1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-5 X-20 Y-20 F{data['travel_speed']} ;move Z up a bit and retract filament even more\nG28 X0 Y0;move X/Y to min endstops, so the head is out of the way\nM84 ;steppers off\nG90;absolute positioning\nM104 S0 ; turn off extruder\nM140 S0 ; turn off heatbed\nM107 ; turn off fan\nG1 X178 Y180 F4200 ; park print head\nM84 ; disable motors",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 300,
+    "build_volume_y": 200,
+    "build_volume_z": 200,
+}

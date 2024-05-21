@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Leapfrog Creatr HS",
+    "manufacturer": "Leapfrog B.V.",
+    "start_gcode": "M107 ; start with the fan off\nG28 X0 Y0 ; home XY axes\nG28 Z0 ; home Z\nG92 X0 Y0 Z0 E0 ; reset software positions\nG1 Z15.0 F180\nT0\nG92 E0 ; zero the extruded length\nG1 E3 F200\nG92 E0 ; zero the extruded length again\nG1 F225",
+    "end_gcode": "M104 S0 T0 ; turn off right extruder\nM104 S0 T1 ; turn off left extruder\nM140 S0 T0 ; turn off bed\nG1 Z200 F1200 ; drop bed\nG28 X0 ; home X axis\nM84 ; disable motors",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 270,
+    "build_volume_y": 280,
+    "build_volume_z": 180,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Anycubic i3 Mega X",
+    "manufacturer": "Anycubic",
+    "start_gcode": ";Profil Homepage: https://github.com/NilsRo/Cura_Anycubic_MegaS_Profile\n\n;Slicer Information - (Support for OctoPrint Slicer Estimator)\nG21                                        ; metric values \nG90                                        ; absolute positioning \nM82                                        ; set extruder to absolute mode \nM900 K0                                    ; disable lin. adv. if not set in GCODE\nM107                                       ; start with the fan off \nM140 S{data['bed_temp']}   ; Start heating the bed \nG4 S60                                     ; wait 1 minute \nM104 S{data['nozzle_temp']} ; start heating the hot end \nM190 S{data['bed_temp']}   ; wait for bed \nM109 S{data['nozzle_temp']} ; wait for hotend \nM300 S1000 P500                            ; BEEP heating done \nG28 X0 Y10 Z0                              ; move X/Y to min endstops \nM420 S1                                    ; Enable leveling \nM420 Z2.0                                  ; Set leveling fading height to 2 mm \nG0 Z0.15                                   ; lift nozzle a bit \nG92 E0                                     ; zero the extruded length \nG1 X50 E20 F500                            ; Extrude 20mm of filament in a 5cm line. \nG92 E0                                     ; zero the extruded length again \nG1 E-2 F500                                ; Retract a little \nG1 X50 F500                                ; wipe away from the filament line\nG1 X100 F9000                              ; Quickly wipe away from the filament line",
+    "end_gcode": "M104 S0                                    ; Extruder off \nM140 S0                                    ; Heatbed off \nM107                                       ; Fan off \nG91                                        ; relative positioning \nG1 E-5 F300                                ; retract a little \nG1 Z+10 E-5 ; X-20 Y-20 F{data['travel_speed']} ; lift print head \nG28 X0 Y0                                  ; homing \nG1 Y180 F2000                              ; reset feedrate \nM84                                        ; disable stepper motors \nG90                                        ; absolute positioning \nM300 S440 P200                             ; Make Print Completed Tones \nM300 S660 P250                             ; beep \nM300 S880 P300                             ; beep",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50.0,
+    "travel_speed": 100.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 300,
+    "build_volume_y": 300,
+    "build_volume_z": 305,
+}

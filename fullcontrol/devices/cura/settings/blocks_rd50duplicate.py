@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Blocks RD50 - Duplication Mode",
+    "manufacturer": "Blocks",
+    "start_gcode": ";INITIALIZE DUPLICATION MODE\nM605 S1      ; AUTO-PARK MODE\nT0           ; Set tool 0\nG28          ; Home all axes\nG28 X\nM605 S2      ; Set duplication mode\n; PREHEAT\nM140 S{data['bed_temp']}   ; Set Heat Bed temperature\nM104 S{data['nozzle_temp']} ; Set Extruder temperature\nM190 S{data['bed_temp']}   ; Wait for Heat Bed temperature\nM109 S{data['nozzle_temp']} ; Wait for Extruder temperature\n;SET DUPLICATION MODE\nM605 S2 X622 ; Set duplication mode and nozzle offset\nG28 X\nG1 X-60 F3000\nM605 S3 X622 ; Set mirror mode and nozzle offset\nM82\nG92 E0       ; Reset Extruder\nG1 F400\nG1 E40 F400  ; Prime\nG12          ; Clean Nozzle\nM605 S2 X250\nG28 X\nG92 E0 ; Reset Extruder\nG1 X0 F3000\n",
+    "end_gcode": "M104 S0 ;extruder heater off\nM140 S0 ;heated bed heater off (if you have it)\nG91 ;relative positioning\nG1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+1 E-1 X-20 Y-20 F6000 ;move Z up a bit and retract filament even more\nM605 S1      ; AUTO-PARK MODE\nG28 X Y ;move X/Y to min endstops, so the head is out of the way\nM84 ;steppers off\nG90 ;absolute positioning\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 150.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 500,
+    "build_volume_y": 500,
+    "build_volume_z": 500,
+}

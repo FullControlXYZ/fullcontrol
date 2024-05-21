@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Julia",
+    "manufacturer": "Fracktal",
+    "start_gcode": " ;metric values\n M107\n G28\n G29\n G90        ;absolute positioning\n G92 E0; reset extruder distance\n G1 Z5 F300 ;move nozzle up 5mm for safe homing\n G1 X0 Y0 Z0 F5000; move nozzle to home\n M300 S600P200\n M300 S800 P200\n M190 S{data['bed_temp']} ;Uncomment to add your own bed temperature line\n M109 S{data['nozzle_temp']} ;Uncomment to add your own temperature line\n M82        ;set extruder to absolute mode\n M107       ;start with the fan off\n G1 Z15.0 F{data['travel_speed']} ;move the platform down 15mm\n G92 E0                  ;zero the extruded length\n G1 F200 E3              ;extrude 3mm of feed stock\n G92 E0                  ;zero the extruded length again\n G1 F{data['travel_speed']}\n ;Put printing message on LCD screen\n M117 Printing...\n",
+    "end_gcode": " M104 S0                     ;extruder heater off\n M140 S0                     ;heated bed heater off (if you have it)\n G91                                    ;relative positioning\n G1 E-1 F300                            ;retract the filament a bit before lifting the nozzle, to release some of the pressure\n G1 Z+0.5 E-5 X-20 Y-20 F{data['travel_speed']} ;move Z up a bit and retract filament even more\n G28 X0 Y0                              ;move X/Y to min endstops, so the head is out of the way\n M84                         ;steppers off\n G90                         ;absolute positioning\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 80,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 210,
+    "build_volume_y": 250,
+    "build_volume_z": 260,
+}

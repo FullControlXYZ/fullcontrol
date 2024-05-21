@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Mankati Fullscale XT Plus",
+    "manufacturer": "Mankati",
+    "start_gcode": "M117 Initializing...\nG28 ; home all axes\nG90 ; use absolute coordinates\nG1 F12000 X0 Y0 Z30  ; lift nozzle 30 mm\nT0 ; select extruder 1\nG92 E0 ; reset extruder length\nG1 F100 Z30 E7 ; extrude 7mm while going up\nG92 E0 ; zero the extruder length\nM117 Printing...\n",
+    "end_gcode": "M104 T0 S0 ; turn off extruder 1 heating\nM140 S0 ; turn off bed heating\nG91 ; relative positioning\nG1 F12000 E-0.5 ; retract 0.5 mm\nG1 F12000 Z30 ; move Z-axes 30 mm down\nG28 X0 Y0  ; home X axis and Y axes\nM84     ; disable motors\nM117 Ready!\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 260,
+    "build_volume_y": 260,
+    "build_volume_z": 300,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Arjun 300 Mirror",
+    "manufacturer": "Sri Vignan Technologies",
+    "start_gcode": "M605 S2 R0 X155\nM605 S3 X155\nG21\nG90\nM82\nM107\nM104 S{data['nozzle_temp']}\nM105\nM109 S{data['nozzle_temp']}\nG28 Z0\nG1 Z15 F150\nG28 Y0\nG1 Y20 F6000\nG28 X0\nG1 X80 F9000\nT0\nG92 E0\nG1 E35 F250\nG1 E45 F120\nG92 E0\nG1 X100 Z0 F5000\nG1 X145 F9000\nM117\n",
+    "end_gcode": "G91\nG1 Z+0.5 E-16 Y+10 F9000\nG90\nM107\nM107 P1\nM104 S0\nM140 S0\nM117\nM605 S0\nG28 X0 Y0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 200,
+    "dia_feed": 1.75,
+    "build_volume_x": 158.5,
+    "build_volume_y": 310,
+    "build_volume_z": 290,
+}

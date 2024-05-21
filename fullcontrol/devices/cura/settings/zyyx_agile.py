@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Zyyx Agile",
+    "manufacturer": "Magicfirm Europe",
+    "start_gcode": "; ZYYX 3D Printer start gcode\nM73 P0; enable build progress\nG21; set units to mm\nG90; set positioning to absolute\nG130 X80 Y80 A127 B127 ; Set Stepper Vref to default value\nG162 X Y F3000; home XY axes maximum\nM133 T0 ; stabilize extruder temperature\nG161 Z F450\nG161 Z F450; home Z axis minimum\nG92 X0 Y0 Z0 E0\nG1 X0 Y0 Z5 F200\nG161 Z F200; home Z axis minimum again\nG92 X0 Y0 Z0 E0\nM131 A; store surface calibration point 1\nG1 X0 Y0 Z5 F200\nG1 X-177 Y0 Z5 F3000; move to 2nd probing point\nG161 Z F200\nM131 B; store surface calibration point 2\nG92 X-177 Y0 Z0 E0\nG1 X-177 Y0 Z5 F200\nG1 X0 Y0 Z5 F3000; move to home point\nG161 Z F200; home Z axis minimum again\nG92 X0 Y0 Z0 E0; set reference again\nG1 X0 Y0 Z5 F200; clear Z\nG1 X0 Y-225 Z5 F3000; move to 3rd calibration point\nG161 Z F200\nM131 AB; store surface calibration point 3\nM132 AB; activate auto leveling\nG92 X0 Y-225 Z0 E0\nG1 X0 Y-225 Z5 F200\nG162 X Y F3000\nG161 Z F200\nG92 X135 Y115 Z0 E0\nM132 Z; Recall stored home offset for Z axis\nG1 X135 Y115 Z5 F450; clear nozzle from hole\nG1 X0 Y115 Z5 F3000; clear nozzle from hole\nG92 E0 ; Set E to 0",
+    "end_gcode": "; ZYYX 3D Printer end gcode\nM73 P100 ; end build progress\nG0 Z195 F1000 ; send Z axis to bottom of machine\nM104 S0 T0 ; cool down extruder\nM127 ; stop blower fan\nG162 X Y F3000 ; home XY maximum\nM18 ; disable stepper\nM70 P5 (ZYYX Print Finished!)\nM72 P1 ; play Ta-Da song\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50,
+    "travel_speed": 80,
+    "dia_feed": 2.85,
+    "build_volume_x": 265,
+    "build_volume_y": 225,
+    "build_volume_z": 195,
+}

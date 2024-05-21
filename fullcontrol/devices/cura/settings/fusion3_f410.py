@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Fusion3 F410",
+    "manufacturer": "Fusion3Design",
+    "start_gcode": "; Fusion3 F410 start code\nM104 S0 ; shutdown heater and prepare to print\nG21  ; set units to mm\nG90  ; use absolute coordinates\nT0  ; select tool 0\nG92 E0.0  ; reset e count\nM220 S100 ; reset speed multiplier\nM140 S{data['bed_temp']}  ; set bed temp and do not wait\nG32  ; call to run bed.g\nM190 S{data['bed_temp']} ; Set bed temperature and wait\nM109 S{data['nozzle_temp']} ; set print head temperature and wait\n; === pause for heating ===\n; reset filament monitor\nM42 P63 S0\nG4 P100\nG4 P50\nM42 P63 S1\nG1 X350 Y0\nG1 Z10.0 F2000  ; move up\nG1 E10.0 F500  ; prime extruder\nG92 E0.0  ; reset e count\nG1 X330 Y15 F9000  ; move back\nG1 Z{0.1} F1000  ; move down to begin wipe\nG1 X150 E4.0 F6000  ; wipe print head (extrude material while we do this)\nG92 E0.0  ; reset e count\n",
+    "end_gcode": "; Fusion3 F410 end code\nG91  ;relative positioning\nG1 E-5.00 F1000  ;retract 5mm of filament\nG1 Z+1.00 X-20.0 Y+20.0 F10000  ;short quick move to disengage from print\nG90  ;absolute positioning\nG1 X0.0 Y350.0 F9000  ; move head to back left corner\nG91  ; relative positioning\nG1 E-5.00 F500  ;retract additional filament to prevent oozing\nG90 ;absolute positioning\nM104 S0  ;turn off hotend\nM140 S0  ;turn off heatbed\n; Reset filament monitor\nM42 P63 S0\nG4 P100\nG4 P50\nM42 P63 S1\nG1 Z315 F1000 ;move print bed down to idle position\nM106 S0  ; shut off blower\nM84  ;motors off\nM561  ;clear bed probe transformation\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 100,
+    "travel_speed": 150.0,
+    "dia_feed": 2.85,
+    "build_volume_x": 355,
+    "build_volume_y": 355,
+    "build_volume_z": 315,
+}

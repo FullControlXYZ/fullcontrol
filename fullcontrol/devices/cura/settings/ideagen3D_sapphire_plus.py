@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Ideagen3D Sapphire Plus",
+    "manufacturer": "Ideagen3D",
+    "start_gcode": ";Start GCode by ideagen3D\n\nG1 Z15.0 F6000 ;Move the platform down 15mm\n\n;Initialize Temperature\nM140 S{data['bed_temp']} ;heat bed and continue\nM104 S{data['nozzle_temp']} ;heat nozzle and continue\nM190 S{data['bed_temp']} ;wait for bed temperature to reach initial layer temperature\nM109 S{data['nozzle_temp']} ;wait for hot end temperature to reach initial layer temperature\n\nG28 M420 S1 ; Home & Enable Bed Levelling\n\n;Prime the extruder\nG92 E0\nG1 X1 Y280 Z0.2 ;Prepare to Purge\nG1 Y20 Z0.2 F1500.0 E15 ;Purge line\nG92 E0",
+    "end_gcode": ";End GCode by ideagen3D\n\nM104 S0 ;Set nozzle temperature to 0\nM140 S0 ;Set Bed temperature to 0\n\nG92 E1 ;Prepare to retract filament\nG1 E-1 F300 ;Retract filament\nG28 X0 Y0 ;Home X and Y\nM84 ;Disable Steppers",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 300,
+    "build_volume_y": 300,
+    "build_volume_z": 350,
+}

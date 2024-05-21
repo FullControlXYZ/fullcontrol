@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "uBuild-3D Mr Bot 280",
+    "manufacturer": "uBuild-3D",
+    "start_gcode": "G21 ; set units to millimeters\nG90 ; use absolute positioning\nM82 ; absolute extrusion mode\nM140 S{data['bed_temp']} ; set bed temp\nM104 S{data['nozzle_temp']} ; set extruder temp\nG28 ; home X, Y and Z\nG29 ; probe sequence (for auto-leveling)\nG1 Z15 F600 ; go to Z15 position\nG1 X0 Y-20 F10000 ; go to X0 Y-20 position\nM190 S{data['bed_temp']} ; wait for bed temp\nM109 S{data['nozzle_temp']} ; wait for extruder temp\nG92 E0 ; reset extruder distance position\nG1 E25 F100 ; extrude 25mm of material\nG92 E0 ; reset extruder distance position\nM117 Printing...",
+    "end_gcode": "M400 ; wait for moves to finish\nG92 Z0 E0 ; reset Z position\nG1 E-2 F9000 ; retract material\nG1 Z2 ; get extruder out of the way\nM104 S0 ; turn off extruder\nG1 Y285 F3000 ; present finished print\nM140 S0 ; turn off bed\nM84 ; disable motors\nM117 Print complete",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 275,
+    "build_volume_y": 275,
+    "build_volume_z": 275,
+}

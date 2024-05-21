@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "BLV MGN Cube 350",
+    "manufacturer": "BLV",
+    "start_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nG92 E0 ;zero the extruded length\nM104 S170 T0; start preheat hotend_0\nM140 S{data['bed_temp']} ; start preheating the bed\nM190 S{data['bed_temp']} ; heat to Cura Bed setting\nG28\nG12 P1 S2 T3\nG34\nG29\nG1 X0 Y0 Z1 F9000\nM109 S{data['nozzle_temp']} T0\nG1 X100 Y0 Z{0.1} E30 F500 ;intro line\nG92 E0 ;zero the extruded length again\nM117 Printing...\n",
+    "end_gcode": "G91 ;relative positioning\nG1 Z5 F500; move nozzle relative to position\nG90 ;absolute positioning\nG1 X0 Y{data['build_volume_y']}\nG12 P1 T3\nM104 S0\nM140 S0\nG92 E0\nM84\nM109 S50\nM81\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 100,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 350,
+    "build_volume_y": 350,
+    "build_volume_z": 465,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "VzBot Custom",
+    "manufacturer": "VzBot",
+    "start_gcode": "start_print B={data['bed_temp']} H={data['nozzle_temp']} C={0}",
+    "end_gcode": "end_print",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 300,
+    "travel_speed": 300,
+    "dia_feed": 2.85,
+    "build_volume_x": 400,
+    "build_volume_y": 400,
+    "build_volume_z": 400,
+}

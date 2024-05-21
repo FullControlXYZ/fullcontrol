@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Mark2 for Ultimaker2",
+    "manufacturer": "Foehnsturm",
+    "start_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nM200 D0 T0 ;reset filament diameter\nM200 D0 T1\nG28 Z0; home all\nG28 X0 Y0\nG0 Z20 F2400 ;move the platform to 20mm\nG92 E0\nM190 S{data['bed_temp']}\nM109 T0 S{110, 0}\nM109 T1 S{data['nozzle_temp'], 1}\nM104 T0 S{data['nozzle_temp'], 0}\nT1 ; move to the 2th head\nG0 Z20 F2400\nG92 E-7.0 ;prime distance\nG1 E0 F45 ;purge nozzle\nG1 E-5.1 F1500 ; retract\nG1 X90 Z0.01 F5000 ; move away from the prime poop\nG1 X50 F9000\nG0 Z20 F2400\nT0 ; move to the first head\nM104 T1 S{110, 1}\nG0 Z20 F2400\nM104 T{data['extruder_number']} S{data['nozzle_temp'], data['extruder_number']}\nG92 E-7.0\nG1 E0 F45 ;purge nozzle\nG1 X60 Z0.01 F5000 ; move away from the prime poop\nG1 X20 F9000\nM400 ;finish all moves\nG92 E0\n;end of startup sequence\n",
+    "end_gcode": "G90 ;absolute positioning\nM104 S0 T0 ;extruder heater off\nM104 S0 T1\nM140 S0 ;turn off bed\nT0 ; move to the first head\nM107 ;fan off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 223,
+    "build_volume_y": 223,
+    "build_volume_z": 203,
+}

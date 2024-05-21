@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "I3 Metal Motion",
+    "manufacturer": "eMotionTech",
+    "start_gcode": "G21 ; set units to millimeters\nG90 ; use absolute positioning\nM82 ; absolute extrusion mode\nM104 S{data['nozzle_temp']} ; set extruder temp\nM140 S{data['bed_temp']} ; set bed temp\nM190 S{data['bed_temp']} ; wait for bed temp\nM109 S{data['nozzle_temp']} ; wait for extruder temp\nG28 W ; home all\nG92 E0.0 ; reset extruder distance position\nG1 Y-3.0 F1000.0 ; go outside print area\nG1 X60.0 E9.0 F1000.0 ; intro line\nG1 X100.0 E21.5 F1000.0 ; intro line\nG92 E0.0 ; reset extruder distance position",
+    "end_gcode": "G28 Z\nG28 X\nG28 Y\nM107 ; Turn off the fan\nG91; Relative positioning\nG1 E-1 ; reduce filament pressure\nM104 T0 S0\nG90 ; Absolute positioning\nG92 E0 ; Reset extruder position\nM140 S0 ; Disable heated bed\nM84 ; Turn the steppers off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 200,
+    "build_volume_y": 200,
+    "build_volume_z": 200,
+}
