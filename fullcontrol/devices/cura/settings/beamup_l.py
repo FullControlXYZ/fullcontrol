@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "BeamUp L",
+    "manufacturer": "BeamUp",
+    "start_gcode": "G28 ; home\nG29 ; level\nM80 ; led\nG1 Z15.0 F6000\nT0\nG92 E0.0000\nG1 E-1.4500 F1800\nG1 X50 Y0 Z0.300 F6000\nM300 S3000 P300\nG1 E1.0000 F1800\nG92 E0.0000\nG1 X250 Y0 E15 F662",
+    "end_gcode": "G28 ; home\nM104 S0 ; turn off\n M140 S0 ; turn off\nM84 ; disable motors\nM107 ; fan off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 320,
+    "build_volume_y": 320,
+    "build_volume_z": 300,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Raise3D N2 Plus Dual",
+    "manufacturer": "Raise3D",
+    "start_gcode": "G90\nG21\n; home all axes\nG28\nG92 X0 Y0 Z0\n; move heatbed into position\nG1 X20.0 Y20.0 Z1.0 F1000\n; zero extruders\nG92 E0 E1\nT0; right tool\n; set extruder steps per mm\nM92 E140\nT1; left tool\n; set extruder steps per mm\nM92 E140\nT0; left tool\nG92 E0 E1\n; purge nozzle\nG1 E25 F250\nT1; left tool\nG92 E0 E1\n; purge nozzle\nG1 E25 F250\n; zero extruders\nG92 E0 E1\n; move heatbed down a little more\nG1 Z5.0 F20\n; wait 600ms\nG4 600\n; move to tack down the strands\nG1 X20.0 Y30.0 Z0 F9000\n; wait 600ms\nG4 600\n;move up a bit\nG1 Z5.0 F9000\n; wait 300ms\nG4 300\n;fast move to center\nG1 X152.5 Y152.5 F9000\nT0\n;Raise3D Job Start\nM117 Printing...\nM1001\n",
+    "end_gcode": "M107\nM1002\nM104 S0 T1\nM104 S0 T0\nM140 S0\nM117 Print Complete.\nG28 X0 Y0\nG91\nG1 Z10\nG90\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 305,
+    "build_volume_y": 305,
+    "build_volume_z": 610,
+}

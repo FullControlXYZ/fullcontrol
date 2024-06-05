@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Trimaker Nebula Plus",
+    "manufacturer": "Trimaker",
+    "start_gcode": ";Trimaker Nebula Start Code\n G21; Unidades en mm\n G90; Posicion absoluta\n M82; Extrusor en modo absoluto\n M107; Fan apagado\n G28 X Y Z; Enviamos a home a todos los ejes\n M900 K=0; Linear advance desactivado\n M104 S110; Precalentamos el extrusor hasta 110 grados\n M190 S{data['bed_temp']};\n G29; Senso la cama\n M500\n G1 F5000 X0.5 Y0.5\n Calentamos cama y esperamos\n M109 S{data['nozzle_temp']}; Calentamos extrusor y esperamos\n G92 E0; E=0\n G1 F200 X0.5 Y0.5 Z0.300\n G1 F900 X0.5 Y51.5 E2.56436; Hacemos una linea para limpiar extrusor\n",
+    "end_gcode": ";Trimaker Nebula End Code\n M107; Apagamos fan\n G90\n G92 E0\n G1 X0 Y200\n G91\n G1 Z5\n G92 E0\n M140 S0; Enfriamos\n M104 S0; Enfriamos\n M84\n G90\n M117 Impresion finalizada\n M300 S440 P700\n",
+    "bed_temp": 60,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 45,
+    "travel_speed": 100,
+    "dia_feed": 1.75,
+    "build_volume_x": 230,
+    "build_volume_y": 230,
+    "build_volume_z": 260,
+}

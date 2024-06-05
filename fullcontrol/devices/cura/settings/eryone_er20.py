@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Eryone ER20",
+    "manufacturer": "Eryone",
+    "start_gcode": "G21 ;Metric values\nG90 ;Absolute positioning\nM82 ;Set extruder to absolute mode\nM107 ;Start with the fan off\nG28 ;Homing the hotend\nG29 ;Auto bed leveling detecting\nG92 E0 ;Reset the extruded length\nG1 F200 E3 ;Extrude 3mm of filament\nG92 E0 ;Reset the extruded length again\nG1 Y-3 F1200 ;Move y axis to prime\nG1 X150 F6000 ;Move x axis to prime\nG1 Z0.2 F720 ;Move z axis to prime\nG1 X80.0 E8.0 F900 ;Prime line\nG1 X20.0 E10.0 F700 ;Prime line\nG92 E0 ;Reset the extruded length\nG5 ;Enable resume from power failure\nM117 Printing...\n",
+    "end_gcode": "G91 ;Relative positioning\nG1 Z5 F720 ;Raise Z\nG1 E-5 F300 ;Retract a bit to protect nozzle\nM104 S0 ;Turn off extruder\nM140 S0 ;Turn off bed\nM107 ;Turn off all fans\nG90 ;Absolute positioning\nG1 X230 Y200 F4800 ;Parking the hotend\nM84 X Y E ;All steppers off but left Z\n",
+    "bed_temp": 60,
+    "nozzle_temp": 205,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 150,
+    "dia_feed": 2.85,
+    "build_volume_x": 250,
+    "build_volume_y": 220,
+    "build_volume_z": 200,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Makeblock mCreate",
+    "manufacturer": "Makeblock",
+    "start_gcode": "; Mcreate Start Gcode \nG28 ; Home all axes \nG92 E0 ; Reset Extruder\nG1 X0 Y0 Z15 F3000.0 ; Move to start position \nG1 E10 F400 ;load filament \nG1 E2 F400 ;retarct filament \nG92 E0 ; Reset Extruder \nG1 X0 Y130 Z15 F3000.0 \nG12 ; clean nozzle \nG1 X0 Y0 Z0.3 F3000.0 ; Move to start position \nG1 E9.0 F400 ;loadsome filament \nG92 E0 ; Reset Extruder \n; End of start GCode",
+    "end_gcode": "; Mcreate end Gcode \nG4 ; Wait command in buffer have finished \nG92 E0 \nG1 E-2 F300; retract filament \nG28 X Z; home x z axis \nG1 F3000 Y220;Move Heat Bed to the front for easy print removal \nM104 S0; Turn off the nozzle heat \nM140 S0; Turn off the bed heat \nM107 ; Turn off the Fan \nM84 ; Disable stepper motors \n; End of GCode",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 225,
+    "build_volume_y": 225,
+    "build_volume_z": 300,
+}

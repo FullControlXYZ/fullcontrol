@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Alfawise U30",
+    "manufacturer": "Alfawise",
+    "start_gcode": "; -- START GCODE --\nG21        ;metric values\nG90        ;absolute positioning\nM82        ;set extruder to absolute mode\nM107       ;start with the fan off\nG28 X0 Y0  ;move X/Y to min endstops\nG28 Z0     ;move Z to min endstops\nG1 Z1 F1000             ;move up slightly\nG1 Y60.0 Z0 E9.0 F1000.0;intro line\nG1 Y100.0 E21.5 F1000.0 ;continue line\nG92 E0                  ;zero the extruded length again\nG1 F80\n;Put printing message on LCD screen\nM117 Printing...\n; -- end of START GCODE --",
+    "end_gcode": "; -- END GCODE --\nM104 S0                     ;extruder heater off\nM140 S0                     ;heated bed heater off (if you have it)\nG91                                    ;relative positioning\nG1 E-1 F300                            ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-5 X-20 Y-20 F80 ;move Z up a bit and retract filament even more\nG28 X0 Y0                              ;move X/Y to min endstops, so the head is out of the way\nM84                         ;steppers off\nG90                         ;absolute positioning\nM107       ;turn the fan off; -- end of END GCODE --",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 40,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 220,
+    "build_volume_y": 220,
+    "build_volume_z": 250,
+}

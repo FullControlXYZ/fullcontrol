@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Trimaker Cosmos II",
+    "manufacturer": "Trimaker",
+    "start_gcode": ";Start GCode - Cosmos II - 3.x.x_SEGcTK_1.1\n M104 S120; Comienzo a calentar extrusor\n G21; Unidades en mm\n G90; absolute positioning\n M82; set extruder to absolute mode\n M107; Apagar FAN\n G28; Home\n M190 S{data['bed_temp']}\n G29; Senso la cama\n M500\n G1 F5000 X0.5 Y0.5\n M109 S{data['nozzle_temp']}\n M900 K0.04\n G1 F200 Z10\n G92 E0; Defino cero en la posición del actual del extrusor\n G1 F200 X0.5 Y0.5 Z0.300; Posiciono antes de hacer una línea\n G1 F900 X0.5 Y51.5 E2.56436; Hago una línea\n ",
+    "end_gcode": ";CODIGO FINAL\n M107; Fan off\n G90; Set to absolute positioning\n G1 X0 Y0 Z201; Get extruder out of way\n G92 E0; Reset extruder position\n G1 E-1; Reduce filament pressure\n G92 E0; Reset extruder position again\n M140 S0; Disable heated bed\n M104 S0; Disable extruder\n M84; Turn steppers off",
+    "bed_temp": 60,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 45,
+    "travel_speed": 100,
+    "dia_feed": 1.75,
+    "build_volume_x": 200,
+    "build_volume_y": 200,
+    "build_volume_z": 200,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "UltiMaker S3",
+    "manufacturer": "Ultimaker B.V.",
+    "start_gcode": "",
+    "end_gcode": "",
+    "bed_temp": 60,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 35,
+    "travel_speed": 150,
+    "dia_feed": 2.85,
+    "build_volume_x": 230,
+    "build_volume_y": 190,
+    "build_volume_z": 200,
+}

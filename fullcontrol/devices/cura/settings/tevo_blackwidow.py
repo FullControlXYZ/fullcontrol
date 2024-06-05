@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Tevo Black Widow",
+    "manufacturer": "Tevo",
+    "start_gcode": "M280 P0 S160 ; release BLTouch alarm (OK to send for Non BLTouch)\nM420 Z2 ; set fade leveling at 2mm for BLTouch (OK to send for Non BLTouch)\nG28 ; home all\nG29 ; probe bed\nG92 E0 ;zero the extruded length\nG1 X0.0 Y50.0 Z10.0 F3600\n; perform wipe and prime\nG1 Z0.0 F1000\nG1 Z0.2 Y70.0 E9.0 F1000.0 ; prime\nG1 Y100.0 E12.5 F1000.0 ; prime\nG92 E0 ; zero extruder again\nM117 Printing...",
+    "end_gcode": "G92 E0 ; zero the extruded length again\nG1 E-1.5 F500 ; retract the filament to release some of the pressure\nM104 S0 ; turn off extruder\nM140 S0 ; turn off bed\nG28 X0 ; home X axis\nG1 Y245 ; move Y axis to end position\nM84 ; disable motors\nM107 ; turn off fan",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 350,
+    "build_volume_y": 250,
+    "build_volume_z": 250,
+}

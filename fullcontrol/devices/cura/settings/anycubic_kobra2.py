@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Anycubic Kobra 2",
+    "manufacturer": "Anycubic",
+    "start_gcode": "G21 ;metric values\nG90 ; use absolute coordinates\nM82 ; use absolute distances for extrusion\nM104 S[first_layer_temperature] ; set extruder temp\nM140 S[first_layer_data['bed_temp']erature] ; set bed temp\nM190 S[first_layer_data['bed_temp']erature] ; wait for bed temp\nM109 S[first_layer_temperature] ; wait for extruder temp\nG28 ; home all axes\nM300 S1318 P266\nG1 Z5 F5000 ; lift nozzle\nG1 X5 Y0  F3000\nG1 Z0.3 ; set nozzle height\nG92 E0\nG1 X50 Y0 E20 F500 ; Extrude 20mm of filament in a 5cm line \nG92 E0 ; zero the extruded length again \nG1 E-4.5 F4800 ; Retract a little \nG92 E0\nG1 X120 F4000 ; Quickly wipe away from the filament line\nM117 ; Printing…\nG5",
+    "end_gcode": "M104 S0 ; turn off extruder\nM140 S0 ; turn off bed\nM107 ; fan off\nG91 ;relative positioning\nG1 E-2 F3000 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-5 F3000 ;move Z up a bit and retract filament even more\nG28 X0 Y0 F3000 ;move X/Y to min endstops, so the head is out of the way\nG1 Y210 F3000\nM84 ;steppers off\nG90\nM300 S1318 P266",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 80,
+    "travel_speed": 125,
+    "dia_feed": 1.75,
+    "build_volume_x": 220,
+    "build_volume_y": 220,
+    "build_volume_z": 250,
+}

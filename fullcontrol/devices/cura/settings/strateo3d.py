@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "DUAL600",
+    "manufacturer": "eMotionTech",
+    "start_gcode": "G28 \nG90 \nG1 X0 Y0 Z15 F6000 \nG1 Z0.3 \nG92 E0 \nG1 F300 X45 E18 \n;G1 F1500 E17 \nG1 F600 X25 \nG1 F600 Z3",
+    "end_gcode": "T1 \nM104 S0 \nT0 \nM104 S0 \nM140 S0 \nM141 S0 \nG91 \nG0 z1 \nG90 \nG28 \nM801.0 \nM84 \nM192",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 93,
+    "print_speed": 50,
+    "travel_speed": 150,
+    "dia_feed": 2.85,
+    "build_volume_x": 600,
+    "build_volume_y": 420,
+    "build_volume_z": 495,
+}

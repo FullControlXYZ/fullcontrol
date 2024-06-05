@@ -54,8 +54,7 @@ class State(BaseModel):
         super().__init__()
         self.point_count_total = self.count_points(steps)
 
-        initialization_data = import_module(f'fullcontrol.gcode.printer_library.singletool.{plot_controls.printer_name}').set_up(
-            plot_controls.initialization_data)  # future plan: move printer library from gcode package since it can affect more than just gcode
+        initialization_data = import_module(f'fullcontrol.devices.community.singletool.{plot_controls.printer_name}').set_up(plot_controls.initialization_data)  # future plan: move printer library from gcode package since it can affect more than just gcode
 
         self.extrusion_geometry = ExtrusionGeometry(
             width=initialization_data['extrusion_width'],

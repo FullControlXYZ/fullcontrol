@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Winbo Mini2",
+    "manufacturer": "Winbo Smart Tech Co., Ltd.",
+    "start_gcode": "G21\nG90\nM82\nM107\nG28 X0 Y0\nG28 Z0\nG1 F1000 Z3\nG1 F4000 X0\nG1 F4000 Y0\nG1 F1000 Z0.2\nG92 E0\nG1 F1000 X30 E8\nG92 E0\nM117 Printing.",
+    "end_gcode": "M104 S0\nM140 S0\nG92 E2\nG1 E0 F200\nG28 X0 Y0\nM84 X Y E",
+    "bed_temp": 60,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 50,
+    "travel_speed": 90,
+    "dia_feed": 2.85,
+    "build_volume_x": 205,
+    "build_volume_y": 155,
+    "build_volume_z": 205,
+}

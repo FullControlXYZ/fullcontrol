@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Flsun Super Racer",
+    "manufacturer": "Flsun",
+    "start_gcode": "G21 ; millimeter units\nG90 ; absolute coordinates\nM82 ; E absolute\nM140 S{data['bed_temp']}\nM104 S{data['nozzle_temp']}\nM190 S{data['bed_temp']}\nM109 S{data['nozzle_temp']}\nG28 ; home axis\nM420 S1 ; enable mesh leveling\n; Lower nozzle and move to start position\nG1 Z150\nG1 X-130 Y0 Z0.4 F3000\n; Extrude about 40 mm by printing a 90 degree arc\nG3 X0 Y-130 I130 Z0.3 E40 F2700\n; Retract and move nozzle up\nG92 E0\nG1 E-1.5 F1800\nG0 Z0.5\nG1 E0 F300\n",
+    "end_gcode": "G91 ; relative coordinates\nG1 E-1 F300 ; retract filament a bit before lifting\nG1 Z+5 E-5 F6000 ; raise platform from current position\nG28 X0 Y0 ; home axis\nG90 ; absolute coordinates\nG92 E0 ; reset extruder\nM104 S0 ; turn off hotend\nM140 S0 ; turn off heat bed\nM107 ; turn off fans\nM84 ; disable motors\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 264,
+    "build_volume_y": 264,
+    "build_volume_z": 320,
+}

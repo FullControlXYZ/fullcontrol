@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Winbo Dragon(L)4",
+    "manufacturer": "Winbo Smart Tech Co., Ltd.",
+    "start_gcode": "G21\nG90\nM82\nM107\nM9998\nG28 X0 Y0\nG28 Z0\nG1 F6000 Z0.3\nG92 E0\nG1 F800 X585 E12\nG92 E0",
+    "end_gcode": "M104 S0\nM140 S0\nG92 E2\nG1 E0 F200\nG28 X0 Y0\nM84 X Y E",
+    "bed_temp": 60,
+    "nozzle_temp": 200,
+    "material_flow_percent": 100,
+    "print_speed": 70,
+    "travel_speed": 100,
+    "dia_feed": 2.85,
+    "build_volume_x": 615,
+    "build_volume_y": 463,
+    "build_volume_z": 615,
+}

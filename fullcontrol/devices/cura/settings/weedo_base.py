@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "WEEDO Base",
+    "manufacturer": "WEEDO",
+    "start_gcode": "G28 ;Home\nG92 E0\nG1 F200 E3\nG92 E0",
+    "end_gcode": "G92 E0\nG1 E-3 F1680 \nG28 Z F400; Get extruder out of way.\nM107 ; Turn off fan\n; Disable all extruder\nM104 T0 S0\nG90 ; Absolute positioning\nG92 E0 ; Reset extruder position\nM84 ; Turn steppers off\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 95.0,
+    "print_speed": 70.0,
+    "travel_speed": 105.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 100,
+    "build_volume_y": 100,
+    "build_volume_z": 100,
+}

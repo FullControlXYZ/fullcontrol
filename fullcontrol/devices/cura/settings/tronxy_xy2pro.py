@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Tronxy XY-2 Pro/Pro 2E/XY3 SE",
+    "manufacturer": "Tronxy",
+    "start_gcode": "; XY-2 Pro Start Code\nG21 ; Set units to millimeters\nG90 ; Set all axis to Absolute\nM82 ; Set extrusion to Absolute\nM107 ; Disable all fans\nM190 S{data['bed_temp']} ; Set bed temperature and wait\nG28 ; Home all axis\n; Uncomment the line below to enable ABL Mesh probing\n;G29 ; Probe bed mesh for ABL\n; For best results do not run nozzle heater while performing ABL\nG1 Z5.0 ; Raise nozzle to prevent scratching of heat bed\nG1 X0 Y0 ; Move nozzle to Home before heating\nM109 S{data['nozzle_temp']} T0 ; Set nozzle temp and wait\nG92 E0 ; Set Extruder position to zero\n; Uncomment the following lines to enable nozzle purge line along left edge of bed\n;G1 Z2.0 F3000 ; Raise Z axis\n;G1 X1.1 Y20 Z0.2 F3600.0 ; Move to purge line start position\n;G1 Y220 F1500.0 E10 ; Draw first purge line\n;G1 X1.4 F3600.0 ; Move to side\n;G1 Y20 F1500.0 E20 ; Draw second purge line\n;G92 E0 ; Reset Extruder\n;G1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\n;G1 X5 Y20 Z0.2 F3600.0 ; Move over to finish nozzle wipe\n;G92 E0\n",
+    "end_gcode": "M83 ; Set extrder to Relative\nG1 E-5 F3000 ; Retract 5mm of filament at 50mm/s\nG90 ; Set all axis to Absolute \nG1 X0 Y{data['build_volume_y']} ; Park print head\nG1 Z10 ; Move up 10mm\nM106 S0 ; Set fan speed to 0\nM104 S0 ; Set bed temp to 0\nM140 S0 ; Set Nozzle temp to 0\nM84 ; Disable all stepper motors\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 95,
+    "print_speed": 60.0,
+    "travel_speed": 75.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 255,
+    "build_volume_y": 255,
+    "build_volume_z": 260,
+}

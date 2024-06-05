@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Diytech 220",
+    "manufacturer": "Sri Vignan Technologies",
+    "start_gcode": "G21\nG90\nM82\nM107\nG28\nG1 Z15 F200\nT0\nG92 E0\nG1 E16 F250\nG92 E0\n",
+    "end_gcode": "G91\nG1 Z+0.5 E-16 Y+10 F9000\nG90\nM107\nM104 S0 T0\nM140 S0\nM117\nG28 X0 Y0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 220,
+    "build_volume_y": 220,
+    "build_volume_z": 305,
+}

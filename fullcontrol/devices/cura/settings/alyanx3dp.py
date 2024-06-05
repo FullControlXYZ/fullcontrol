@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Alya NX",
+    "manufacturer": "Kati Hal ARGE",
+    "start_gcode": " G28 X0 Y0  ;move X Y to endstops \n G28 Z0     ;move Z to endstops \n M107 ; switch fan off \n M109 S{data['nozzle_temp']} ;extruder temp set \n G1 F3000 \n G1 Z10 \n G92 E0                  ;zero the extruded length \n G1 F200 E1 ;extrude 1mm of feed stock \n G92 E0 ;zero the extruded length again \n  G4 P7000 ; wait 7000ms \n M117 Printing... ;Put printing message on LCD screen",
+    "end_gcode": ";End GCode\nM104 S0 ;extruder heater off \nM140 S0 ;heated bed heater off (if you have it)\nG91 ;relative positioning\nG1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-5 X-20 Y-20 F{data['travel_speed']} ;move Z up a bit and retract filament even more\nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way\nG28 Z0\nM84 ;steppers off\nG90 ;absolute positioning",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 180,
+    "build_volume_y": 160,
+    "build_volume_z": 170,
+}

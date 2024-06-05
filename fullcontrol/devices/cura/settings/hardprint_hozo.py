@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "HardPrint Hozo, Hozo",
+    "manufacturer": "HardPrint",
+    "start_gcode": "M221 S100 ; reset flow\nG90 ; use absolute positioning\nM82 ; absolute extrusion mode\nM104 S170 ; set extruder temp for bed leveling\nM140 S{data['bed_temp']} ; set bed temp\nM109 R170 ; wait for extruder temp\nM190 S{data['bed_temp']} ; wait for bed temp\nG28 ; home all\nG29 ; mesh bed leveling\nM104 S{data['nozzle_temp']} ; set extruder temp\nG92 E0.0\nG1 Y-2 X179 F2400\nG1 Z3 F720\nM109 S{data['nozzle_temp']} ; wait for extruder temp\nG92 E0.0\nG1 Y0 F1000\nG1 Z0.2 F720\nG1 Y160 E8 F900\nG1 Y20 E18 F900\nG92 E0.0",
+    "end_gcode": "M104 S0 ; turn off extruder\nM140 S0 ; turn off heatbed\nM107 ; turn off fan\nG1 X178 Y180 F4200 ; park print head\nM84 ; disable motors",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 180,
+    "build_volume_y": 180,
+    "build_volume_z": 180,
+}

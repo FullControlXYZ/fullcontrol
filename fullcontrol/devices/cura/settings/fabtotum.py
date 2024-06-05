@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Fabtotum Personal Fabricator",
+    "manufacturer": "Fabtotum",
+    "start_gcode": "G90 ;absolute positioning\nM82 ;set extruder to absolute mode\nG4 S1 ;1 millisecond pause to buffer the bep bep \nM300 S2 ;FAB bep bep (start the print, go check the oozing and skirt lines adesion) \nG4 S1 ;1 second pause to reach the printer (run fast)\nG92 E0 ;zero the extruded length \nG1 F200 E35    ;slowly extrude 35mm of filament to clean the nozzle and build up extrusion pressure \nG92 E0 ;zero the extruded length again \n;print",
+    "end_gcode": "M104 S0 ;extruder heater off\nM140 S0 ;heated bed heater off (if you have it)\nG91 ;relative positioning\nG1 E-1 F300    ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-3 X+5 Y+5 F5000 ;move Z up a bit and retract filament even more\n;end of the print\nM84 ;steppers off\nG90 ;absolute positioning\nM300 S2 ;FAB bep bep (end print)",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 200,
+    "dia_feed": 2.85,
+    "build_volume_x": 214,
+    "build_volume_y": 234,
+    "build_volume_z": 241.5,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "RatRig V-Core 3",
+    "manufacturer": "RatRig",
+    "start_gcode": "START_PRINT EXTRUDER_TEMP={data['nozzle_temp']} BED_TEMP={data['bed_temp']}",
+    "end_gcode": "END_PRINT",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 100,
+    "travel_speed": 250,
+    "dia_feed": 1.75,
+    "build_volume_x": 100,
+    "build_volume_y": 100,
+    "build_volume_z": 100,
+}

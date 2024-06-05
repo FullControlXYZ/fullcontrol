@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Malyan M200",
+    "manufacturer": "Malyan",
+    "start_gcode": "G21;(metric values)\nG90;(absolute positioning)\nM82;(set extruder to absolute mode)\nM107;(start with the fan off)\nG28;(Home the printer)\nG92 E0;(Reset the extruder to 0)\nG0 Z5 E5 F500;(Move up and prime the nozzle)\nG0 X-1 Z0;(Move outside the printable area)\nG1 Y60 E8 F500;(Draw a priming/wiping line to the rear)\nG1 X-1;(Move a little closer to the print area)\nG1 Y10 E16 F500;(draw more priming/wiping)\nG1 E15 F250;(Small retract)\nG92 E0;(Zero the extruder)",
+    "end_gcode": "G0 X0 Y120;(Stick out the part)\nM190 S0;(Turn off heat bed, don't wait.)\nG92 E10;(Set extruder to 10)\nG1 E7 F200;(retract 3mm)\nM104 S0;(Turn off nozzle, don't wait)\nG4 S300;(Delay 5 minutes)\nM107;(Turn off part fan)\nM84;(Turn off stepper motors.)",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 120,
+    "build_volume_y": 120,
+    "build_volume_z": 120,
+}

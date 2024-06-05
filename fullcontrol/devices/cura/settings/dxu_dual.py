@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "DXU Dual",
+    "manufacturer": "DXU",
+    "start_gcode": "M190 S{data['bed_temp']}\nM104 T0 S{110, 0}\nM104 T0 S{data['nozzle_temp'], 0}\nG21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nM200 D0 T0 ;reset filament diameter\nM200 D0 T1\nG28 ;home all\nT1 ; move to the nozzle 2\nG0 Z20 F2400 ;move the platform to 30mm\nM109 T1 S{data['nozzle_temp'], 1}\nG0 X210 Y20 F7200\nG92 E0\nG92 E-7.0 ;prime distance\nG1 E0 F45 ;purge nozzle\nG1 E-6.5 F1500 ; retract\nT0 ; move to the nozzle 1\nM104 T1 S{110, 1}\nG0 Z20 F2400\nM109 T0 S{data['nozzle_temp'], 0}\nG0 X210 Y20 F7200\nG92 E0\nG92 E-7.0\nG1 E0 F45 ;purge nozzle\nG1 E-6.5 F1500\nM104 T0 S{110, 0}\nT{data['extruder_number']} ;switch to the first nozzle used for print\nM109 T{data['extruder_number']} S{data['nozzle_temp'], data['extruder_number']}\nM400 ;finish all moves\nG1 E0 F1500\nG92 E0\n;end of startup sequence\n",
+    "end_gcode": "G90 ;absolute positioning\nM104 S0 T0 ;extruder heater off\nM104 S0 T1\nM140 S0 ;turn off bed\nT0 ; move to the first head\nM107 ;fan off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 238,
+    "build_volume_y": 223,
+    "build_volume_z": 203,
+}

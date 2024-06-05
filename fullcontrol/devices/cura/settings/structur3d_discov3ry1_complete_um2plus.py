@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Discov3ry Complete",
+    "manufacturer": "Structur3d.io",
+    "start_gcode": "\n;Updated Firmware (.hex and Marlin .ino) for \n;Ultimaker 2+ with Discov3ry Extruder available at: \n;https://github.com/Structur3d/UM2.1Discov3ry-Firmware-beta \n;**Learn more at https://www.structur3d.io** \n \nM104 S{data['nozzle_temp']} ;Start heating extruder  \nM140 S{data['bed_temp']} ;Start heating bed \nG21 ;metric values \nG90 ;absolute positioning \nM82 ;set extruder to absolute mode \nM107 ;start with the fan off \nM302 ;allow cold extrusion \nM92 E2589 ;set extruder EEPROM steps/mm for paste \nG28 Z0 ;move Z to bottom endstops \nG28 X0 Y0 ;move X/Y to endstops \nG1 X15 Y0 F4000 ;move X/Y to front of printer \nG1 Z15.0 F9000 ;move the platform to 15mm \nG92 E0 ;zero the extruded length \nG1 F200 E10 ;extrude 10 mm of feed stock \nG92 E0 ;zero the extruded length again \nG1 F9000 \n;Put printing message on LCD screen \nM117 Printing...",
+    "end_gcode": "M104 S0 ;extruder heater off \nM140 S0 ;heated bed heater off (if you have it) \nM92 E282 ;reset extruder EEPROM steps/mm for plastic filament \nG91 ;relative positioning \nG1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure \nG1 Z+0.5 E-5 X-20 Y-20 F9000 ;move Z up a bit and retract filament even more \nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way \nM84 ;steppers off\nG90 ;absolute positioning",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 15,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 205,
+    "build_volume_y": 205,
+    "build_volume_z": 205,
+}

@@ -1,0 +1,1 @@
+this directory will have the original printer files in with starting_procedure and ending_procedure defined using fullcontrol language instead of gcode strings

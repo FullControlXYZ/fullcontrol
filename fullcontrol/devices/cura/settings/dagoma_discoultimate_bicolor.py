@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Dagoma DiscoUltimate Bicolor",
+    "manufacturer": "Dagoma",
+    "start_gcode": ";Begin Start Gcode for Dagoma DiscoUltimate Bicolor\n\nG90 ;Absolute positioning\nM106 S255 ;Fan on full\nG28 X Y ;Home stop X Y\nG1 X100 ;Centre back during cooldown in case of oozing\nM109 R{90} ;Cooldown in case too hot\nG28 ;Centre\nG29 ;Auto-level\nM104 S{data['nozzle_temp']} ;Pre-heat\nM107 ;Fan off\nG0 X100 Y5 Z0.5 ;Front centre for degunk\nM109 S{data['nozzle_temp']} ;Wait for initial temp\n;M83 ;E Relative\n;G1 E60 F3000 ;Reverse multi-extruder retract\n;G1 E10 F200 ;Degunk\n;G1 E-3 F5000 ;Retract\nG0 Z3 ;Withdraw\n;M82 ;E absolute\n;G92 E0 ;E reset\n;G1 F6000 ;Set feedrate\n\n;Finish Start Gcode for Dagoma DiscoUltimate Bicolor\n",
+    "end_gcode": ";Begin End Gcode for Dagoma DiscoUltimate Bicolor\n\nM106 S255 ;Fan on full\nM104 S0 ;Cool hotend\nM140 S0 ;Cool heated bed\nG91 ;Relative positioning\nG1 E-3 F5000 ;Retract filament to stop oozing\nG1 E-60 F5000 ;Retract filament multi-extruder\nG0 Z+3 ;Withdraw\nG90 ; Absolute positioning\nG28 X Y ;Home\nM109 R{data['nozzle_temp_standby']} ;Wait until head has cooled to standby temp\nM107 ;Fan off\nM18 ;Stepper motors off\n\n;Finish End Gcode for Dagoma DiscoUltimate Bicolor\n",
+    "bed_temp": 60,
+    "nozzle_temp": 205,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 205,
+    "build_volume_y": 205,
+    "build_volume_z": 205,
+}

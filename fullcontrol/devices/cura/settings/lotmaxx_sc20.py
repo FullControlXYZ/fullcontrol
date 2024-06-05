@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Lotmaxx SC-20",
+    "manufacturer": "Lotmaxx",
+    "start_gcode": "; SC-20 Custom Start G-code\nG28 ; Home all axes\nG92 E0 ; Reset Extruder\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X0.1 Y20 Z0.3 F5000.0 ; Move to start position\nG1 X0.1 Y200.0 Z0.3 F1500.0 E15 ; Draw the first line\nG1 X0.4 Y200.0 Z0.3 F5000.0 ; Move to side a little\nG1 X0.4 Y20 Z0.3 F1500.0 E30 ; Draw the second line\nG92 E0 ; Reset Extruder\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\n; End of custom start GCode",
+    "end_gcode": "; SC-20 Custom End G-code\nG4 ; Wait\nM220 S100 ; Reset Speed factor override percentage to default (100%)\nM221 S100 ; Reset Extrude factor override percentage to default (100%)\nG91 ; Set coordinates to relative\nG1 F1800 E-3 ; Retract filament 3 mm to prevent oozing\nG1 F3000 Z20 ; Move Z Axis up 20 mm to allow filament ooze freely\nG90 ; Set coordinates to absolute\nG1 X0 Y{data['build_volume_y']} F1000 ; Move Heat Bed to the front for easy print removal\nM84 ; Disable stepper motors\n; End of custom end GCode",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60.0,
+    "travel_speed": 150.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 235,
+    "build_volume_y": 235,
+    "build_volume_z": 320,
+}

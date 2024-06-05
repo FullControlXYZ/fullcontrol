@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "ELEGOO NEPTUNE",
+    "manufacturer": "ELEGOO",
+    "start_gcode": ";ELEGOO NEPTUNE\nG90\nG28 ;home\nG1 Z0.6 F100 ;Move Z Axis up\nG92 E0 ;Reset Extruder\nG1 X1.5 Y20 F5000.0 ;Move to start position\nG1 Y120.0 F600.0 E20 ;Draw the first line\nG1 X0.5 F1000.0 ;Move to side a little\nG1 Y20 F600.0 E40 ;Draw the second line\nG92 E0 ;Reset Extruder",
+    "end_gcode": "G91 ;Relative positionning\nG1 E-2 F2700 ;Retract a bit\nG1 E-10 X5 Y5 Z3 F3000 ;Retract\nG90 ;Absolute positionning\nG1 X0 Y{data['build_volume_y']} ;Present print\nM106 S0 ;Turn-off fan\nM104 S0 ;Turn-off hotend\nM140 S0 ;Turn-off bed\nM84 X Y E ;Disable all steppers but Z",
+    "bed_temp": 65,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 90,
+    "dia_feed": 1.75,
+    "build_volume_x": 210,
+    "build_volume_y": 210,
+    "build_volume_z": 200,
+}

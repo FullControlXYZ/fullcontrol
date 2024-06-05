@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Cartesio",
+    "manufacturer": "MaukCC",
+    "start_gcode": "\nM92 E159 ;2288 for V5 extruder\n\nM140 S{data['bed_temp']}\nM104 T1 S120\nM104 T2 S120\nM104 T3 S120\n\nG21\nG90\nM42 S255 P13 ;chamber lights\nM42 S255 P12 ;fume extraction\nM204 S300 ;default acceleration\nM205 X10 ;default jerk\n\nM117 Homing Y ......\nG28 Y\nM117 Homing X ......\nG28 X\nM117 Homing Z ......\nG28 Z F100\nG1 Z10 F600\nG1 X70 Y20 F9000;go to wipe point\n\nM190 S{data['bed_temp']}\n\nM117 Heating for 50 sec.\nG4 S20\nM117 Heating for 30 sec.\nG4 S20\nM117 Heating for 10 sec.\nM300 S1200 P1000\nG4 S9\n\nM117 purging nozzle....\nT0\nG92 E0;set E\nG1 E10 F100\nG92 E0\nG1 E-1 F600\n\nM117 wiping nozzle....\nG1 X1 Y24 F3000\nG1 X70 F9000\nG1 Z10 F900\n\nM104 T1 S21\nM104 T2 S21\nM104 T3 S21\n\nM117 Printing .....\n",
+    "end_gcode": "; -- END GCODE --\nM117 cooling down....\nM106 S255\nM140 S5\nM104 T0 S5\nM104 T1 S5\nM104 T2 S5\nM104 T3 S5\n\nG91\nG1 Z1 F900\nG90\n\nG1 X20.0 Y260.0 F6000\nG4 S7\nM84\nG4 S90\nM107\nM42 P12 S0\nM42 P13 S0\nM84\nT0\nM117 Finished.\n; -- end of GCODE --",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 430,
+    "build_volume_y": 270,
+    "build_volume_z": 400,
+}

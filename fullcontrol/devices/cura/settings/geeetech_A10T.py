@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Geeetech A10T",
+    "manufacturer": "Geeetech",
+    "start_gcode": "G28 \nG1 Z15 F300\nM107\nG90\nM82\nM104 S215\nM140 S55\nG92 E0\nM109 S215\nM107\nM163 S0 P0.33\nM163 S1 P0.33\nM163 S2 P0.33\nM164 S4\nG0 X10 Y20 F6000\nG1 Z0.8\nG1 F300 X180 E40\nG1 F1200 Z2\nG92 E0\nG28",
+    "end_gcode": "G91\nG1 E-1\nG0 X0 Y200\nM104 S0\nG90\nG92 E0\nM140 S0\nM84\nM104 S0\nM140 S0\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 220,
+    "build_volume_y": 260,
+    "build_volume_z": 220,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Anycubic Predator",
+    "manufacturer": "Anycubic",
+    "start_gcode": "G21 ;metric values \nG90 ;absolute positioning \nM82 ;set extruder to absolute mode \nM107 ;start with the fan off \nG28 ;Home \nG1 Z15.0 F1000;short move \nG92 E0 ;zero the extruded length \nG1 F200 E3 ;extrude 3mm of feed stock adjust so I don't have to remove any filament \nG92 E0 ;zero the extruded length again \nG1 F4000 ;move to bed \n;Put printing message on LCD screen \nM117 Printing... \n;G5; this is in order to resume on Power failure (only works on SD prints)",
+    "end_gcode": "M104 S0 ;extruder heater off \nM140 S0 ;heated bed heater off \nG91 ;relative positioning \nG92 E0 ;zero the extruded length \nG1 E-2 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure \nG92 E0 ;zero the extruded length \n;M107 ;fan off \nG1 Z+0.5 E-5 ;move Z up a bit and retract filament even more \n;G1 X0.0 Y0.0 Z455.0 F4500 \nG28 ;Home all axes (max endstops) \nG90 ;absolute positioning \n;M109 S60 ; wait for extruder temp to drop to 60 \n;M84 ;steppers off \n;M81 ;turn off printer",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 370,
+    "build_volume_y": 370,
+    "build_volume_z": 455,
+}

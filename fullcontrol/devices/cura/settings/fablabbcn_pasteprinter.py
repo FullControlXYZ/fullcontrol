@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "PastePrinter",
+    "manufacturer": "FablabBcn",
+    "start_gcode": ";HEADER;\nG21; Set to metric [change to G20 if you want Imperial]\nG91;Force coordinates to be absolute relative to the origin \nG1 Z10 F1000;\nG90; Force coordinates to be absolute relative to the origin\nG28 X; Home X axis\nG28 Y; Home Y axis\nG28 Z; Home Z axis\nM302 P1; Disable Cold Extrusion Checking\nG92 E0; Reset extruder to [0] zero end of cleaning run\nG91; Force coordinates to be absolute relative to the origin\nG1 Z10 F1000;\nG90;\nT0;\nM117 Printing...;ENDHEADER",
+    "end_gcode": ";FOOTER\nG91; relative positioning\nM107; turn off layer fan\nG1 Z50 F1000\nM400;Wait finish move\nG90; absolute positioning\nG1 X235 Y235\n;ENDFOOTER",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 15,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 235,
+    "build_volume_y": 235,
+    "build_volume_z": 235,
+}

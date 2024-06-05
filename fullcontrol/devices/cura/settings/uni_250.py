@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Uni 250",
+    "manufacturer": "Uni 3D",
+    "start_gcode": "G21\nG90\nM82\nM220 S100\nM221 S100\nG28\nM190 S{data['bed_temp']}\nM109 S{data['nozzle_temp']}\nG1 F600 Z15\nG92 E0\nG1 F300 E10\nM117 Printing...\n;\n",
+    "end_gcode": "G91\nG1 E-1 F600\nG1 Z+1 E-3 X-20 Y-20 F4800\nM104 S0\nM106 S0\nM140 S0\nM220 S100\nM221 S100\nG28\nG90\nM84\n;\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 80,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 270,
+    "build_volume_y": 220,
+    "build_volume_z": 250,
+}

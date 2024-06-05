@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Vertex K8600",
+    "manufacturer": "Velleman N.V.",
+    "start_gcode": "",
+    "end_gcode": "; Vertex Nano end G-Code G91 ; Relative positioning T0 G1 E-1 F1500; Reduce filament pressure M104 T0 S0 G90 ; Absolute positioning G92 E0 ; Reset extruder position G28 M84 ; Turn steppers off",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 80,
+    "build_volume_y": 80,
+    "build_volume_z": 75,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Adventurer 4 Lite",
+    "manufacturer": "Flashforge",
+    "start_gcode": ";Start Gcode\nG28\nM132 X Y Z A B\nG1 Z50.000 F420\nG161 X Y F3300\nM7 T0\nM6 T0\nM651 S255\n;End Start",
+    "end_gcode": ";End Gcode\nM104 S0 T0\nM140 S0 T0\nG162 Z F1800\nG28 X Y\nM132 X Y A B\nM652\nG91\nM18",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 220,
+    "build_volume_y": 200,
+    "build_volume_z": 250,
+}

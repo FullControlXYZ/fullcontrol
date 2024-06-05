@@ -11,7 +11,8 @@ notebook_names = ["design_template.ipynb",
                   "ripple_texture.ipynb",
                   "nuts_and_bolts.ipynb",
                   "blob_printing.ipynb",
-                  "anyangle_phone_stand.ipynb"]
+                  "anyangle_phone_stand.ipynb",
+                  "star_polygon_lattice.ipynb"]
 
 notebook_addresses = ["../models/" + notebook_name for notebook_name in notebook_names]
 

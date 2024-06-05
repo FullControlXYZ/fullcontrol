@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Creality CR-X",
+    "manufacturer": "Creality3D",
+    "start_gcode": "G21 ;metric values\nG28 ;home all\nG90 ;absolute positioning\nM107 ;start with the fan off\nG1 F2400 Z15.0 ;raise the nozzle 15mm\nM109 S{data['nozzle_temp']} ;Set Extruder Temperature and Wait\nM190 S{data['bed_temp']}; Wait for bed temperature to reach target temp\nT0 ;Switch to Extruder 1\nG1 F3000 X5 Y10 Z0.2 ;move to prime start position\nG92 E0 ;reset extrusion distance\nG1 F600 X160 E15 ;prime nozzle in a line\nG1 F5000 X180 ;quick wipe\nG92 E0 ;reset extrusion distance",
+    "end_gcode": "M104 S0  ;hotend off\nM140 S0  ;bed off\nG92 E0\nG1 F2000 E-100  ;retract filament 100mm\nG92 E0\nG1 F3000 X0 Y270  ;move bed for easy part removal\nM84  ;disable steppers",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 300,
+    "build_volume_y": 300,
+    "build_volume_z": 400,
+}

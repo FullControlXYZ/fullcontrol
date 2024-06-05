@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "MBot3D Grid 2+ Dual",
+    "manufacturer": "Magicfirm",
+    "start_gcode": "M136\nG162 X Y F2000\nG161 Z F900\nG92 X0 Y0 Z-5 A0 B0\nG1 Z0.0 F900\nG161 Z F100\nM132 X Y Z A B\nG1 X125 Y115 Z10 F450\nG1 X0 Y115 Z10 F2000.0\nM133 T0\nG1 X20 Y115 Z0.5 F800\nG1 X0 Y115 Z0.5 F600 A12\nG92 A0\n",
+    "end_gcode": "M18 A B(Turn off A and B steppers)\nG1 Z190 F900\nG162 X Y F2000\nM18 X Y Z(Turn off steppers after a build)\nM104 S0 T0\nM72 P1  ( Play Ta-Da song )\nM73 P100 (end  build progress )\nM137 (build end)\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50,
+    "travel_speed": 80,
+    "dia_feed": 2.85,
+    "build_volume_x": 235,
+    "build_volume_y": 210,
+    "build_volume_z": 190,
+}

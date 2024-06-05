@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "SeeMeCNC Artemis",
+    "manufacturer": "SeeMeCNC",
+    "start_gcode": "G28\nG1 Z15.0 F10000\nG92 E0",
+    "end_gcode": "M203 Z24000\nM104 S0\nM140 S0\nM107\nG28\nM84",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 290,
+    "build_volume_y": 290,
+    "build_volume_z": 530,
+}

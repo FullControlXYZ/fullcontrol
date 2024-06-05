@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Bibo 2 dual",
+    "manufacturer": "BIBO",
+    "start_gcode": "M104 T0 165\nM104 T1 165\nM109 T{data['extruder_number']} S{data['nozzle_temp'], data['extruder_number']}\nG21 ;metric values\nG90 ;absolute positioning\nM107 ;start with the fan off\nG28 X0 Y0 ;move X/Y to min endstops\nG28 Z0 ;move Z to min endstops\nG1 Z2.0 F400 ;move the platform down 2mm\nT0\nG92 E0\nG28\nG1 Y0 F1200 E0\nG92 E0\nT{data['extruder_number']}\nM117 BIBO Printing...",
+    "end_gcode": ";End GCode\nM104 T0 S0                     ;extruder heater off\nM104 T1 S0                     ;extruder heater off\nM140 S0                     ;heated bed heater off (if you have it)\nG91\nG1 Z1 F100                                        ;relative positioning\nG1 E-1 F300                            ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-2 X-20 Y-20 F300 ;move Z up a bit and retract filament even more\nG28 X0 Y0                              ;move X/Y to min endstops, so the head is out of the way\nM84                         ;steppers off\nG90                         ;absolute positioning",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 40,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 214,
+    "build_volume_y": 186,
+    "build_volume_z": 160,
+}

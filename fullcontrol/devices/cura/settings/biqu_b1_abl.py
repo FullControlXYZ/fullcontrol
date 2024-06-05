@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Biqu B1 ABL",
+    "manufacturer": "Biqu",
+    "start_gcode": "; BIQU B1 Start G-code\nM117 Getting the bed up to temp!\nM140 S{data['bed_temp']}      ; Set Heat Bed temperature\nM190 S{data['bed_temp']}      ; Wait for Heat Bed temperature\nM117 Pre-heating the extruder\nM104 S160                                     ; Set Extruder temperature\nM117 Homing axes\nG28                              ; Home all axes\nM117 ABL Probing\nG29\nM117 Getting the extruder up to temp\nM104 S{data['nozzle_temp']}    ; Set Extruder temperature\nM109 S{data['nozzle_temp']}    ; Wait for Extruder temperature\nG92 E0                                        ; Reset Extruder\nG1 Z2.0 F3000                    ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X4.1 Y20 Z0.3 F5000.0         ; Move to start position\nM117 Purging\nG1 X4.1 Y200.0 Z0.3 F1500.0 E15  ; Draw the first line\nG1 X4.4 Y200.0 Z0.3 F5000.0      ; Move to side a little\nG1 X4.4 Y20 Z0.3 F1500.0 E30     ; Draw the second line\nG92 E0                           ; Reset Extruder\nM117 Lets make\nG1 Z2.0 F3000                    ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X5 Y20 Z0.3 F5000.0           ; Move over to prevent blob squish",
+    "end_gcode": "                               ;BIQU Default End Gcode\nG91                            ;Relative positioning\nG1 E-2 F2700                   ;Retract a bit\nG1 E-2 Z0.2 F2400              ;Retract a bit more and raise Z\nG1 X5 Y5 F3000                 ;Wipe out\nG1 Z10                         ;Raise Z by 10mm\nG90                            ;Return to absolute positioning\n\nG1 X0 Y{data['build_volume_y']}         ;TaDaaaa\nM106 S0                        ;Turn-off fan\nM104 S0                        ;Turn-off hotend\nM140 S0                        ;Turn-off bed\n\nM84 X Y E                      ;Disable all steppers but Z\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 150.0,
+    "dia_feed": 1.75,
+    "build_volume_x": 235,
+    "build_volume_y": 235,
+    "build_volume_z": 270,
+}

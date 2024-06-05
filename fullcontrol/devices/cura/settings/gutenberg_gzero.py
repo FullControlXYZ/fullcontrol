@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "G-ZERO",
+    "manufacturer": "Gutenberg",
+    "start_gcode": ";Simple\nSTART_PRINT EXTRUDER_TEMP={data['nozzle_temp']} BED_TEMP={data['bed_temp']}\n;Or with custom bed mesh area",
+    "end_gcode": "END_PRINT",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 300,
+    "dia_feed": 1.75,
+    "build_volume_x": 250,
+    "build_volume_y": 200,
+    "build_volume_z": 201,
+}

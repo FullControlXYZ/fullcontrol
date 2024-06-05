@@ -48,7 +48,7 @@ class State(BaseModel):
                 raise Exception(f'No point found in steps')
 
         # the following line was edited from 3-axis gcode since 5-axis gcode is output in a simple form for now
-        initialization_data = import_module(f'fullcontrol.gcode.printer_library.singletool.generic').set_up(gcode_controls.initialization_data)
+        initialization_data = import_module(f'fullcontrol.devices.community.singletool.generic').set_up(gcode_controls.initialization_data)
 
         self.extruder = Extruder(
             units=initialization_data['e_units'],

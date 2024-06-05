@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Anycubic Mega Zero",
+    "manufacturer": "Anycubic",
+    "start_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nM117 Start heating ...\nM104 S{data['nozzle_temp']}\nM117 Homing X/Y ...\nG28 X0 Y0 ;move X/Y to min endstops\nM117 Homing Z ...\nG28 Z0 ;move Z to min endstops\nG1 Z15.0 F{data['travel_speed']} ;move the platform down 15mm\nM117 Heating ...\nM109 S{data['nozzle_temp']}\nM117 Start cleaning ...\nG92 E0 ;zero the extruded length\nG1 F200 E10 ;extrude 10mm of feed stock\nG92 E0 ;zero the extruded length again\nM117 Intro line ...\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X0.1 Y20 Z{0.1} F5000.0 ; Move to start position\nG1 X0.1 Y200.0 Z{0.1} F1500.0 E15 ; Draw the first line\nG1 X0.4 Y200.0 Z{0.1} F5000.0 ; Move to side a little\nG1 X0.4 Y20 Z0.3 F1500.0 E30 ; Draw the second line\nG92 E0 ; Reset Extruder\nG1 E-1 F500 ; Retract filiment by 1 mm\nG1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X5 Y20 Z0.3 F{data['travel_speed']} ; Move over to prevent blob squish\nG1 F{data['travel_speed']}\nG92 E0 ; Reset Extruder\nM117 Printing...\n",
+    "end_gcode": "M117 Cooling down...\nM104 S0 ; turn off extruder\nM84 ; disable motors\nM107 ; Fan off\nG91 ;relative positioning\nG1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-5 ;X-20 Y-20 F{data['travel_speed']} ;move Z up a bit and retract filament even more\nG28 X0 ;move X to min endstops, so the head is out of the way\nG90 ;Absolute positioning\nG1 Y200 F3000 ;Present print\nM84 ;steppers off\nM300 P300 S4000\nM117 Finished.\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50.0,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 220,
+    "build_volume_y": 220,
+    "build_volume_z": 250,
+}

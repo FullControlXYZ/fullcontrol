@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Makeit Pro-M",
+    "manufacturer": "Makeit 3D",
+    "start_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nG92 E0 ;zero the extruded length\nG28 ;home\nG1 F200 E30 ;extrude 30 mm of feed stock\nG92 E0 ;zero the extruded length\nG1 E-5 ;retract 5 mm\nG28 SC ;Do homeing, clean nozzles and let printer to know that printing started\nG92 X-6 ;Sets Curas checker board to match printers heated bed coordinates\nG1 F{data['travel_speed']}\nM117 Printing...",
+    "end_gcode": "M104 T0 S0 ;1st extruder heater off\nM104 T1 S0 ;2nd extruder heater off\nM140 S0 ;heated bed heater off (if you have it)\nG91 ;relative positioning\nG1 E-5 F9000  ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+5 X+20 Y+20 F9000 ;move Z up a bit\nM117 MAKEiT Pro@Done\nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way\nM84 ;steppers off\nG90 ;absolute positioning\nM81",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 200,
+    "build_volume_y": 240,
+    "build_volume_z": 200,
+}

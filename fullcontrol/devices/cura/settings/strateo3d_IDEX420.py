@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "IDEX420",
+    "manufacturer": "eMotionTech",
+    "start_gcode": "G90 ; switch to absolute coordinate mode\nG1 F18000 Y-160 Z15 ; move fast to the coordinates\nG1 F18000 X0 Z0.3 ; move fast to the coordinates\nG92 E0 ; set the extruder to 0\nG1 F300 X60 E24 ; purge the hotend\nG1 F600 X40 ; swipe the nozzle\nG1 F600 Z3 ; perform Z hop",
+    "end_gcode": "M0",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 50,
+    "travel_speed": 150,
+    "dia_feed": 1.75,
+    "build_volume_x": 420,
+    "build_volume_y": 320,
+    "build_volume_z": 400,
+}

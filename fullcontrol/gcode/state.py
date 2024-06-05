@@ -7,6 +7,7 @@ from fullcontrol.gcode.printer import Printer
 from fullcontrol.gcode.extrusion_classes import ExtrusionGeometry, Extruder
 from fullcontrol.gcode.controls import GcodeControls
 from fullcontrol.common import first_point
+from fullcontrol.gcode.import_printer import import_printer
 
 
 class State(BaseModel):
@@ -52,8 +53,11 @@ class State(BaseModel):
         super().__init__()
         # initialize state based on the named-printer default initialization_data and initialization_data over-rides passed by designer in gcode_controls
 
-        initialization_data = import_module(f'fullcontrol.gcode.printer_library.singletool.{gcode_controls.printer_name}').set_up(
-            gcode_controls.initialization_data)
+        if gcode_controls.printer_name[:5] == 'Cura/' or gcode_controls.printer_name[:10] == 'Community/':
+            initialization_data = import_printer(gcode_controls.printer_name, gcode_controls.initialization_data)
+            # note if using 'no_primer' there is a risk that no initial Point is defined before the first G1 command meaning length calculation for the line is impossible and an error will occur
+        else:
+            initialization_data = import_module(f'fullcontrol.devices.community.singletool.{gcode_controls.printer_name}').set_up(gcode_controls.initialization_data)
 
         self.extruder = Extruder(
             units=initialization_data['e_units'],

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Flsun QQ-S",
+    "manufacturer": "Flsun",
+    "start_gcode": "G21\nG90\nM82\nM107 T0\nM190 S{data['bed_temp']}\nM109 S{data['nozzle_temp']} T0\nG28\nG92 E0\nG0 E3 F200\nG92 E0\n",
+    "end_gcode": "M107 T0\nM104 S0\nM104 S0 T1\nM140 S0\nG92 E0\nG91\nG1 E-1 F300 \nG1 Z+0.5 E-5 X-20 Y-20 F9000\nG28 X0 Y0\nM84 ;steppers off\nG90 ;absolute positioning\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 1.75,
+    "build_volume_x": 260,
+    "build_volume_y": 260,
+    "build_volume_z": 370,
+}

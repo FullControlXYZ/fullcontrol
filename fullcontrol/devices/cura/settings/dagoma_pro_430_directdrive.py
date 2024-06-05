@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Dagoma PRO 430 Direct Drive",
+    "manufacturer": "Dagoma",
+    "start_gcode": ";Author: Dagoma\n;Contact: contact-pro@dagoma3d.com\n\n\n\nG21 ;Set units to millimeters\nG90 ;Set all axes to absolute\nM104 S120 ; Launch hotend heating up to 120°C\nM190 S{data['bed_temp']} ;Preheat hotbed\nM106 S255; Activating layers fans for checkup and minimise filament on t\nG28 ;Go to origin on all axes\nG29 ; Bed Leveling\nM107 ; Turn off Layers Fans\nG0 X215 Y1 Z0.4 ;Move XYZ axis before purge\nM109 S{data['nozzle_temp']} ;Wait for initial print temp\nM83 ;Set E to relative positioning\nG1 E{6.5} F200 ;Purge\nG0 Z3 ;Move Z axis before print start\nM82 ;Set E to absolute positioning\nG92 E0 ;Set E position\nG1 F{data['travel_speed']} ;Set the feedrate to {data['travel_speed']}mm/s\n",
+    "end_gcode": ";Author: Dagoma\n\nM104 S0 ;Set hotend temperature for cooldown\nM140 S0 ;Set hotbed temperature for cooldown\nG91 ;Set all axes to relative\nG0 Z+3 ;Move Z axis after print end\nG1 E-5 F5000 ;Retract filament to stop oozing\nG28 X Y ;Home the X and Y axes\nM18 ;Disable steppers motors\n",
+    "bed_temp": 50,
+    "nozzle_temp": 205,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 430,
+    "build_volume_y": 320,
+    "build_volume_z": 310,
+}

@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Geeetech A10",
+    "manufacturer": "Geeetech",
+    "start_gcode": "G28 ; Auto home\nG1 Z15 F300 ;Move up slightly\nM107 ;Off fans\nG90 ;Switch to absolute positioning\nM82 ;Extruder absolute mode\nG92 E0 ;Set position of extruder to 0\nG0 X10 Y20 F1500 ;Move to X10 Y20 at 1500mms\nG1 Z0.8 ;Move Z to 0.8\nG1 F300 X180 E40 ;Extrude a line of filament\nG1 F1200 Z2 ;Raise Z\nG92 E0 ;Set extruder position to zero\nG28 ;Auto home",
+    "end_gcode": "G91 ;Switch to relative positioning\nG1 E-1 ;Retract filament to lower pressure\nG0 X0 Y200 ;Move hotend to left and bed forward\nM104 S0 ;Cooldown hotend\nG90 ;Switch to absolute mode\nG92 E0 ;Set extruder to zero\nM140 S0 ;Cooldown bed\nM84 ; Disable steppers",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 220,
+    "build_volume_y": 220,
+    "build_volume_z": 260,
+}

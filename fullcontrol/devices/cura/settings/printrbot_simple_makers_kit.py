@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Printrbot Simple Maker's Kit (1405)",
+    "manufacturer": "Printrbot",
+    "start_gcode": "G21       ;metric values\nG90       ;absolute positioning\nM82       ;set extruder to absolute mode\nM107      ;start with the fan off\nG28 X0 Y0 ;home X/Y\nG28 Z0    ;home Z\nG92 E0    ;zero the extruded length\nG29       ;initiate auto bed leveling sequence",
+    "end_gcode": "M104 S0     ;extruder heater off\nM140 S0     ;heated bed heater off (if you have it)\nM106 S0     ;fan off\nG91         ;relative positioning\nG1 E-1 F300 ;retract the filament a bit\nG1 Z+1 E-5 F9000 ;move Z up a bit and retract even more\nG28 X0 Y0   ;home X/Y, so the head is out of the way\nM84         ;steppers off\nG90         ;absolute positioning",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 100,
+    "build_volume_y": 100,
+    "build_volume_z": 115,
+}

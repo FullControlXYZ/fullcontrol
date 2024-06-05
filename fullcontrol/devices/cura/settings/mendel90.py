@@ -1,0 +1,15 @@
+default_initial_settings = {
+    "name": "Mendel90",
+    "manufacturer": "Nophead",
+    "start_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;absolute extrusion\nM107 ;start with the fan off\nG28 ;home\nG92 E0 ;zero the extruded length\nM140 S{data['bed_temp']} ; set the bed temperature and continue on\nG1 X-50 Y98 F9000 ;go to the left of the top\nG1 Z0.05 ; close to the bed\nM104 S{data['nozzle_temp']}; pre-heat the extruder continue on\nM190 S{data['bed_temp']} ;set the bed temp & wait\nM109 S{data['nozzle_temp']};set the extruder temp for layer 0 & wait\nG92 E0 ;zero the extruded length\nG1 X50 E10 F300 ; make a thick line to prime extruder\nG92 E0 ; reset extruder\nG1 E-4 F1800\nG1 Z0.3 ;lift Z\n",
+    "end_gcode": "M104 S0 ;extruder heater off\nM140 S0 ;heated bed heater off (if you have it)\nM107 ;carriage fan off\nG91 ;relative positioning\nG1 Z10 ;Move up Z 10mm\nG90 ;back to absolute mode\nG1 E-1 F1200 ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG92 E0 ;zero the extruded length\nG1 Z200 X-100 F9000 ; go to top\nG1 Y100 F5000 ;Move Y to back\nM42 P42 S255 ;Turn on Bed cooling fan on\nG4 S10 ;Wait 10 seconds\nM42 P42 S0 ;Turn off bed cooling fan\nM84 ;steppers off\n",
+    "bed_temp": 60,
+    "nozzle_temp": 210,
+    "material_flow_percent": 100,
+    "print_speed": 60,
+    "travel_speed": 120,
+    "dia_feed": 2.85,
+    "build_volume_x": 200,
+    "build_volume_y": 200,
+    "build_volume_z": 200,
+}
