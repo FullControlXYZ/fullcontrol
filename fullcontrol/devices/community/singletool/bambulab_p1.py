@@ -1,5 +1,5 @@
 from fullcontrol.gcode import Point, Printer, Extruder, ManualGcode, PrinterCommand, GcodeComment, Buildplate, Hotend, Fan, StationaryExtrusion
-import fullcontrol.gcode.printer_library.singletool.base_settings as base_settings
+import fullcontrol.devices.community.singletool.base_settings as base_settings
 
 
 def set_up(user_overrides: dict):
