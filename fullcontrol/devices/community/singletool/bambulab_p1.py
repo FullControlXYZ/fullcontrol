@@ -78,7 +78,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='G0 Z10 F1200'))
     starting_procedure_steps.append(PrinterCommand(id='absolute_coords'))
     starting_procedure_steps.append(ManualGcode(text='G28 X'))
-    starting_procedure_steps.append(ManualGcode(text='M975 S1 ; turn on magic'))
+    # starting_procedure_steps.append(ManualGcode(text='M975 S1 ; turn on magic'))
     starting_procedure_steps.append(ManualGcode(text='G1 X60 F12000'))
     starting_procedure_steps.append(ManualGcode(text='G1 Y245'))
     starting_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))
@@ -87,20 +87,18 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='\n; purge filament procedure\n'))
     starting_procedure_steps.append(ManualGcode(text='M412 S1 ; turn on filament runout detection'))
     starting_procedure_steps.append(Hotend(temp=250, wait=True))
-    starting_procedure_steps.append(Extruder(on=True))
     starting_procedure_steps.append(Fan(speed_percent=0))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
-    starting_procedure_steps.append(StationaryExtrusion(volume=25, speed=200))
+    starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=200))
     starting_procedure_steps.append(ManualGcode(text='M400'))
     starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=False))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
-    starting_procedure_steps.append(StationaryExtrusion(volume=25, speed=200))
+    starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=200))
     starting_procedure_steps.append(ManualGcode(text='M400'))
     starting_procedure_steps.append(Fan(speed_percent=100))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
-    starting_procedure_steps.append(StationaryExtrusion(volume=15, speed=300))
+    starting_procedure_steps.append(StationaryExtrusion(volume=20, speed=300))
     starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"] - 20, wait=True))
-    starting_procedure_steps.append(Extruder(on=False))
     starting_procedure_steps.append(ManualGcode(text=' ; drop nozzle temp, make filament shrink a bit'))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
     starting_procedure_steps.append(ManualGcode(text='G1 E-0.5 F300'))
@@ -121,15 +119,15 @@ def set_up(user_overrides: dict):
 
     # clean nozzle procedure
     starting_procedure_steps.append(ManualGcode(text='\n; clean nozzle procedure\n'))
-    starting_procedure_steps.append(ManualGcode(text='M975 S1'))
+    # starting_procedure_steps.append(ManualGcode(text='M975 S1'))
     starting_procedure_steps.append(Fan(speed_percent=100))
     starting_procedure_steps.append(ManualGcode(text='G1 X65 Y230 F18000'))
     starting_procedure_steps.append(ManualGcode(text='G1 Y264 F6000'))
-    starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"] - 20, wait=True))
+    starting_procedure_steps.append(Hotend(temp=140, wait=False))
     starting_procedure_steps.append(ManualGcode(text='G1 X100 F18000 ; first wipe mouth'))
 
     starting_procedure_steps.append(ManualGcode(text='G0 X135 Y253 F20000 ; move to exposed steel surface edge'))
-    starting_procedure_steps.append(ManualGcode(text='G28 Z P0 T300 ; home z with low precision,permit 300deg temperature'))
+    starting_procedure_steps.append(ManualGcode(text='G28 Z P0 T300 ; home z with low precision, permit 300deg temperature'))
     starting_procedure_steps.append(ManualGcode(text='G29.2 S0 ; turn off ABL'))
     starting_procedure_steps.append(ManualGcode(text='G0 Z5 F20000'))
 
@@ -191,7 +189,6 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F300'))
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F300'))
 
-    starting_procedure_steps.append(Hotend(temp=140, wait=True))
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F3000'))
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F3000'))
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F3000'))
@@ -215,29 +212,33 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Point(x=5, y=5, z=10))
 
     # set hotend temperature
-    starting_procedure_steps.append(ManualGcode(text='\n; set hot end temperature\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n; wait for bed temperature and set hot end temperature\n'))
     starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=True))
+    starting_procedure_steps.append(Buildplate(temp=initialization_data["bed_temp"], wait=True))
 
     # lower bed for PEI plate
-    starting_procedure_steps.append(ManualGcode(text='\n; lower bed for PEI plate\n'))
     if initialization_data["bed_type"] == "Textured PEI Plate":
+        starting_procedure_steps.append(ManualGcode(text='\n; lower bed for PEI plate\n'))
         starting_procedure_steps.append(ManualGcode(text='G29.1 Z-0.04 ; for Textured PEI Plate'))
 
     # wait for extrude temperature, set fan and travel speed
     starting_procedure_steps.append(ManualGcode(text='\n; wait for hot end temperature\n'))
-    starting_procedure_steps.append(ManualGcode(text=f'M106 P2 S{initialization_data["aux_fan_percent"]} ; enable aux fan'))
     starting_procedure_steps.append(Fan(speed_percent=initialization_data["parts_fan_percent"]))
-    starting_procedure_steps.append(ManualGcode(text='M975 S1 ; turn on mech mode supression'))
+    starting_procedure_steps.append(ManualGcode(text=f'M106 P2 S{int(initialization_data["aux_fan_percent"] / 100 * 255)} ; enable aux fan'))
+    starting_procedure_steps.append(ManualGcode(text=f'M106 P3 S{int(initialization_data["chamber_fan_percent"] / 100 * 255)} ; enable chamber fan'))
+    # starting_procedure_steps.append(ManualGcode(text='M975 S1 ; turn on mech mode supression'))
     starting_procedure_steps.append(Printer(travel_speed=initialization_data["travel_speed"]))
-    starting_procedure_steps.append(Point(x=10.0, y=10.0, z=0.2))
+    starting_procedure_steps.append(Point(x=10.0, y=10.0, z=0.3))
     starting_procedure_steps.append(Extruder(on=True))
 
     # set print speed and material flow
     starting_procedure_steps.append(ManualGcode(text='\n; set print speed and flow\n'))
     starting_procedure_steps.append(ManualGcode(
-        text='M220 S' + str(initialization_data["print_speed_percent"])+' ; set speed factor override percentage'))
+        text='M220 S' + str(initialization_data["print_speed_percent"]) + ' ; set speed factor override percentage'))
     starting_procedure_steps.append(ManualGcode(
-        text='M221 S' + str(initialization_data["material_flow_percent"])+' ; set extrude factor override percentage'))
+        text='M221 S' + str(initialization_data["material_flow_percent"]) + ' ; set extrude factor override percentage'))
+    
+    # starting_procedure_steps.append(ManualGcode(text=f'\n; EW: {initialization_data["extrusion_width"]} EH: {initialization_data["extrusion_height"]}\n'))
     
     starting_procedure_steps.append(ManualGcode(text=';==========\n; END OF STARTING PROCEDURE\n;==========\n'))
 
