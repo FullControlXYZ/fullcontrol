@@ -1,3 +1,4 @@
 plotly
 pydantic<2.0
 numpy
+nbformat>=4.2.0
