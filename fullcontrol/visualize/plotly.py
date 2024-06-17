@@ -53,7 +53,7 @@ def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, roundin
 
 
 
-def plot(data: PlotData, controls: PlotControls):
+def plot(data: PlotData, controls: PlotControls, base_fig: go.Figure | None = None) -> go.Figure:
     '''
     Plot data for x y z lines with RGB colors and annotations.
     The style of the plot is governed by the controls.
@@ -61,13 +61,15 @@ def plot(data: PlotData, controls: PlotControls):
     Args:
         data (PlotData): The data to be plotted.
         controls (PlotControls): The controls for customizing the plot.
+        base_fig (go.Figure | None): An optional pre-configured Figure to add data to.
 
     Returns:
-        None
+        go.Figure: The resulting Figure object.
     '''
     
-    fig = go.Figure()
-    cicd_testing = True if os.environ.get('FULLCONTROL_CICD_TESTING') == 'True' else False
+    preconfigured = base_fig is not None
+    fig = base_fig if preconfigured else go.Figure()
+    cicd_testing = os.environ.get('FULLCONTROL_CICD_TESTING') == 'True'
     
 
     if controls.style is None:
@@ -105,8 +107,7 @@ def plot(data: PlotData, controls: PlotControls):
     # generate annotations
     annotations_pts = []
     annotations = []
-    if controls.hide_annotations == False and not controls.neat_for_publishing:
-    # if controls.hide_annotations == False:  # and not controls.neat_for_publishing:
+    if not (controls.hide_annotations or controls.neat_for_publishing):
         for annotation in data.annotations:
             x, y, z = (annotation[axis] for axis in 'xyz')
             annotations_pts.append([x, y, z])
@@ -137,27 +138,33 @@ def plot(data: PlotData, controls: PlotControls):
             if z > midz + bounding_box_size / 2 - offset:
                 bounding_box_size = 2 * (z - midz) + offset_both_sides
 
-    camera = dict(eye=dict(x=-0.5/controls.zoom, y=-1/controls.zoom, z=-0.5+0.5/controls.zoom),
-                  center=dict(x=0, y=0, z=-0.5))
-    fig.update_layout(template='plotly_dark', paper_bgcolor="black", scene_aspectmode='cube',
-                      scene=dict(annotations=annotations,
-                                 xaxis=dict(backgroundcolor="black", nticks=10,
-                                            range=[data.bounding_box.midx-bounding_box_size/2, data.bounding_box.midx+bounding_box_size/2],),
-                                 yaxis=dict(backgroundcolor="black", nticks=10,
-                                            range=[data.bounding_box.midy-bounding_box_size/2, data.bounding_box.midy+bounding_box_size/2],),
-                                 zaxis=dict(backgroundcolor="black", nticks=10, range=[min(0, data.bounding_box.minz), bounding_box_size],),
-                      ), scene_camera=camera, width=800, height=500, margin=dict(l=10, r=10, b=10, t=10, pad=4))
-    if controls.hide_axes or controls.neat_for_publishing:
-        for axis in ['xaxis', 'yaxis', 'zaxis']:
-            fig.update_layout(
-                scene={axis: dict(showgrid=False, zeroline=False, visible=False)})
-    if controls.neat_for_publishing:
-        fig.update_layout(width=500, height=500)
+    if preconfigured:  # Only add new content
+        fig.update_layout(scene_annotations=annotations)
+    else:
+        camera = dict(eye=dict(x=-0.5/controls.zoom, y=-1/controls.zoom, z=-0.5+0.5/controls.zoom),
+                    center=dict(x=0, y=0, z=-0.5))
+        fig.update_layout(template='plotly_dark', paper_bgcolor="black", scene_aspectmode='cube',
+                        scene=dict(annotations=annotations,
+                                    xaxis=dict(backgroundcolor="black", nticks=10,
+                                                range=[data.bounding_box.midx-bounding_box_size/2, data.bounding_box.midx+bounding_box_size/2],),
+                                    yaxis=dict(backgroundcolor="black", nticks=10,
+                                                range=[data.bounding_box.midy-bounding_box_size/2, data.bounding_box.midy+bounding_box_size/2],),
+                                    zaxis=dict(backgroundcolor="black", nticks=10, range=[min(0, data.bounding_box.minz), bounding_box_size],),
+                        ), scene_camera=camera, width=800, height=500, margin=dict(l=10, r=10, b=10, t=10, pad=4))
+
+        if controls.hide_axes or controls.neat_for_publishing:
+            for axis in ['xaxis', 'yaxis', 'zaxis']:
+                fig.update_layout(
+                    scene={axis: dict(showgrid=False, zeroline=False, visible=False)})
+        if controls.neat_for_publishing:
+            fig.update_layout(width=500, height=500)
 
     # cicd_testing is a flag set by the CICD testing script (as a temporary environmental variable) to save the plot as a .png file
-    if not cicd_testing:
+    if controls.show and not cicd_testing:
         fig.show()
     else:
         import plotly.io as pio
         from datetime import datetime
         pio.write_image(fig, datetime.now().strftime("figure__%d-%m-%Y__%H-%M-%S.png"))
+
+    return fig

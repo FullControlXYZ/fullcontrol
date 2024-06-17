@@ -18,7 +18,8 @@ class PlotControls(BaseModel):
         hide_travel (Optional[bool]): Whether to hide travel lines in the plot. Default is False.
         hide_axes (Optional[bool]): Whether to hide axes in the plot. Default is False.
         neat_for_publishing (Optional[bool]): Whether to optimize the plot for publishing. Default is False.
-        raw_data (Optional[bool]): Whether to show raw data in the plot. Default is False.
+        raw_data (Optional[bool]): Whether to include raw data in the plot. Default is False.
+        show (Optional[bool]): Whether to automatically display the generated figure. Default is True.
         printer_name (Optional[str]): The name of the printer. Default is 'generic'.
         initialization_data (Optional[dict]): Information about initial printing conditions. Default is an empty dictionary. Values passed for initialization_data overwrite the default initialization_data of the printer.
     """
@@ -33,6 +34,7 @@ class PlotControls(BaseModel):
     hide_axes: Optional[bool] = False
     neat_for_publishing: Optional[bool] = False
     raw_data: Optional[bool] = False
+    show: Optional[bool] = True
     printer_name: Optional[str] = 'generic'
     # initialization_data is information about initial printing conditions, which may be changed by the fullcontrol 'design', whereas the above attributes are never changed by the 'design'
     initialization_data: Optional[dict] = {}  # values passed for initialization_data overwrite the default initialization_data of the printer
