@@ -78,7 +78,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(PrinterCommand(id='relative_coords'))
     starting_procedure_steps.append(ManualGcode(text='G0 Z10 F1200'))
     starting_procedure_steps.append(PrinterCommand(id='absolute_coords'))
-    starting_procedure_steps.append(ManualGcode(text='G28 X'))
+    starting_procedure_steps.append(ManualGcode(text='G28 X Y'))
     starting_procedure_steps.append(ManualGcode(text='M975 S1 ; turn on vibration suppression'))
     starting_procedure_steps.append(ManualGcode(text='G1 X60 F12000'))
     starting_procedure_steps.append(ManualGcode(text='G1 Y245'))
@@ -260,7 +260,8 @@ def set_up(user_overrides: dict):
     # move toolhead
     ending_procedure_steps.append(ManualGcode(text='\n;--- move toolhead to the back ---\n'))
     ending_procedure_steps.append(ManualGcode(text='G28 X Y ; home the X and Y axes'))
-    ending_procedure_steps.append(ManualGcode(text='G1 X65 Y245 F12000 ; park toolhead'))
+    ending_procedure_steps.append(ManualGcode(text='G1 X65 F12000'))
+    ending_procedure_steps.append(ManualGcode(text='G1 Y245'))
     ending_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))
     ending_procedure_steps.append(ManualGcode(text='G1 X65 Y245 F12000'))
     ending_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))
