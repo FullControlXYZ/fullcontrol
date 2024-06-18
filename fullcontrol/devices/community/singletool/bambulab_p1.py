@@ -91,11 +91,11 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Fan(speed_percent=0))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
     starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=200))
-    starting_procedure_steps.append(ManualGcode(text='M400'))
+    starting_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=False))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
     starting_procedure_steps.append(StationaryExtrusion(volume=50, speed=200))
-    starting_procedure_steps.append(ManualGcode(text='M400'))
+    starting_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     starting_procedure_steps.append(Fan(speed_percent=100))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
     starting_procedure_steps.append(StationaryExtrusion(volume=20, speed=300))
@@ -115,7 +115,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='G1 X95 F15000'))
     starting_procedure_steps.append(ManualGcode(text='G1 X80 F15000'))
     starting_procedure_steps.append(ManualGcode(text='G1 X165 F15000 ; wipe and shake'))
-    starting_procedure_steps.append(ManualGcode(text='M400'))
+    starting_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     starting_procedure_steps.append(ManualGcode(text='G92 E0'))
     starting_procedure_steps.append(ManualGcode(text='G1 E-.5 F300'))
     starting_procedure_steps.append(Fan(speed_percent=0))
@@ -150,6 +150,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Hotend(temp=140, wait=True))
     starting_procedure_steps.append(Fan(speed_percent=100))
 
+    starting_procedure_steps.append(ManualGcode(text='M221 S ; push soft endstop status'))
     starting_procedure_steps.append(ManualGcode(text='M221 Z0 ; turn off Z axis endstop'))
     starting_procedure_steps.append(ManualGcode(text='G0 Z0.5 F20000'))
     starting_procedure_steps.append(ManualGcode(text='G0 X125 Y259.5 Z-1.01'))
@@ -196,8 +197,10 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F3000'))
     starting_procedure_steps.append(ManualGcode(text='G2 I0.5 J0 F3000'))
 
-    starting_procedure_steps.append(ManualGcode(text='M221 Z1 ; turn on Z endstop'))
+    # starting_procedure_steps.append(ManualGcode(text='M221 Z1 ; turn on Z endstop'))
+    starting_procedure_steps.append(ManualGcode(text='M221 R ; pop soft endstop status'))
     starting_procedure_steps.append(ManualGcode(text='G1 Z10 F1200'))
+    starting_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     starting_procedure_steps.append(ManualGcode(text='G1 Z10'))
     starting_procedure_steps.append(ManualGcode(text='G1 F30000'))
     starting_procedure_steps.append(ManualGcode(text='G1 X230 Y15'))
@@ -247,6 +250,7 @@ def set_up(user_overrides: dict):
 
     ending_procedure_steps = []
     ending_procedure_steps.append(ManualGcode(text='\n;==========\n; START OF ENDING PROCEDURE\n;==========\n'))
+    
     # retract filament and drop bed
     ending_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     ending_procedure_steps.append(ManualGcode(text='G92 E0 ; zero the extruder'))
@@ -254,24 +258,23 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(ManualGcode(text=f'G1 Z{model_height + 0.5} F900 ; drop bed a little'))
 
     # move toolhead
-    ending_procedure_steps.append(ManualGcode(text='\n; move toolhead\n'))
-    ending_procedure_steps.append(ManualGcode(text='G1 X65 Y245 F12000 ; move to safe pos'))
-    ending_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))    
-    ending_procedure_steps.append(ManualGcode(text='G1 X65 Y245 F12000 ; move to safe pos'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- move toolhead to the back ---\n'))
+    ending_procedure_steps.append(ManualGcode(text='G28 X Y ; home the X and Y axes'))
+    ending_procedure_steps.append(ManualGcode(text='G1 X65 Y245 F12000 ; park toolhead'))
+    ending_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))
+    ending_procedure_steps.append(ManualGcode(text='G1 X65 Y245 F12000'))
     ending_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))
     
     # turn heat bed and fans off
-    ending_procedure_steps.append(ManualGcode(text='\n; turn heat bed and fans off\n'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- turn heat bed and fans off ---\n'))
     ending_procedure_steps.append(Buildplate(temp=0, wait=False))
     ending_procedure_steps.append(Fan(speed_percent=0))
     ending_procedure_steps.append(ManualGcode(text='M106 P2 S0 ; disable aux fan'))
     ending_procedure_steps.append(ManualGcode(text='M106 P3 S0 ; disable chamber fan'))
+    ending_procedure_steps.append(ManualGcode(text='G1 X100 F12000 ; remove oozed filament'))
 
     # wipe
-    ending_procedure_steps.append(ManualGcode(text='\n; wipe nozzle\n'))
-    ending_procedure_steps.append(ManualGcode(text='G1 X100 F12000 ; wipe'))
-    ending_procedure_steps.append(ManualGcode(text='G1 X20 Y50 F12000'))
-    ending_procedure_steps.append(ManualGcode(text='G1 Y-3'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- wipe nozzle ---\n'))
     ending_procedure_steps.append(ManualGcode(text='G1 X65 F12000'))
     ending_procedure_steps.append(ManualGcode(text='G1 Y265'))
     ending_procedure_steps.append(ManualGcode(text='G1 X100 F12000 ; wipe'))
@@ -281,7 +284,7 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(Hotend(temp=0, wait=False))
 
     # move bed down
-    ending_procedure_steps.append(ManualGcode(text='\n; move bed down\n'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- lower build plate ---\n'))
     ending_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     ending_procedure_steps.append(ManualGcode(text='M17 S'))
     ending_procedure_steps.append(ManualGcode(text='M17 Z0.4 ; lower z motor current to reduce impact if there is something in the bottom'))
@@ -295,12 +298,12 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(ManualGcode(text='M17 R ; restore z current'))
 
     # park toolhead
-    ending_procedure_steps.append(ManualGcode(text='\n; park toolhead\n'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- park toolhead ---\n'))
     ending_procedure_steps.append(PrinterCommand(id='absolute_coords'))
     ending_procedure_steps.append(ManualGcode(text='G1 X128 Y250 F3600'))
     
     # reset
-    ending_procedure_steps.append(ManualGcode(text='\n; reset printer\n'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- reset printer parameters ---\n'))
     ending_procedure_steps.append(ManualGcode(text='M221 S100 ; reset flow'))
     ending_procedure_steps.append(ManualGcode(text='M201.2 K1.0 ; Reset acc magnitude'))
     ending_procedure_steps.append(ManualGcode(text='M73.2 R1.0 ; Reset left time magnitude'))
@@ -308,8 +311,7 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(ManualGcode(text='M900 K0 ; reset LA'))
     ending_procedure_steps.append(ManualGcode(text='M84 ; disable steppers'))
 
-
-    # FIN
+    ###
 
     initialization_data['starting_procedure_steps'] = starting_procedure_steps
     initialization_data['ending_procedure_steps'] = ending_procedure_steps
