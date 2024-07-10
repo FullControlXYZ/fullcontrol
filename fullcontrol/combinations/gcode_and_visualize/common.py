@@ -7,6 +7,7 @@ from typing import Union
 from .classes import *
 from fullcontrol.common import check, flatten, linspace, export_design, import_design, points_only, relative_point, first_point
 from fullcontrol.geometry import *
+from fullcontrol.visualize.bounding_box import BoundingBox
 
 
 def transform(steps: list, result_type: str, controls: Union[GcodeControls, PlotControls] = None):
