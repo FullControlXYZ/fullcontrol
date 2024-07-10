@@ -13,3 +13,4 @@ from lab.fullcontrol.geometry.spherical import point_to_spherical, spherical_to_
 from lab.fullcontrol.geometry.other_splines import catmull_rom_spline
 from lab.fullcontrol.geometry.orient import constant_polar_angle_with_c
 from lab.fullcontrol.geometry.arc_waves import arc_sinewaveXY
+from lab.fullcontrol.geometry.fill import fill_base_full, fill_base_simple
