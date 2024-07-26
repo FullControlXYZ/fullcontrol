@@ -28,6 +28,8 @@ sooner:
     - show how to edit the imported printer profile (edit parameters, or edit line X of start_gcode)
     - explain how to find printer names (link to github list or add a search function)
 - consider moving 'devices' directory to top level fullcontrol repo (devices.[VENDOR].[MANUFACTURER_MODEL.json]) /w enum,selection api (not done at present becuase cura manufacturer and model data are inconsistent)
+- add docs to explain options for heavy use: e.g. massive simulations on a virtual CPU/GPU
+- make a create_rag() function that combines a few of the tutorial notebooks, maybe geometry functions and maybe some additional prompts into a single file like a PDF.
 
 - create new meta repo for fullcontrol_profile_integration
     - one directory in that will be for cura
