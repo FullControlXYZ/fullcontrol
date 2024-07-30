@@ -1,6 +1,6 @@
 
 # from pydantic import model_validator, BaseModel
-from pydantic import BaseModel, root_validator
+from pydantic import model_validator, BaseModel
 
 
 class BaseModelPlus(BaseModel):
@@ -42,7 +42,8 @@ class BaseModelPlus(BaseModel):
 
     # @model_validator(mode="before")
     # @classmethod
-    @root_validator(pre=True)
+    @model_validator(mode="before")
+    @classmethod
     def check_card_number_omitted(cls, values):
         """
         Check if the card number is omitted.
