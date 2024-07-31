@@ -7,14 +7,10 @@ sooner:
 - real time control
 - add tutorial info about path length function, circleXY_3pt, catmull_rom, bezier_through_points, interpolated_point, segmented_path
 - migrate to pydantic >2.0 - ensure all requirements are met by colab without any dependent package uninstall+reinstall if possible
-- investigate: does fc.Point(color= ???) break when calculating colour if not manual colour? What if this is the first point in the list of steps?
-- checks to implement before transform()
-    - first point in steps has a z value? is this required for sure?
-    - first point has color value (if color specified anywhere?) or if color_type = 'manual' in PlotControls
-- add checks for common mistakes (e.g. list included in 'steps'; first point not fully defined; decorator to check xy or xyz values set for all points for certain geometric functions)
-- make travel_to work with lists (copy relevant code from extra_functions.first_point())
 - release new version (changed docstrings and repo structure), modify installation instructions + notebooks to use pip install fullcontrol instead of git+https://github.com/FullControlXYZ/fullcontrol - and update version on pypi
 - update main readme to say users can install from pypi (latest official release) or from github (git+...) to the most up to date version or clone the repo.
+
+- create 'projects' on github to bring together work relevant to multiple 'issues'
 
 - create a maths/geometry onboarding-to-expert tutorial (at expert end of the scale, put some prompts about what-ifs for things like switching from CAD to maths or using chatGPT) - "from beginning to expert in 15 minutes!"
     - spend a few minutes learning basics of polar angles, sin waves, etc. then show how they compound into amazing complex geometry using good prompts in chatGPT (but there needs to be a reliable maths chatGPT)
