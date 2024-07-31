@@ -164,6 +164,23 @@ def first_point(steps: list, fully_defined: bool = True) -> Point:
         raise Exception('No point found in steps with all of x y z defined')
     if not fully_defined:
         raise Exception('No point found in steps')
+    
+def last_point(steps: list, fully_defined: bool = True) -> Point:
+    '''
+    Return the last Point in the list.
+    
+    Parameters:
+        - steps (list): A list of steps.
+        - fully_defined (bool): If True, return the last Point with all x, y, z values defined.
+    
+    Returns:
+        - Point: The last Point in the list.
+    
+    Raises:
+        - Exception: If no point is found in steps with all x, y, z values defined and fully_defined is True.
+        - Exception: If no point is found in steps and fully_defined is False.
+    '''
+    return first_point(list(reversed(steps)), fully_defined)
 
 
 def export_design(steps: list, filename: str):
