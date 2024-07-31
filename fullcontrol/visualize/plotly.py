@@ -114,6 +114,7 @@ def plot(data: PlotData, controls: PlotControls):
         # make sure the bounding box is big enough for the annotations
         # the 0.001 is to make sure the annotations don't lie on the boundary
         midx, midy, midz = (getattr(data.bounding_box, f'mid{axis}') for axis in 'xyz')
+        range
         offset = 0.001
         offset_both_sides = 2 * offset
         for (x, y, z) in annotations_pts:
@@ -130,8 +131,10 @@ def plot(data: PlotData, controls: PlotControls):
             if z > midz + bounding_box_size / 2 - offset:
                 bounding_box_size = 2 * (z - midz) + offset_both_sides
 
+    relative_centre_z = 0.5*data.bounding_box.rangez/bounding_box_size
+    camera_centre_z = -0.5 + relative_centre_z
     camera = dict(eye=dict(x=-0.5/controls.zoom, y=-1/controls.zoom, z=-0.5+0.5/controls.zoom),
-                  center=dict(x=0, y=0, z=-0.5))
+                  center=dict(x=0, y=0, z=camera_centre_z))
     fig.update_layout(template='plotly_dark', paper_bgcolor="black", scene_aspectmode='cube',
                       scene=dict(annotations=annotations,
                                  xaxis=dict(backgroundcolor="black", nticks=10,
