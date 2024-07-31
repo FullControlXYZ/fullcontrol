@@ -5,6 +5,7 @@ from typing import Union
 
 # import functions and classes that will be accessible to the user
 from .classes import *
+from fullcontrol.common import fix
 from fullcontrol.common import check, flatten, linspace, export_design, import_design, points_only, relative_point, first_point, last_point
 from fullcontrol.geometry import *
 from fullcontrol.visualize.bounding_box import BoundingBox
@@ -29,6 +30,7 @@ def transform(steps: list, result_type: str, controls: Union[GcodeControls, Plot
         transform(steps, "gcode", controls)
     '''
 
+    steps = fix(steps, result_type, controls)
     if result_type == 'gcode':
         from fullcontrol.gcode.steps2gcode import gcode
         if controls is None: controls = GcodeControls()

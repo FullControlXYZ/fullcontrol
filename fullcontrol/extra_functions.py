@@ -112,33 +112,6 @@ def linspace(start: float, end: float, number_of_points: int) -> list:
     return [start + float(x)/(number_of_points-1)*(end-start) for x in range(number_of_points)]
 
 
-def check(steps: list):
-    '''
-    Check a list of steps and report what type of classes are included and whether the list is 2D.
-    FullControl requires it to be 1D for processing.
-
-    Parameters:
-    - steps (list): A list of steps to be checked.
-
-    Returns:
-    - None
-
-    Prints the check results, including the types of steps found in the list.
-    '''
-    if isinstance(steps, list):
-        results = ""
-        types = set(type(step).__name__ for step in steps)
-        if "list" in types:
-            results = "\n".join((
-                "  warning - the list of steps must be a 1D list of fullcontrol class instances, it currently includes a 'list'",
-                "  use fc.flatten() to convert it to 1D or check for accidental use of append() instead of extend()\n"
-            ))
-        results += f"  step types {types}"
-    else:
-        results = "  warning - the design must be a 1D list of fullcontrol class instances, it currently a single object, not a list"
-    print("check results:\n" + results)
-
-
 def first_point(steps: list, fully_defined: bool = True) -> Point:
     '''
     Return the first Point in the list.
