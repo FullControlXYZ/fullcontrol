@@ -6,9 +6,10 @@ from fullcontrol.gcode.extrusion_classes import ExtrusionGeometry, Extruder
 from fullcontrol.gcode.state import State
 from fullcontrol.gcode.controls import GcodeControls
 from datetime import datetime
+from fullcontrol.gcode.tips import tips
 
 
-def gcode(steps: list, gcode_controls: GcodeControls = GcodeControls()):
+def gcode(steps: list, gcode_controls: GcodeControls, show_tips: bool):
     '''
     Generate a gcode string from a list of steps.
 
@@ -19,8 +20,9 @@ def gcode(steps: list, gcode_controls: GcodeControls = GcodeControls()):
     Returns:
         str: The generated gcode string.
     '''
+    gcode_controls.initialize()
+    if show_tips: tips(gcode_controls)
 
-    # state = initialize(steps, gcode_controls)
     state = State(steps, gcode_controls)
     # need a while loop because some classes may change the length of state.steps
     while state.i < len(state.steps):

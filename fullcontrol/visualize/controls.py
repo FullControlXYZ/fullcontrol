@@ -23,7 +23,7 @@ class PlotControls(BaseModel):
         initialization_data (Optional[dict]): Information about initial printing conditions. Default is an empty dictionary. Values passed for initialization_data overwrite the default initialization_data of the printer.
     """
     color_type: Optional[str] = 'z_gradient'
-    line_width: Optional[float] = 2
+    line_width: Optional[float] = None
     style: Optional[str] = None # 'tube'/'line'
     tube_type: Optional[str] = 'flow'  # 'flow'/'cylinders'
     tube_sides: Optional[int] = 4
@@ -36,3 +36,12 @@ class PlotControls(BaseModel):
     printer_name: Optional[str] = 'generic'
     # initialization_data is information about initial printing conditions, which may be changed by the fullcontrol 'design', whereas the above attributes are never changed by the 'design'
     initialization_data: Optional[dict] = {}  # values passed for initialization_data overwrite the default initialization_data of the printer
+
+    def initialize(self):
+        if self.style is None:
+            self.style = 'tube'
+            print("warning: plot style is not set - defaulting to 'tube', which shows simulated printed line width and height\n    - use fc.transform(..., controls=fc.PlotControls(style='tube') to disable this message or style='line' for a simpler line preview\n")
+        if self.style == 'tube' and self.line_width is not None:
+            print("warning: `line_width` for the plot is set, but the plot style is 'tube' \n   - `line_width` will be ignored except for non-extruding travel lines... extruded lines are previewed with the real designed width and height\n")
+        if self.line_width is None:
+            self.line_width = 2

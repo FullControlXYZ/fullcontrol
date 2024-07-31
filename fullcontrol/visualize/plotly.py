@@ -68,13 +68,6 @@ def plot(data: PlotData, controls: PlotControls):
     
     fig = go.Figure()
     cicd_testing = True if os.environ.get('FULLCONTROL_CICD_TESTING') == 'True' else False
-    
-
-    if controls.style is None:
-        if controls.tube_type is None:
-            print('Plot shows printed line width - use `fc.PlotControls(style="line")` for a simple path, or'
-                  ' `fc.PlotControls(style="tube")` to disable this message.')
-        controls.style = 'tube'
 
     if controls.tube_type is not None:
         Mesh = {'flow': FlowTubeMesh, 'cylinders': CylindersMesh}[controls.tube_type]
