@@ -3,18 +3,14 @@ import json
 import os
 from copy import deepcopy
 from fullcontrol.gcode import Extruder, ManualGcode, Buildplate, Hotend, Fan
-import pkg_resources
 import fullcontrol.devices.community.singletool.base_settings as base_settings
-from importlib import import_module
-
-def load_json_from_package(package_name, resource_name):
-    resource_path = pkg_resources.resource_filename(package_name, resource_name)
-    with open(resource_path, 'r') as file:
-        return json.load(file)
+from importlib import import_module, resources
 
 
 def load_json(library, file_name):
-    return load_json_from_package('fullcontrol', f'devices/{library}/{file_name}')
+    resource = resources.files('fullcontrol') / 'devices' / library / file_name
+    with resource.open('r') as file:
+        return json.load(file)
 
 def find_terms_in_brackets(input_string):
     import re
