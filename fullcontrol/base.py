@@ -9,8 +9,6 @@ else:
     from pydantic import root_validator as validator
     validator_args = {"pre": True}
 
-print('hihi')
-
 class BaseModelPlus(BaseModel):
 
     """
