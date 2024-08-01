@@ -27,7 +27,7 @@ class Printer(BasePrinter):
         - The G-code string for the feedrate (F) based on the current state.
         """
         if self.speed_changed == True:
-            return f'F{self.print_speed} ' if state.extruder.on else f'F{self.travel_speed} '
+            return f'F{self.print_speed if state.extruder.on else self.travel_speed:.1f}'.rstrip('0').rstrip('.') + ' '
         else:
             return ''
 

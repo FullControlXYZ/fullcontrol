@@ -1,9 +1,18 @@
 
 # from pydantic import model_validator, BaseModel
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel, __version__
 
+if int(__version__.split('.')[0]) >= 2:
+    from pydantic import model_validator as validator
+    validator_args = {"mode": "before"}
+else:
+    from pydantic import root_validator as validator
+    validator_args = {"pre": True}
+
+print('hihi')
 
 class BaseModelPlus(BaseModel):
+
     """
     A subclass of BaseModel with additional functionality.
 
@@ -40,9 +49,8 @@ class BaseModelPlus(BaseModel):
                 if (value is not None) and (key in self_vars):
                     self[key] = value
 
-    # @model_validator(mode="before")
-    # @classmethod
-    @root_validator(pre=True)
+    @classmethod
+    @validator(**validator_args)
     def check_card_number_omitted(cls, values):
         """
         Check if the card number is omitted.

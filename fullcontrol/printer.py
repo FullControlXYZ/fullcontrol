@@ -10,5 +10,5 @@ class Printer(BaseModelPlus):
         print_speed (Optional[int]): The speed at which the printer prints, in units per minute.
         travel_speed (Optional[int]): The speed at which the printer moves between printing locations, in units per minute.
     """
-    print_speed: Optional[int] = None
-    travel_speed: Optional[int] = None
+    print_speed: Optional[float] = None
+    travel_speed: Optional[float] = None
