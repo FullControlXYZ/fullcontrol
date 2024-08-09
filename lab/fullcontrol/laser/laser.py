@@ -8,7 +8,8 @@ class Laser(BaseModelPlus):
     A object to control the state of the laser
     """
     on: Optional[bool] = None
-    power: Optional[float] = None
+    constant_power: Optional[float] = None
+    dynamic_power: Optional[float] = None
     cutting_speed: Optional[float] = None
     travel_speed: Optional[float] = None
     spotsize: Optional[float] = None
@@ -18,8 +19,10 @@ class Laser(BaseModelPlus):
         dummy_objects = []
         if self.on != None:
             dummy_objects.append(Extruder(on=self.on))
-        if self.power != None:
-            dummy_objects.append(ManualGcode(text=f'M3 S{self.power:.1f}'))
+        if self.constant_power != None:
+            dummy_objects.append(ManualGcode(text=f'M3 S{self.constant_power:.1f}'))
+        if self.dynamic_power != None:
+            dummy_objects.append(ManualGcode(text=f'M4 S{self.dynamic_power:.1f}'))
         if self.cutting_speed != None:
             dummy_objects.append(Printer(print_speed=self.cutting_speed))
         if self.travel_speed != None:

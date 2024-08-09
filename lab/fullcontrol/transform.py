@@ -31,10 +31,11 @@ def transform(steps: list, result_type: str, controls: Union[ModelControls, Gcod
         if not isinstance(steps[0], Laser):
             raise Exception("first object in design must be an fclab.Laser() object")
         else:
-            for attribute in ['cutting_speed', 'travel_speed', 'power', 'spotsize', 'on']:
+            for attribute in ['cutting_speed', 'travel_speed', 'spotsize', 'on']:
                 if getattr(steps[0], attribute) is None:
                     raise Exception(f"first object in design (fclab.Laser) must have all attributes set - attribute '{attribute}' is missing")
-                
+            if steps[0].constant_power == None and steps[0].dynamic_power == None:
+                raise Exception("first object in design (fclab.Laser) must have either 'constant_power' or 'dynamic_power' set")
         gcode = transform_original(steps, 'gcode', controls, show_tips)
         gcode = remove_terms_from_gcode(gcode, ['Z', 'E'])
         # remove relative extrusion gcode command
