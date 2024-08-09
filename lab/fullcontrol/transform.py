@@ -4,7 +4,8 @@ from fullcontrol import transform as transform_original
 from typing import Union
 from lab.fullcontrol.laser.laser import Laser
 
-def transform(steps: list, result_type: str, controls: Union[ModelControls, GcodeControls] = None):
+
+def transform(steps: list, result_type: str, controls: Union[ModelControls, GcodeControls] = None, show_tips: bool = True):
     ''' Transform a fullcontrol design (a list of function class instances) into result_type "3d_model".
     Optionally, ModelControls can be passed to control how the 3D model is generated.
     '''
@@ -34,7 +35,7 @@ def transform(steps: list, result_type: str, controls: Union[ModelControls, Gcod
                 if getattr(steps[0], attribute) is None:
                     raise Exception(f"first object in design (fclab.Laser) must have all attributes set - attribute '{attribute}' is missing")
                 
-        gcode = transform_original(steps, 'gcode', controls)
+        gcode = transform_original(steps, 'gcode', controls, show_tips)
         gcode = remove_terms_from_gcode(gcode, ['Z', 'E'])
         # remove relative extrusion gcode command
         gcode = gcode.replace("M83 ; relative extrusion\n", "")
