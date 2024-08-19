@@ -120,6 +120,9 @@ class Extruder(BaseExtruder):
             if state.extruder.travel_format == 'G1_E0':
                 # return 'E0' for relative extrusion or E(previous extrusion) for absolute extrusion
                 return f'E{self.get_and_update_volume(0)*self.volume_to_e:.6f}'.rstrip('0').rstrip('.')
+            else: 
+                # return nothing if travel format does not require am E value
+                return ''
 
     def update_e_ratio(self):
         '''Calculate the ratio for conversion from mm3 extrusion to units for E in gcode.'''
