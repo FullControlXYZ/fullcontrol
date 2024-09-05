@@ -7,17 +7,7 @@ def set_up(user_overrides: dict):
     '''
 
     # overrides for this specific printer relative those defined in base_settings.py
-    printer_overrides = {"nozzle_probe_temp": 170,
-                         "name": "Prusa Mini",
-                        "manufacturer": "Prusa",
-                        "bed_temp": 40,
-                        "nozzle_temp": 210,
-                        "material_flow_percent": 100,
-                        "dia_feed": 1.75,
-                        "build_volume_x": 180,
-                        "build_volume_y": 180,
-                        "build_volume_z": 180,
-                        "z_offset": None,}
+    printer_overrides = {"nozzle_probe_temp": 170}
     # update default initialization settings with printer-specific overrides and user-defined overrides
     initialization_data = {**base_settings.default_initial_settings, **printer_overrides}
     initialization_data = {**initialization_data, **user_overrides}
