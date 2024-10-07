@@ -18,11 +18,11 @@ class Point(BasePoint):
         '''
         s = ''
         if self.x != None and self.x != p.x:
-            s += f'X{round(self.x, 10):.6} '
+            s += f'X{self.x:.6f}'.rstrip('0').rstrip('.') + ' '
         if self.y != None and self.y != p.y:
-            s += f'Y{round(self.y, 10):.6} '
+            s += f'Y{self.y:.6f}'.rstrip('0').rstrip('.') + ' '
         if self.z != None and self.z != p.z:
-            s += f'Z{round(self.z, 10):.6} '
+            s += f'Z{self.z:.6f}'.rstrip('0').rstrip('.') + ' '
         return s if s != '' else None
 
     def gcode(self, state):

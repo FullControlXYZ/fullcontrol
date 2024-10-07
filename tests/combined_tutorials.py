@@ -1767,6 +1767,24 @@ steps = fclab.bezier(bez_points, num_points=100)
 fc.transform(steps, 'plot', fc.PlotControls(style="line", zoom=0.8))
 
 
+# #### polar sine waves
+
+# In[ ]:
+
+
+centre = fc.Point(x=0, y=0, z=0)
+radius = 10
+amplitude = -2
+start_angle = 0
+arc_angle = radians(270)
+periods = 12
+segments_per_period = 8
+extra_half_period = False
+phase_shift = 0
+steps = fclab.arc_sinewaveXY(centre, radius, amplitude, start_angle, arc_angle, periods, segments_per_period, extra_half_period, phase_shift)
+fc.transform(steps, 'plot', fc.PlotControls(style="line", zoom=0.8, color_type='print_sequence'))
+
+
 # #### convex (streamline slicing)
 # 
 # the CONVEX (CONtinuously Varied EXtrusion) approach allows continuously varying extrusion width. i.e. streamline-slicing
@@ -1855,6 +1873,36 @@ speeds_required = [step.print_speed for step in steps if isinstance(step, fc.Pri
 print(f'extrusion width varies from {min(widths_required):.2} to {max(widths_required):.2} mm')
 print(f'speed varies from {min(speeds_required)} to {max(speeds_required)} mm/min, to maintain constant volumetric flow rate')
 fc.transform(steps, 'plot', fc.PlotControls(color_type='print_sequence', style='tube', tube_type='flow'))
+
+
+# #### solid base
+# 
+# automatically add solid layers to an existing design for a shell structure with fill_base_simple() or fill_base_full(), which use the convex function
+# 
+# the layer outline is determined based on the 'segments_per_layer' parameter
+# 
+# fill_base_simple generates solid fill for the first layer then copies it for subsequent solid layers
+# fill_base_full generates solid fill for each layer based on the current layer's outline, which is more computationally demanding, but useful if the model does now have near-vertical walls
+# 
+
+# In[ ]:
+
+
+segments_per_layer = 64
+helix_layers = 20
+helix_start_rad, helix_end_rad = 5, 5
+centre = fc.Point(x=0, y=0, z=0)
+helix = fc.helixZ(centre, helix_start_rad, helix_end_rad, 0, helix_layers, 0.2, helix_layers*segments_per_layer)
+
+solid_layers, EW = 5, 0.5
+steps = fclab.fill_base_simple(helix, segments_per_layer, solid_layers, EW)
+fc.transform(steps, 'plot', fc.PlotControls(style="line", zoom=0.8))
+helix_end_rad = 10
+helix = fc.helixZ(centre, helix_start_rad, helix_end_rad, 0, helix_layers, 0.2, helix_layers*segments_per_layer)
+steps = fclab.fill_base_simple(helix, segments_per_layer, solid_layers, EW)
+fc.transform(steps, 'plot', fc.PlotControls(style="line", zoom=0.8))
+steps = fclab.fill_base_full(helix, segments_per_layer, solid_layers, EW)
+fc.transform(steps, 'plot', fc.PlotControls(style="line", zoom=0.8))
 
 
 # #### offset a path
@@ -2181,13 +2229,15 @@ print(fc.linspace(1.5,2.5,11))
 # this function returns a list of three steps: [Extruder(on=False), Point, Extruder(on=True)]
 # 
 # since it returns a list, extend() must be used instead of append() when adding the returned steps to an existing list of steps
+# 
+# if a list of steps is supplied to the function, the first point in the list is used
 
 # In[ ]:
 
 
 steps_layer_1 = [fc.Point(x=0, y=0, z=0), fc.Point(x=5, y=20), fc.Point(x=10, y=0)]
 steps_layer_2 = [fc.Point(x=0, y=0, z=0.4), fc.Point(x=5, y=20), fc.Point(x=10, y=0)]
-steps = steps_layer_1 + fc.travel_to(steps_layer_2[0]) + steps_layer_2
+steps = steps_layer_1 + fc.travel_to(steps_layer_2) + steps_layer_2
 steps.extend(fc.travel_to(fc.Point(z=5)))
 fc.transform(steps, 'plot', fc.PlotControls(color_type='print_sequence'))
 
@@ -2259,19 +2309,21 @@ print("\nflat steps 'check':")
 fc.check(flat_steps)
 
 
-# #### find the first point in a ***design*** with fc.first_point()
+# #### find the first or last point in a ***design*** with fc.first_point() and fc.last_point() 
 # 
-# this function finds the first point object in the design
+# these functions find the first or last point objects in the design
 # 
-# it can be set to find the first point object of any kind or the first one with all of x y z defined
+# it can be set to find the first/last point object of any kind or the first/last one with all of x y z defined
 
 # In[ ]:
 
 
-steps = [fc.Fan(speed_percent=75), fc.Point(x=1), fc.Point(y=3), fc.Point(x=1, y=1, z=1)]
+steps = [fc.Fan(speed_percent=75), fc.Point(x=1), fc.Point(y=3), fc.Point(x=1, y=1, z=1), fc.Point(x=1, y=1, z=2), fc.Point(x=2), fc.Fan(speed_percent=100)]
 print("first step in the design: " + str(type(steps[0]).__name__))
 print("first point in the design (not fully defined): " + str(fc.first_point(steps, fully_defined=False)))
 print("first point in the design (fully defined): " + str(fc.first_point(steps, fully_defined=True)))
+print("last point in the design (not fully defined): " + str(fc.last_point(steps, fully_defined=False)))
+print("last point in the design (fully defined): " + str(fc.last_point(steps, fully_defined=True)))
 
 
 # #### extract points from a ***design*** with fc.point_only()
@@ -2306,6 +2358,19 @@ steps = [fc.Point(x=0, y=0, z=0), fc.Point(x=10), fc.Extruder(on=False), fc.Fan(
 fc.export_design(steps, 'my_design')
 steps_imported = fc.import_design(fc, 'my_design')
 print(fc.transform(steps_imported, 'gcode'))
+
+
+# #### bounding box
+# 
+# find the bounding box of a design, including data for min, mid, max and range for x/y/z
+
+# In[ ]:
+
+
+steps = [fc.Point(x=0,y=0,z=0), fc.Point(x=10,y=10,z=10)]
+bounding_box = fc.BoundingBox()
+bounding_box.calc_bounds(steps)
+print(bounding_box)
 
 #!/usr/bin/env python
 # coding: utf-8
@@ -2393,7 +2458,7 @@ steps = [point_1, point_2, point_3]
 
 
 steps = [point_1, point_2, point_3]
-gcode = fc.transform(steps, 'gcode')
+gcode = fc.transform(steps, 'gcode', fc.GcodeControls(printer_name='generic'), show_tips=False)
 print(gcode)
 
 
@@ -2415,7 +2480,7 @@ extra_steps = [fc.Point(x=50, y=50),fc.Point(x=60, y=60),fc.Point(x=70, y=70)]
 steps.extend(extra_steps)
 
 # transform the design to gcode and print to screen
-print(fc.transform(steps, 'gcode'))
+print(fc.transform(steps, 'gcode', show_tips=False))
 
 
 # #### use a python loop to concisely add steps to a ***design***
@@ -2426,7 +2491,7 @@ print(fc.transform(steps, 'gcode'))
 steps = []
 for i in range(11):
     steps.append(fc.Point(x=10+i,y=10+i,z=0))
-print(fc.transform(steps, 'gcode'))
+print(fc.transform(steps, 'gcode', show_tips=False))
 
 
 # #### transform a ***design*** into a 'plot' ***result***
@@ -2447,7 +2512,7 @@ for i in range(25):
     steps.append(fc.Point(x=55+i*layer_height/2,y=50,z=i*layer_height/2))
     steps.append(fc.Point(x=50,y=45,z=i*layer_height))
     steps.append(fc.Point(x=45-i*layer_height/2,y=50,z=i*layer_height/2))
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # #### use mathematical design to make complex print paths
@@ -2465,7 +2530,7 @@ for i in range(10000):
     angle = tau*i/200
     offset = (1.5*(i/10000)**2)*cos(angle*6)
     steps.append(fc.Point(x=(6+offset)*sin(angle), y=(6+offset)*cos(angle), z=((i/200)*0.1)-offset/2))
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # #### use python *'list comprehension'* to create the list of steps efficiently
@@ -2475,7 +2540,7 @@ fc.transform(steps, 'plot')
 
 from random import random
 steps = [fc.Point(x=50*random(),y=50*random(),z=i*0.01) for i in range(1000)]
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # ## III - common types of ***state***
@@ -2503,7 +2568,7 @@ steps.append(fc.Point(x=80))
 steps.append(fc.Fan(speed_percent=50))
 steps.append(fc.Hotend(temp=205))
 steps.append(fc.Point(x=100))
-print(fc.transform(steps, 'gcode'))
+print(fc.transform(steps, 'gcode', show_tips=False))
 
 
 # #### turn the extruder off and on
@@ -2523,7 +2588,7 @@ steps.append(fc.Point(x=10, y=0))
 steps.extend(fc.travel_to(fc.Point(x=0,y=0,z=0.6)))
 steps.append(fc.Point(x=5, y=20))
 steps.append(fc.Point(x=10, y=0))
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # ## IV - annotations and custom commands
@@ -2539,7 +2604,7 @@ steps.append(fc.GcodeComment(text='the next line of gcode will print to x=20'))
 steps.append(fc.Point(x=20))
 steps.append(fc.Point(x=40))
 steps.append(fc.GcodeComment(end_of_previous_line_text='this line of gcode prints to x=40'))
-print(fc.transform(steps, 'gcode'))
+print(fc.transform(steps, 'gcode', show_tips=False))
 
 
 # #### add custom gcode commands
@@ -2556,7 +2621,7 @@ steps.append(fc.Point(x=0, y=0, z=0))
 steps.append(fc.Point(x=20))
 steps.append(fc.ManualGcode(text="G4 P2000 ; pause for 2 seconds"))
 steps.append(fc.PrinterCommand(id='retract'))
-print(fc.transform(steps, 'gcode'))
+print(fc.transform(steps, 'gcode', show_tips=False))
 
 
 # #### add annotations to the 'plot' ***result***
@@ -2574,7 +2639,7 @@ for i in range(3):
         steps.append(fc.PlotAnnotation(label="Height: " + str(0+0.1*j) + " mm"))
         steps.append(fc.Point(x=50, y=20+5*j+30*i, z=0+0.1*j))
     steps.append(fc.PlotAnnotation(label="Fan speed: " + str(50*i) + "%"))
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # ## V - adjust the way the ***design*** is converted into the ***result***
@@ -2605,10 +2670,10 @@ fc.transform(steps, 'gcode', fc.GcodeControls(save_as="my_design"))
 
 steps = [fc.Point(x=10, y=10, z=0), fc.Point(x=20), fc.Point(y=20)]
 print('########\n######## Default initial conditions:\n########')
-print(fc.transform(steps, 'gcode'))
+print(fc.transform(steps, 'gcode', show_tips=False))
 gcode_controls = fc.GcodeControls(initialization_data={"print_speed": 600, "travel_speed": 5750})
 print('\n########\n######## Modified initial conditions (see F8000 changed to F5750 and F1000 changed to F600):\n########')
-print(fc.transform(steps, 'gcode', gcode_controls))
+print(fc.transform(steps, 'gcode', gcode_controls, show_tips=False))
 
 
 # #### change format of gcode ***result*** for different printers
@@ -2619,8 +2684,8 @@ print(fc.transform(steps, 'gcode', gcode_controls))
 
 
 steps = [fc.Point(x=10, y=10, z=0), fc.Point(x=20), fc.Point(y=20)]
-prusa_gcode = fc.transform(steps, 'gcode', fc.GcodeControls(printer_name='prusa_i3', initialization_data={'relative_e': False}))
-ulti2plus_gcode = fc.transform(steps, 'gcode', fc.GcodeControls(printer_name='ultimaker2plus', initialization_data={'relative_e': True}))
+prusa_gcode = fc.transform(steps, 'gcode', fc.GcodeControls(printer_name='prusa_i3', initialization_data={'relative_e': False}), show_tips=False)
+ulti2plus_gcode = fc.transform(steps, 'gcode', fc.GcodeControls(printer_name='ultimaker2plus', initialization_data={'relative_e': True}), show_tips=False)
 
 print('########\n######## prusa gcode - first 8 lines:\n######## ')
 gcode_list = (prusa_gcode.split('\n'))
@@ -2646,7 +2711,7 @@ plot_controls = fc.PlotControls(raw_data=True)
 steps = [fc.Point(x=10, y=10, z=0), fc.Point(x=30, z=0.5), fc.Point(x=10, z=1), fc.PlotAnnotation(label="End")]
 plot_data = fc.transform(steps, 'plot', plot_controls)
 print(plot_data)
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # ## VI - use FullControl geometry functions to create the ***design***
@@ -2659,7 +2724,7 @@ fc.transform(steps, 'plot')
 
 
 steps = fc.rectangleXY(fc.Point(x=0, y=0, z=0.2), 20, 4)
-fc.transform(steps, 'plot', fc.PlotControls(color_type='print_sequence'))
+fc.transform(steps, 'plot', fc.PlotControls(color_type='print_sequence', style='line'))
 
 
 # #### e.g. copy geometry to make a linear array
@@ -2669,7 +2734,7 @@ fc.transform(steps, 'plot', fc.PlotControls(color_type='print_sequence'))
 
 steps = fc.rectangleXY(fc.Point(x=0, y=0, z=0.2), 20, 4)
 steps = fc.move(steps,fc.Vector(z=0.2),copy=True, copy_quantity=25)
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # #### e.g. helix
@@ -2679,7 +2744,7 @@ fc.transform(steps, 'plot')
 
 centre_point = fc.Point(x=50, y=50, z=0)
 steps = fc.helixZ(centre_point, 8, 6, 0, 30, 0.15, 20*64)
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # #### combine geometry functions to quickly achieve interesting print paths
@@ -2693,7 +2758,7 @@ fc.transform(steps, 'plot')
 steps = fc.squarewaveXY(fc.Point(x=20, y=50, z=0), fc.Vector(x=1, y=0), 10, 5, 10)
 steps = fc.move_polar(steps,fc.Point(x=67.5, y=45, z=0), 0, tau/2, copy=True)
 steps = fc.move(steps, fc.Vector(z=0.2), copy=True, copy_quantity=60)
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # #### design in polar coordinates
@@ -2706,7 +2771,7 @@ fc.transform(steps, 'plot')
 
 
 steps=[fc.polar_to_point(centre=fc.Point(x=0, y=0, z=i*0.001), radius=10+5*random(), angle=i*tau/13.8) for i in range(4000)]
-fc.transform(steps, 'plot', fc.PlotControls(neat_for_publishing=True, zoom=0.7))
+fc.transform(steps, 'plot', fc.PlotControls(neat_for_publishing=True, zoom=0.7, style='line'))
 
 
 # #### create custom geometry functions
@@ -2727,7 +2792,7 @@ def tri_wave(start_point: fc.Point, amplitude: float, period_length: float, peri
 steps = tri_wave(fc.Point(x=20, y=50, z=0), 10, 10, 10)
 steps.extend(tri_wave(fc.Point(x=120, y=40, z=0), -10, -10, 10))
 steps = fc.move(steps, fc.Vector(z=0.2), copy=True, copy_quantity=60)
-fc.transform(steps, 'plot')
+fc.transform(steps, 'plot', fc.PlotControls(style='line'))
 
 
 # ## VII - next steps
@@ -2775,7 +2840,7 @@ steps.append(fc5.PlotAnnotation(point=fc5.Point(x=0, y=0, z=8.75), label='color 
 steps.append(fc5.PlotAnnotation(point=fc5.Point(x=0, y=0, z=7.5), label='-30 deg (blue) to +30 deg (red)'))
 gcode = fc5.transform(steps,'gcode')
 print('final ten gcode lines:\n' + '\n'.join(gcode.split('\n')[-10:]))
-fc5.transform(steps, 'plot', fc5.PlotControls(color_type='manual', hide_axes=False, zoom=0.75))
+fc5.transform(steps, 'plot', fc5.PlotControls(color_type='manual', hide_axes=False, zoom=0.75, style='line'))
 
 #!/usr/bin/env python
 # coding: utf-8

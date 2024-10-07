@@ -1,7 +1,7 @@
 
 from fullcontrol.geometry import Point, Vector
 from math import atan2, cos, sin, tau
-
+from fullcontrol.check import check_points
 from pydantic import BaseModel
 
 
@@ -46,6 +46,7 @@ def point_to_polar(target_point: Point, origin_point: Point) -> PolarPoint:
     Returns:
         PolarPoint: The polar coordinates of the target point relative to the origin point, accessed with .radius and .angle
     '''
+    check_points([target_point, origin_point], check='polar_xy')
     r = ((target_point.x - origin_point.x) ** 2 + (target_point.y - origin_point.y) ** 2) ** 0.5
     angle = atan2((target_point.y - origin_point.y), (target_point.x - origin_point.x))
     return PolarPoint(radius=r, angle=angle % tau)

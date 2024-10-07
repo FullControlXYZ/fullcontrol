@@ -15,7 +15,7 @@ classifiers = [
 ]
 dependencies = [
   "plotly",
-  "pydantic<2.0",
+  "pydantic",
   "numpy",
 ]
 
