@@ -57,7 +57,9 @@ def gcode_to_bambu_3mf(gcode: str, new_3mf_file: str):
                 new_zip.write(file_path, arcname)
 
     # Step 5: Download the new .3mf
-    if colab: files.download(new_3mf_file)
+    if colab: 
+        from google.colab import files
+        files.download(new_3mf_file)
 
     # Step 6: Cleanup
     if os.path.exists(extract_dir):
