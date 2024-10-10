@@ -1,21 +1,28 @@
 from lab.fullcontrol.geometry_model.controls import ModelControls
 from fullcontrol import GcodeControls
+from lab.fullcontrol.controlcode_formats.controls import CodeControls
 from fullcontrol import transform as transform_original
 from typing import Union
 from lab.fullcontrol.laser.laser import Laser
 
 
-def transform(steps: list, result_type: str, controls: Union[ModelControls, GcodeControls] = None, show_tips: bool = True):
-    ''' Transform a fullcontrol design (a list of function class instances) into result_type "3d_model".
-    Optionally, ModelControls can be passed to control how the 3D model is generated.
+def transform(steps: list, result_type: str, controls: Union[ModelControls, GcodeControls, CodeControls] = None, show_tips: bool = True):
+    ''' Transform a fullcontrol design (a list of function class instances) into various output formats.
+    Optionally, Controls can be passed to control how the output is generated.
     '''
     
-    if result_type == '3d_model':  
+    if result_type == 'control_code':  
+        from lab.fullcontrol.controlcode_formats.steps2controlcode import controlcode 
+        if controls is not None:
+            controlcode(steps, controls, show_tips)
+        else:
+            controlcode(steps, CodeControls(), show_tips)
+    elif result_type == '3d_model':
         from lab.fullcontrol.geometry_model.steps2geometry import geometry_model
         if controls is not None:
             geometry_model(steps, controls)
         geometry_model(steps)
-    if result_type == 'laser_cutter_gcode':
+    elif result_type == 'laser_cutter_gcode':
         import re
 
         def remove_terms_from_gcode(gcode, term_characters):
@@ -41,6 +48,8 @@ def transform(steps: list, result_type: str, controls: Union[ModelControls, Gcod
         # remove relative extrusion gcode command
         gcode = gcode.replace("M83 ; relative extrusion\n", "")
         return gcode
+    else:
+        raise ValueError(f"result_type '{result_type}' not recognized. Please use 'control_code', '3d_model', 'laser_cutter_gcode', or fc.transform()")
 
 
 

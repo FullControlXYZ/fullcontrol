@@ -42,3 +42,6 @@ def transform(steps: list, result_type: str, controls: Union[GcodeControls, Plot
         if controls is None: controls = PlotControls()
         steps = fix(steps, result_type, controls)
         return visualize(steps, controls, show_tips)
+    
+    else:
+        raise ValueError(f"result_type '{result_type}' not recognized. Please use 'gcode' or 'plot' of fclab.transform()")
