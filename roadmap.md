@@ -6,7 +6,6 @@ sooner:
     - stl using [VOLCO](https://doi.org/10.1016/j.addma.2018.04.004)
 - real time control
 - add tutorial info about path length function, circleXY_3pt, catmull_rom, bezier_through_points, interpolated_point, segmented_path
-- migrate to pydantic >2.0 - ensure all requirements are met by colab without any dependent package uninstall+reinstall if possible
 - release new version (changed docstrings and repo structure), modify installation instructions + notebooks to use pip install fullcontrol instead of git+https://github.com/FullControlXYZ/fullcontrol - and update version on pypi
 - update main readme to say users can install from pypi (latest official release) or from github (git+...) to the most up to date version or clone the repo.
 
