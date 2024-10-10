@@ -16,7 +16,8 @@ notebook_names = ["contents.ipynb",
                   "lab_geometry.ipynb",
                   "lab_four_axis_demo.ipynb",
                   "lab_five_axis_demo.ipynb",
-                  "lab_stl_output.ipynb"]
+                  "lab_stl_output.ipynb",
+                  "lab_3mf_output.ipynb"]
 
 notebook_addresses = ["../tutorials/" +
                       notebook_name for notebook_name in notebook_names]
