@@ -78,10 +78,10 @@ def controlcode(steps: list, model_controls: CodeControls, show_tips: bool):
         steps = fix(steps, 'gcode', model_controls.controls)
         gcode_str = gcode(steps, model_controls.controls, show_tips)
 
-        gcode = gcode.split('\n')
-        gcode = gcode[:15] + gcode[16:20] + gcode[22:]
+        gcode_str = gcode_str.split('\n')
+        gcode_str = gcode_str[:15] + gcode_str[16:20] + gcode_str[22:]
         print('during 3mf generation, gcode lines for aux fan, purge and rise were deleted from the bamulab starting procedure')
-        gcode = '\n'.join(gcode)
+        gcode_str = '\n'.join(gcode_str)
 
         gcode_to_bambu_3mf(gcode_str, model_controls.filename)
 
