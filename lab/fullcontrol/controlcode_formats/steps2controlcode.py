@@ -36,12 +36,6 @@ def gcode_to_bambu_3mf(gcode: str, new_3mf_file: str):
     with zipfile.ZipFile(local_3mf, 'r') as zip_ref:
         zip_ref.extractall(extract_dir)
 
-    gcode = gcode.split('\n')
-    # get rid of gcode lines for aux fan, purge and rise
-    gcode = gcode[:15] + gcode[16:20] + gcode[22:]
-    gcode = '\n'.join(gcode)
-    # gcode = gcode_pre + gcode + gcode_post
-
     plate_gcode_file = os.path.join(extract_dir, "Metadata", "plate_1.gcode")
     with open(plate_gcode_file, 'r+') as file:
         file.write(file.read().replace("; [FULLCONTROL GCODE HERE]", gcode))
@@ -83,5 +77,11 @@ def controlcode(steps: list, model_controls: CodeControls, show_tips: bool):
         from fullcontrol.common import fix
         steps = fix(steps, 'gcode', model_controls.controls)
         gcode_str = gcode(steps, model_controls.controls, show_tips)
+
+        gcode = gcode.split('\n')
+        gcode = gcode[:15] + gcode[16:20] + gcode[22:]
+        print('during 3mf generation, gcode lines for aux fan, purge and rise were deleted from the bamulab starting procedure')
+        gcode = '\n'.join(gcode)
+
         gcode_to_bambu_3mf(gcode_str, model_controls.filename)
 
