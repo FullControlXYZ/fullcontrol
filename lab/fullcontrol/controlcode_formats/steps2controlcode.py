@@ -73,7 +73,7 @@ def controlcode(steps: list, model_controls: CodeControls, show_tips: bool):
     if model_controls.code_format == '3mf':
         if not isinstance(model_controls.controls, GcodeControls):
             raise ValueError("CodeControls.controls must be a fc.GcodeControls instance at present")
-        if not model_controls.controls.printer_name != 'bambulab_x1':
+        if model_controls.controls.printer_name != 'bambulab_x1':
             raise ValueError("only 'bambulab_x1' is currently supported for CodeControls.controls.printer_name")
         if model_controls.controls.save_as != None:
             raise ValueError("for fc.transform to 'control_code', and specifically 3mf, don't use GcodeControl.save_as, use CodeControls.filename instead")
