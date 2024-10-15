@@ -53,7 +53,7 @@ def set_up(user_overrides: dict):
         text='; For BambuLab P1 Printers, when using custom GCode, the first print after start-up may stop extruding shortly after starting. Just re-print\n'))
 
     # printer resets
-    starting_procedure_steps.append(ManualGcode(text='\n; printer reset\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- printer reset ---\n'))
     starting_procedure_steps.append(PrinterCommand(id='relative_coords'))
     starting_procedure_steps.append(ManualGcode(text='M17 Z0.4 ; lower the z-motor current'))
     starting_procedure_steps.append(ManualGcode(text='G380 S2 Z30 F300 ; G380 is same as G38; lower the hotbed , to prevent the nozzle is below the hotbed'))
@@ -69,12 +69,14 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='M204 S10000 ; init ACC set to 10m/s^2'))
 
     # start bed heating and toolhead heating
+    starting_procedure_steps.append(ManualGcode(text='\n;--- heat build plate ---\n'))
     starting_procedure_steps.append(Buildplate(temp=initialization_data["bed_temp"], wait=False))
     starting_procedure_steps.append(ManualGcode(text='M106 P2 S100 ; turn on aux fan to cool toolhead'))
     starting_procedure_steps.append(Hotend(temp=250, wait=False))
     starting_procedure_steps.append(Extruder(on=False))
 
     # prepare print temperature and material
+    starting_procedure_steps.append(ManualGcode(text='\n;--- prepare toolhead ---\n'))
     starting_procedure_steps.append(PrinterCommand(id='relative_coords'))
     starting_procedure_steps.append(ManualGcode(text='G0 Z10 F1200'))
     starting_procedure_steps.append(PrinterCommand(id='absolute_coords'))
@@ -85,7 +87,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='G1 Y265 F3000'))
     
     # purge filament
-    starting_procedure_steps.append(ManualGcode(text='\n; purge filament procedure\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- purge filament ---\n'))
     starting_procedure_steps.append(ManualGcode(text='M412 S1 ; turn on filament runout detection'))
     starting_procedure_steps.append(Hotend(temp=250, wait=True))
     starting_procedure_steps.append(Fan(speed_percent=0))
@@ -105,7 +107,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(ManualGcode(text='G1 E-.5 F300'))
 
     # nozzle wipe
-    starting_procedure_steps.append(ManualGcode(text='\n; nozzle wipe procedure\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- nozzle wipe ---\n'))
     starting_procedure_steps.append(ManualGcode(text='G1 X70 F9000'))
     starting_procedure_steps.append(ManualGcode(text='G1 X76 F15000'))
     starting_procedure_steps.append(ManualGcode(text='G1 X65 F15000'))
@@ -121,7 +123,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Fan(speed_percent=0))
 
     # clean nozzle procedure
-    starting_procedure_steps.append(ManualGcode(text='\n; clean nozzle procedure\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- clean nozzle ---\n'))
     starting_procedure_steps.append(ManualGcode(text='M975 S1 ; turn on vibration suppression'))
     starting_procedure_steps.append(Fan(speed_percent=100))
     starting_procedure_steps.append(ManualGcode(text='G1 X65 Y230 F18000'))
@@ -208,6 +210,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Fan(speed_percent=0))
     
     # home toolhead
+    starting_procedure_steps.append(ManualGcode(text='\n;--- home toolhead ---\n'))
     starting_procedure_steps.append(PrinterCommand(id='home'))
     starting_procedure_steps.append(PrinterCommand(id='absolute_coords'))
     starting_procedure_steps.append(PrinterCommand(id='units_mm'))
@@ -217,17 +220,17 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Point(x=5, y=5, z=10))
 
     # set hotend temperature
-    starting_procedure_steps.append(ManualGcode(text='\n; wait for bed temperature and set hot end temperature\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- wait for bed temperature and set hot end temperature ---\n'))
     starting_procedure_steps.append(Hotend(temp=initialization_data["nozzle_temp"], wait=True))
     starting_procedure_steps.append(Buildplate(temp=initialization_data["bed_temp"], wait=True))
 
     # lower bed for PEI plate
     if initialization_data["bed_type"] == "Textured PEI Plate":
-        starting_procedure_steps.append(ManualGcode(text='\n; lower bed for PEI plate\n'))
+        starting_procedure_steps.append(ManualGcode(text='\n;--- lower bed for PEI plate ---\n'))
         starting_procedure_steps.append(ManualGcode(text='G29.1 Z-0.04 ; for Textured PEI Plate'))
 
     # wait for extrude temperature, set fan and travel speed
-    starting_procedure_steps.append(ManualGcode(text='\n; wait for hot end temperature\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- wait for hot end temperature ---\n'))
     starting_procedure_steps.append(Fan(speed_percent=initialization_data["parts_fan_percent"]))
     starting_procedure_steps.append(ManualGcode(text=f'M106 P2 S{int(initialization_data["aux_fan_percent"] / 100 * 255)} ; enable aux fan'))
     starting_procedure_steps.append(ManualGcode(text=f'M106 P3 S{int(initialization_data["chamber_fan_percent"] / 100 * 255)} ; enable chamber fan'))
@@ -237,7 +240,7 @@ def set_up(user_overrides: dict):
     starting_procedure_steps.append(Extruder(on=True))
 
     # set print speed and material flow
-    starting_procedure_steps.append(ManualGcode(text='\n; set print speed and flow\n'))
+    starting_procedure_steps.append(ManualGcode(text='\n;--- set print speed and flow ---\n'))
     starting_procedure_steps.append(ManualGcode(
         text='M220 S' + str(initialization_data["print_speed_percent"]) + ' ; set speed factor override percentage'))
     starting_procedure_steps.append(ManualGcode(
@@ -252,13 +255,14 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(ManualGcode(text='\n;==========\n; START OF ENDING PROCEDURE\n;==========\n'))
     
     # retract filament and drop bed
+    ending_procedure_steps.append(ManualGcode(text='\n;--- drop build plate ---\n'))
     ending_procedure_steps.append(ManualGcode(text='M400 ; wait for buffer to clear'))
     ending_procedure_steps.append(ManualGcode(text='G92 E0 ; zero the extruder'))
-    ending_procedure_steps.append(ManualGcode(text='G1 E-0.8 F1800 ; retract'))
+    ending_procedure_steps.append(ManualGcode(text='G1 E-1.5 F1800 ; retract'))
     ending_procedure_steps.append(ManualGcode(text=f'G1 Z{model_height + 0.5} F900 ; drop bed a little'))
 
     # move toolhead
-    ending_procedure_steps.append(ManualGcode(text='\n;--- move toolhead to the back ---\n'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- move toolhead back ---\n'))
     ending_procedure_steps.append(ManualGcode(text='G28 X Y ; home the X and Y axes'))
     ending_procedure_steps.append(ManualGcode(text='G1 X65 F12000'))
     ending_procedure_steps.append(ManualGcode(text='G1 Y245'))
@@ -281,7 +285,7 @@ def set_up(user_overrides: dict):
     ending_procedure_steps.append(ManualGcode(text='G1 X100 F12000 ; wipe'))
 
     # turn off hot end
-    ending_procedure_steps.append(ManualGcode(text='\n; turn off hotend\n'))
+    ending_procedure_steps.append(ManualGcode(text='\n;--- turn off hotend ---\n'))
     ending_procedure_steps.append(Hotend(temp=0, wait=False))
 
     # move bed down
