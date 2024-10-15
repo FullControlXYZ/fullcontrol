@@ -1,5 +1,6 @@
 
 from fullcontrol.geometry import Point, point_to_polar, polar_to_point
+from fullcontrol.check import check_points
 from copy import deepcopy
 from typing import Union
 
@@ -28,6 +29,7 @@ def move_polar(geometry: Union[Point, list], centre: Point, radius: float, angle
     Returns:
         Union[Point, list]: The new geometry as a list (original geometry is not edited).
     '''
+    check_points(geometry, check='polar_xy')
     if copy == False:
         return move_geometry_polar(geometry, centre, radius, angle)
     else:

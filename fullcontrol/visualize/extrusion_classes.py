@@ -33,6 +33,8 @@ class Extruder(BaseExtruder):
                 state.path_count_now += 1
             else:
                 plot_data.paths[-1].extruder.on = self.on
+                state.point.update_color(state, plot_data, plot_controls)
+                if len(plot_data.paths[-1].colors) > 0: plot_data.paths[-1].colors[-1] = state.point.color
 
 
 class ExtrusionGeometry(BaseExtrusionGeometry):
