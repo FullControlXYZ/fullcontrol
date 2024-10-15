@@ -13,7 +13,7 @@ import fullcontrol.geometry as xyz_geom
 from .xyz_add_bc import xyz_add_bc
 
 
-def transform(steps: list, result_type: str, controls: Union[GcodeControls, PlotControls] = None):
+def transform(steps: list, result_type: str, controls: Union[GcodeControls, PlotControls] = None, show_tips: bool = True):
     '''transform a fullcontrol design (a list of function class instances) into result_type
     "gcode" or "plot". Optionally, GcodeControls or PlotControls can be passed to control 
     how the gcode or plot are generated.
@@ -21,14 +21,10 @@ def transform(steps: list, result_type: str, controls: Union[GcodeControls, Plot
 
     if result_type == 'gcode':
         from lab.fullcontrol.multiaxis.gcode.XYZC0B1.steps2gcode import gcode
-        if controls != None:
-            return gcode(steps, controls)
-        else:
-            return gcode(steps)
+        if controls is None: controls = GcodeControls()
+        return gcode(steps, controls)
 
     elif result_type == 'plot':
         from fullcontrol.visualize.steps2visualization import visualize
-        if controls != None:
-            return visualize(steps, controls)
-        else:
-            return visualize(steps)
+        if controls is None: controls = PlotControls()
+        return visualize(steps, controls, show_tips)

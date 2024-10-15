@@ -34,4 +34,6 @@ for use on a local system, clone this repo and open the contents notebooks (cont
 1. FullControl lab geometry - [lab_geometry.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/lab_geometry_colab.ipynb)
 1. four-axis example - [lab_four_axis_demo.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/lab_four_axis_demo_colab.ipynb)
 1. five-axis example - [lab_five_axis_demo.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/lab_five_axis_demo_colab.ipynb)
+1. stl-output example - [lab_stl_output.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/lab_stl_output_colab.ipynb)
+1. 3mf-output example - [lab_3mf_output.ipynb](https://colab.research.google.com/github/FullControlXYZ/fullcontrol/blob/master/tutorials/colab/lab_3mf_output_colab.ipynb)
 
