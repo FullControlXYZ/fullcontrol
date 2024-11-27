@@ -21,7 +21,9 @@ def transform(steps: list, result_type: str, controls: Union[ModelControls, Gcod
         from lab.fullcontrol.geometry_model.steps2geometry import geometry_model
         if controls is not None:
             geometry_model(steps, controls)
-        geometry_model(steps)
+        else:
+            print("warning: no controls were supplied to fclab.transform(). it's advisable to supply fclab.ModelControls. the simulated extrusion width and height may be incorrect")
+            geometry_model(steps, ModelControls())
     elif result_type == 'laser_cutter_gcode':
         import re
 

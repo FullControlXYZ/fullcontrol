@@ -30,8 +30,10 @@ def generate_mesh(path, linewidth_now: float, Mesh: FlowTubeMesh, sides, roundin
     if np.any(dups):
         # remove successive duplicate points so TubeMesh can be generated
         good_points[1:] = ~dups
-        # modify colors list so the new ones are accessible outside the function
-        colors_now[:] = np.array(colors_now, dtype=object)[good_points]
+        if colors_now is not None:
+            # for stl generation, no colors are required so this is necessary
+            # modify colors list so the new ones are accessible outside the function
+            colors_now[:] = np.array(colors_now, dtype=object)[good_points]
     path_points = path_points[good_points]
     capped = False
     widths = path.widths

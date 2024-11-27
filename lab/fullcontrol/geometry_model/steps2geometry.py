@@ -17,7 +17,7 @@ def generate_stl(data: PlotData, controls: ModelControls):
 
     binary_file = controls.stl_type.lower() == 'binary'
     MeshExporter({'name': 'extrusion'}, meshes).to_stl(
-        controls.stl_filename, binary_file, combined_file=controls.stls_combined
+        controls.stl_filename, binary_file, combined_file=controls.stls_combined, overwrite=True
     )
 
 def reuse_visualize(steps: list, model_controls: ModelControls):
@@ -32,7 +32,7 @@ def reuse_visualize(steps: list, model_controls: ModelControls):
     plot_data.cleanup()
     return plot_data
 
-def geometry_model(steps: list, model_controls: ModelControls = ModelControls()):
+def geometry_model(steps: list, model_controls: ModelControls):
     ''' use the existing visualize function to get plot_data that is normally used to generate 
     the 3D model for visualization and is used here to generate the 3D model for stl output or similar
     '''
