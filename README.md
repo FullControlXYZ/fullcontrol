@@ -1,5 +1,8 @@
 # FullControl
 
+![Tests](https://img.shields.io/github/actions/workflow/status/FullControlXYZ/fullcontrol/tests.yml?branch=master&label=tests)
+![Coverage](https://img.shields.io/codecov/c/github/FullControlXYZ/fullcontrol?label=coverage)
+
 ## FullControl - unconstrained design
 
 fullcontrol allows you to control 3D printers, or other cnc systems, in ways that are not possible using conventional software

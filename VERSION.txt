@@ -1,0 +1,12 @@
+1.0.0
+
+Changes:
+- Added floating point precision improvements with _clean_float function (fullcontrol/geometry/arcs.py, fullcontrol/geometry/polar.py)
+- Added validation for Fan speed_percent (0-100 range) (fullcontrol/auxilliary_components.py)
+- Added check type validation in check_points function (fullcontrol/check.py)
+- Added comprehensive test suite for core components (tests/unit/test_auxiliary.py, tests/unit/test_base.py, tests/unit/test_point.py, tests/unit/test_vector.py, tests/unit/test_polar.py, tests/unit/test_arcs.py, tests/unit/test_extrusion.py, tests/unit/test_printer.py)
+- Added support for both Pydantic v1 and v2 (fullcontrol/base.py)
+- Improved field validation in BaseModelPlus (fullcontrol/base.py)
+- Enhanced error messages for invalid attributes (fullcontrol/base.py)
+- Fixed floating point precision issues in geometric calculations (fullcontrol/geometry/arcs.py, fullcontrol/geometry/polar.py)
+- Fixed inheritance of coordinate values in points_only function (fullcontrol/extra_functions.py)

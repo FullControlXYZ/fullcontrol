@@ -1,4 +1,3 @@
-
 # from pydantic import model_validator, BaseModel
 from pydantic import BaseModel, __version__
 
@@ -66,10 +65,9 @@ class BaseModelPlus(BaseModel):
         Returns:
             Dict[str, Any]: The validated values.
         """
-        annots = cls.__fields__
+        fields = cls.model_fields if int(__version__.split('.')[0]) >= 2 else cls.__fields__
         for value in values:
-            if value not in annots:
-                # print(f'error: value "{value}" not allowed for the class {cls.__name__}. attributes defined: {values}')
+            if value not in fields:
                 raise Exception(
-                    f'error: value "{value}" not allowed for the class {cls.__name__}\nattributes defined: {values}\nattributes allowed: {cls.__fields__.keys()}')
+                    f'error: value "{value}" not allowed for the class {cls.__name__}\nattributes defined: {values}\nattributes allowed: {fields.keys()}')
         return values

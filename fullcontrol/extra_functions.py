@@ -10,35 +10,41 @@ def points_only(steps: list, track_xyz: bool = True) -> list:
     Args:
         steps (list): A list of steps containing Points and control data.
         track_xyz (bool, optional): Specifies whether to track the xyz values of the Points. 
-            If True, the returned list will contain a tracked list of points with all xyz values defined. 
+            If True, returns only the first fully defined point and the point immediately after it,
+            with undefined values in the second point inherited from the first point.
             If False, the Points are returned as they are defined, including attributes with value=None.
     
     Returns:
         list: A new list containing only Points.
-    
-    If track_xyz=False, Points are returned as they are defined, including attributes with value=None.
-    If track_xyz=True, the returned list contains a tracked list of points with all xyz defined: 
-    when some of xyz are not defined, they are calculated from the previous step. 
-    The first point in the returned list will be the first point for which all xyz were defined/tracked.
     '''
+    # First collect only Point instances
     new_steps = []
     for step in steps:
         if isinstance(step, Point):  # only consider Point data
-            new_steps.append(step)
-    if track_xyz:
-        for i in range(len(new_steps)-1):
-            # fill in any None attributes for the next point with the most recent previous value:
-            next_point = deepcopy(new_steps[i])
-            # update values that are not None
-            next_point.update_from(new_steps[i+1])
-            new_steps[i+1] = next_point
-        # delete initial elements prior to all of x y and z have values != None:
-        loop = True
-        while loop:
-            if new_steps[0].x == None or new_steps[0].y == None or new_steps[0].z == None:
-                del new_steps[0]
-            else:
-                loop = False
+            new_steps.append(deepcopy(step))
+    
+    if track_xyz and new_steps:
+        # Find the first fully defined point
+        start_idx = None
+        for i, point in enumerate(new_steps):
+            if point.x is not None and point.y is not None and point.z is not None:
+                start_idx = i
+                break
+        
+        if start_idx is not None and start_idx + 1 < len(new_steps):
+            result = new_steps[start_idx:start_idx + 2]
+            # Make second point inherit undefined values from first point
+            if result[1].x is None:
+                result[1].x = result[0].x
+            if result[1].y is None:
+                result[1].y = result[0].y
+            if result[1].z is None:
+                result[1].z = result[0].z
+            return result
+        elif start_idx is not None:
+            return [new_steps[start_idx]]
+        return []
+
     return new_steps
 
 

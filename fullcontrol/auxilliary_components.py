@@ -1,4 +1,5 @@
 from typing import Optional
+from pydantic import Field
 from fullcontrol.common import BaseModelPlus
 
 
@@ -9,7 +10,7 @@ class Fan(BaseModelPlus):
     Attributes:
         speed_percent (Optional[int]): The speed of the fan as a percentage (0-100).
     '''
-    speed_percent: Optional[int] = None
+    speed_percent: Optional[int] = Field(None, ge=0, le=100)
 
 
 class Hotend(BaseModelPlus):

@@ -1,8 +1,12 @@
-
 from fullcontrol.geometry import Point, Vector
 from math import atan2, cos, sin, tau
 from fullcontrol.check import check_points
 from pydantic import BaseModel
+
+
+def _clean_float(x: float, epsilon: float = 1e-10) -> float:
+    """Clean up floating point values that are very close to 0."""
+    return 0.0 if abs(x) < epsilon else x
 
 
 class PolarPoint(BaseModel):
@@ -30,7 +34,11 @@ def polar_to_point(centre: Point, radius: float, angle: float) -> Point:
     Returns:
         Point: A new Point object with x, y, and z coordinates calculated based on the given polar coordinates.
     '''
-    return Point(x=centre.x + radius*cos(angle), y=centre.y + radius*sin(angle), z=centre.z)
+    return Point(
+        x=_clean_float(centre.x + radius*cos(angle)),
+        y=_clean_float(centre.y + radius*sin(angle)),
+        z=centre.z
+    )
 
 
 def point_to_polar(target_point: Point, origin_point: Point) -> PolarPoint:
@@ -49,7 +57,7 @@ def point_to_polar(target_point: Point, origin_point: Point) -> PolarPoint:
     check_points([target_point, origin_point], check='polar_xy')
     r = ((target_point.x - origin_point.x) ** 2 + (target_point.y - origin_point.y) ** 2) ** 0.5
     angle = atan2((target_point.y - origin_point.y), (target_point.x - origin_point.x))
-    return PolarPoint(radius=r, angle=angle % tau)
+    return PolarPoint(radius=_clean_float(r), angle=_clean_float(angle % tau))
 
 
 def polar_to_vector(length: float, angle: float) -> Vector:

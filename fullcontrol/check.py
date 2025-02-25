@@ -57,6 +57,9 @@ def fix(steps: list, result_type: str, controls):
     return steps
 
 def check_points(geometry: Union[Point, list], check: str):
+    valid_checks = ['polar_xy']  # Add other valid checks here as needed
+    if check not in valid_checks:
+        raise Exception(f"Invalid check type '{check}'. Valid types are: {valid_checks}")
     
     if check == 'polar_xy':
         def check_point(point: Point):

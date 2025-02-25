@@ -1,8 +1,10 @@
-
 from fullcontrol.common import linspace
 from fullcontrol.geometry import Point, polar_to_point, ramp_xyz, ramp_polar
-from math import tau, sin , cos
+from math import tau, sin, cos
 
+def _clean_float(x: float, epsilon: float = 1e-10) -> float:
+    """Clean up floating point values that are very close to 0."""
+    return 0.0 if abs(x) < epsilon else x
 
 def arcXY(centre: Point, radius: float, start_angle: float, arc_angle: float, segments: int = 100) -> list:
     '''Generate a 2D-XY arc with angles defined in radians and z-position the same as that of the centre point.
@@ -18,7 +20,12 @@ def arcXY(centre: Point, radius: float, start_angle: float, arc_angle: float, se
         list: A list of Points representing the arc.
     '''
     a_steps = linspace(start_angle, start_angle+arc_angle, segments+1)
-    return [polar_to_point(centre, radius, a) for a in a_steps]
+    points = [polar_to_point(centre, radius, a) for a in a_steps]
+    # Clean up floating point errors
+    for p in points:
+        p.x = _clean_float(p.x)
+        p.y = _clean_float(p.y)
+    return points
 
 
 def variable_arcXY(centre: Point, start_radius: float, start_angle: float, arc_angle: float, segments: int = 100, radius_change: float = 0, z_change: float = 0) -> list:
@@ -56,6 +63,10 @@ def elliptical_arcXY(centre: Point, a: float, b: float, start_angle: float, arc_
     Returns:
         list: A list of Points representing the elliptical arc.
     '''
-    
     t_steps = linspace(start_angle, start_angle+arc_angle, segments+1)
-    return [Point(x=a*cos(t) + centre.x, y=b*sin(t) + centre.y, z=centre.z) for t in t_steps]
+    points = [Point(
+        x=_clean_float(a*cos(t) + centre.x), 
+        y=_clean_float(b*sin(t) + centre.y), 
+        z=centre.z
+    ) for t in t_steps]
+    return points
