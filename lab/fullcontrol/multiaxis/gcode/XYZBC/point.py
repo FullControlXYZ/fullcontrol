@@ -42,15 +42,16 @@ class Point(BasePoint):
                 # x_system = x_with_b + state.printer.bc_intercept.x
                 # y_system = y_with_b + state.printer.bc_intercept.y
                 # z_system = z_with_b + state.printer.bc_intercept.z
+            # Update according to case point 5.3.2. Inverse Transformation https://linuxcnc.org/docs/html/motion/5-axis-kinematics.html
                 inv_kin=np.zeros((3,3))
                 inv_kin[0,:]= [cos(model_point.b*tau/360)*cos(model_point.c*tau/360), -sin(model_point.c*tau/360)*cos(model_point.b*tau/360), sin(model_point.b*tau/360)]
                 inv_kin[1,:]= [sin(model_point.c*tau/360), cos(model_point.c*tau/360),0]
                 inv_kin[2,:]= [-sin(model_point.b*tau/360)*cos(model_point.c*tau/360), sin(model_point.b*tau/360)*sin(model_point.c*tau/360), cos(model_point.b*tau/360)]
 
                 inv_kin = np.matmul(inv_kin, np.array([model_point.x, model_point.y, model_point.z]))
-                x_system = inv_kin[0]+state.printer.bc_intercept.x * -sin(model_point.b*tau/360)
-                y_system = inv_kin[1]+state.printer.bc_intercept.y
-                z_system = inv_kin[2]+state.printer.bc_intercept.z * (-cos(model_point.b*tau/360)+1)
+                x_system = inv_kin[0]+state.printer.bc_intercept.x - sin(model_point.b*tau/360)*state.printer.bc_intercept.z - cos(model_point.b*tau/360)*state.printer.bc_intercept.x 
+                y_system = inv_kin[1] # +state.printer.bc_intercept.y
+                z_system = inv_kin[2]+state.printer.bc_intercept.z * (-cos(model_point.b*tau/360)+1) + sin(model_point.b*tau/360)*state.printer.bc_intercept.x 
                 
             system_point.x = round(x_system, 6)
             system_point.y = round(y_system, 6)
