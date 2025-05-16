@@ -24,7 +24,7 @@ class BaseModelPlus(BaseModel):
         __setitem__: Sets the value of an attribute.
         __getitem__: Retrieves the value of an attribute.
         update_from: Updates the attributes of the object from another object.
-        check_card_number_omitted: Validator to check if certain attributes are allowed.
+        reject_extra_fields (classmethod): Validator to check if certain attributes are allowed.
 
     """
 
@@ -49,19 +49,17 @@ class BaseModelPlus(BaseModel):
 
     @classmethod
     @validator(**validator_args)
-    def check_card_number_omitted(cls, values):
+    def reject_extra_fields(cls, values):
         """
-        Check if the card number is omitted.
-
-        This function validates if the given values contain any card number that is not allowed for the class.
-        It raises an exception if any invalid card number is found.
+        This method checks if any extra fields are present in the values dictionary
+        that are not defined in the class. If any extra fields are found, an exception is raised.
 
         Args:
             cls (Type): The class being validated.
             values (Dict[str, Any]): The values to be checked.
 
         Raises:
-            Exception: If any invalid card number is found.
+            Exception: If any invalid field name is found.
 
         Returns:
             Dict[str, Any]: The validated values.
