@@ -42,3 +42,30 @@ def interpolated_point(point1: Point, point2: Point, interpolation_fraction: flo
     z_inter = point1.z+interpolation_fraction * \
         (point2.z-point1.z) if point1.z != None or point2.z != None else None
     return Point(x=x_inter, y=y_inter, z=z_inter)
+
+
+def centreXY_3pt(pt1: Point, pt2: Point, pt3: Point) -> Point:
+    '''
+    Calculate the centre point of a circle passing through three points.
+    
+    Args:
+        pt1 (Point): First point on the circle.
+        pt2 (Point): Second point on the circle.
+        pt3 (Point): Third point on the circle.
+    
+    Returns:
+        Point: centre point.
+    
+    Raises:
+        Exception: If the three points are collinear, meaning no unique circle can be defined.
+    '''
+    D = 2 * (pt1.x * (pt2.y - pt3.y) + pt2.x * (pt3.y - pt1.y) + pt3.x * (pt1.y - pt2.y))
+    if D == 0:
+        raise Exception('The points are collinear, no unique circle')
+    
+    x_centre = ((pt1.x**2 + pt1.y**2) * (pt2.y - pt3.y) + (pt2.x**2 + pt2.y**2) * (pt3.y - pt1.y) + (pt3.x**2 + pt3.y**2) * (pt1.y - pt2.y)) / D
+    y_centre = ((pt1.x**2 + pt1.y**2) * (pt3.x - pt2.x) + (pt2.x**2 + pt2.y**2) * (pt1.x - pt3.x) + (pt3.x**2 + pt3.y**2) * (pt2.x - pt1.x)) / D
+    
+    centre = Point(x=x_centre, y=y_centre, z=pt1.z)
+    
+    return centre

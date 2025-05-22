@@ -1,6 +1,7 @@
 
 from fullcontrol.common import linspace
 from fullcontrol.geometry import Point, polar_to_point, ramp_xyz, ramp_polar
+from fullcontrol.geometry.midpoint import centreXY_3pt
 from math import tau, sin , cos
 
 
@@ -59,3 +60,36 @@ def elliptical_arcXY(centre: Point, a: float, b: float, start_angle: float, arc_
     
     t_steps = linspace(start_angle, start_angle+arc_angle, segments+1)
     return [Point(x=a*cos(t) + centre.x, y=b*sin(t) + centre.y, z=centre.z) for t in t_steps]
+
+
+def arcXY_3pt(pt1: Point, pt2: Point, pt3: Point, segments: int = 100) -> list:
+    '''Generate a 2D-XY arc passing through three specified points.
+    
+    Args:
+        pt1 (Point): The starting point of the arc.
+        pt2 (Point): An intermediate point that the arc passes through.
+        pt3 (Point): The ending point of the arc.
+        segments (int, optional): The number of segments to divide the arc into. Defaults to 100.
+    
+    Returns:
+        list: A list of Points representing the arc from pt1 through pt2 to pt3.
+    '''
+    from math import atan2, pi
+    
+    centre = centreXY_3pt(pt1, pt2, pt3)
+    radius = ((pt1.x - centre.x)**2 + (pt1.y - centre.y)**2)**0.5
+    
+    start_angle = atan2(pt1.y - centre.y, pt1.x - centre.x)
+    mid_angle = atan2(pt2.y - centre.y, pt2.x - centre.x)
+    end_angle = atan2(pt3.y - centre.y, pt3.x - centre.x)
+    
+    # Normalize angles and determine direction
+    for angle in [start_angle, mid_angle, end_angle]:
+        while angle < 0: angle += 2*pi
+        while angle >= 2*pi: angle -= 2*pi
+    
+    # Determine arc direction and angle
+    ccw = (mid_angle > start_angle and mid_angle < end_angle) or (start_angle > end_angle and (mid_angle > start_angle or mid_angle < end_angle))
+    arc_angle = end_angle - start_angle if ccw else -(2*pi - (end_angle - start_angle))
+    
+    return arcXY(centre, radius, start_angle, arc_angle, segments)

@@ -1,6 +1,7 @@
 
 from fullcontrol.geometry import Point, arcXY, variable_arcXY, elliptical_arcXY
-from math import tau
+from fullcontrol.geometry.midpoint import centreXY_3pt
+from math import tau, atan2
 
 
 def rectangleXY(start_point: Point, x_size: float, y_size: float, cw: bool = False) -> list:
@@ -44,16 +45,17 @@ def circleXY(centre: Point, radius: float, start_angle: float, segments: int = 1
     return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
 
 
-def circleXY_3pt(pt1: Point, pt2: Point, pt3: Point, start_angle: float, segments: int = 100, cw: bool = False) -> list:
+def circleXY_3pt(pt1: Point, pt2: Point, pt3: Point, start_angle: float = None, start_at_first_point: bool = None, segments: int = 100, cw: bool = False) -> list:
     '''Generate a 2D-XY circle with the specified number of segments (defaulting to 100), defined by three points
     that the circle passes through. The start point in the returned list of points is defined by a polar angle 
-    (radians). The z-position is the same as that of pt1. Returns a list of Points.
+    (radians) or by setting start_at_first_point = True. The z-position is the same as that of pt1. Returns a list of Points.
     
     Args:
         pt1 (Point): The first point that the circle passes through.
         pt2 (Point): The second point that the circle passes through.
         pt3 (Point): The third point that the circle passes through.
-        start_angle (float): The polar angle (in radians) that defines the start point of the circle.
+        start_angle (float, optional): The polar angle (in radians) that defines the start point of the circle. Required if start_at_first_point is False.
+        start_at_first_point (bool, optional): If True, the circle starts at pt1. If False, it starts at the angle defined by start_angle. Ignored if start_angle is set.
         segments (int, optional): The number of segments to divide the circle into (default is 100).
         cw (bool, optional): If True, generates the circle in clockwise direction (default is False).
     
@@ -63,14 +65,16 @@ def circleXY_3pt(pt1: Point, pt2: Point, pt3: Point, start_angle: float, segment
     Raises:
         Exception: If the three points are collinear, meaning no unique circle can be defined.
     '''
-    D = 2 * (pt1.x * (pt2.y - pt3.y) + pt2.x * (pt3.y - pt1.y) + pt3.x * (pt1.y - pt2.y))
-    if D == 0:
-        raise Exception('The points are collinear, no unique circle')
-    x_centre = ((pt1.x**2 + pt1.y**2) * (pt2.y - pt3.y) + (pt2.x**2 + pt2.y**2) * (pt3.y - pt1.y) + (pt3.x**2 + pt3.y**2) * (pt1.y - pt2.y)) / D
-    y_centre = ((pt1.x**2 + pt1.y**2) * (pt3.x - pt2.x) + (pt2.x**2 + pt2.y**2) * (pt1.x - pt3.x) + (pt3.x**2 + pt3.y**2) * (pt2.x - pt1.x)) / D
-    radius = ((pt1.x - x_centre)**2 + (pt1.y - y_centre)**2)**0.5
-    centre = Point(x=x_centre, y=y_centre, z=pt1.z)
+    centre = centreXY_3pt(pt1, pt2, pt3)
+    radius = ((pt1.x - centre.x)**2 + (pt1.y - centre.y)**2)**0.5
+    if start_angle is not None and start_at_first_point is not None:
+        raise Exception('start_angle and start_at_first_point cannot be set at the same time')
+    if start_angle is None:        
+        if start_at_first_point is None:
+            raise Exception('neither start_angle or start_at_first_point set for circleXY_3pt()')
+        start_angle = atan2(pt1.y - centre.y, pt1.x - centre.x)
     return arcXY(centre, radius, start_angle, tau*(1-(2*cw)), segments)
+
 
 
 def ellipseXY(centre: Point, a: float, b: float, start_angle: float, segments: int = 100, cw: bool = False) -> list:
