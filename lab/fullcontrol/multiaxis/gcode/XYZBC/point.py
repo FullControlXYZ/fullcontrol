@@ -1,7 +1,7 @@
 from typing import Optional
 from fullcontrol.common import Point as BasePoint
 from copy import deepcopy
-
+import numpy as np
 
 class Point(BasePoint):
     'generic gcode Point with 5-axis aspects added/modified'
@@ -30,19 +30,29 @@ class Point(BasePoint):
             from math import cos, sin, tau
             system_point = deepcopy(model_point)
             if system_type == 'bc_bed':
-                # calculate XYZ as if B=0 first:
-                x_for_b0 = model_point.x*cos(model_point.c*tau/360) + model_point.y*-sin(model_point.c*tau/360)
-                y_for_b0 = model_point.y*cos(model_point.c*tau/360) + model_point.x*sin(model_point.c*tau/360)
-                z_for_b0 = model_point.z
-                # now calculate XYZ with effects of B rotation:
-                x_with_b = x_for_b0*cos(model_point.b*tau/360) + z_for_b0*sin(model_point.b*tau/360)
-                y_with_b = y_for_b0
-                z_with_b = z_for_b0*cos(model_point.b*tau/360) + x_for_b0*-sin(model_point.b*tau/360)
-                # now offset XYZ so the origin is positioned at the bc_intercept point in system coordinates
-                x_system = x_with_b + state.printer.bc_intercept.x
-                y_system = y_with_b + state.printer.bc_intercept.y
-                z_system = z_with_b + state.printer.bc_intercept.z
+                # # calculate XYZ as if B=0 first:
+                # x_for_b0 = model_point.x*cos(model_point.c*tau/360) + model_point.y*-sin(model_point.c*tau/360)
+                # y_for_b0 = model_point.y*cos(model_point.c*tau/360) + model_point.x*sin(model_point.c*tau/360)
+                # z_for_b0 = model_point.z
+                # # now calculate XYZ with effects of B rotation:
+                # x_with_b = x_for_b0*cos(model_point.b*tau/360) + z_for_b0*sin(model_point.b*tau/360)
+                # y_with_b = y_for_b0
+                # z_with_b = z_for_b0*cos(model_point.b*tau/360) + x_for_b0*-sin(model_point.b*tau/360)
+                # # now offset XYZ so the origin is positioned at the bc_intercept point in system coordinates
+                # x_system = x_with_b + state.printer.bc_intercept.x
+                # y_system = y_with_b + state.printer.bc_intercept.y
+                # z_system = z_with_b + state.printer.bc_intercept.z
+            # Update according to case point 5.3.2. Inverse Transformation https://linuxcnc.org/docs/html/motion/5-axis-kinematics.html
+                inv_kin=np.zeros((3,3))
+                inv_kin[0,:]= [cos(model_point.b*tau/360)*cos(model_point.c*tau/360), -sin(model_point.c*tau/360)*cos(model_point.b*tau/360), sin(model_point.b*tau/360)]
+                inv_kin[1,:]= [sin(model_point.c*tau/360), cos(model_point.c*tau/360),0]
+                inv_kin[2,:]= [-sin(model_point.b*tau/360)*cos(model_point.c*tau/360), sin(model_point.b*tau/360)*sin(model_point.c*tau/360), cos(model_point.b*tau/360)]
 
+                inv_kin = np.matmul(inv_kin, np.array([model_point.x, model_point.y, model_point.z]))
+                x_system = inv_kin[0]+state.printer.bc_intercept.x - sin(model_point.b*tau/360)*state.printer.bc_intercept.z - cos(model_point.b*tau/360)*state.printer.bc_intercept.x 
+                y_system = inv_kin[1] # +state.printer.bc_intercept.y
+                z_system = inv_kin[2]+state.printer.bc_intercept.z * (-cos(model_point.b*tau/360)+1) + sin(model_point.b*tau/360)*state.printer.bc_intercept.x 
+                
             system_point.x = round(x_system, 6)
             system_point.y = round(y_system, 6)
             system_point.z = round(z_system, 6)
