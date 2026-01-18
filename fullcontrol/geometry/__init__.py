@@ -21,5 +21,11 @@ from fullcontrol.geometry.ramping import ramp_xyz, ramp_polar
 from fullcontrol.geometry.arcs import arcXY, variable_arcXY, elliptical_arcXY, arcXY_3pt
 from fullcontrol.geometry.shapes import rectangleXY, circleXY, circleXY_3pt, ellipseXY, polygonXY, spiralXY, helixZ
 from fullcontrol.geometry.waves import squarewaveXY, squarewaveXYpolar, trianglewaveXYpolar, sinewaveXYpolar
-from fullcontrol.geometry.segmentation import segmented_line, segmented_path
+# from fullcontrol.geometry.segmentation import segmented_line, segmented_path
+from fullcontrol.geometry.segmentation import (
+    segmented_line,
+    segmented_path,
+    segmented_line_from_fractions,
+    segmented_line_from_lengths,
+)
 from fullcontrol.geometry.travel_to import travel_to
