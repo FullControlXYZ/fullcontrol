@@ -124,3 +124,48 @@ def sinewaveXYpolar(start_point: Point, direction_polar: float, amplitude: float
         steps.append(move(start_point, Vector(x=axis_distance_now, y=amplitude_now, z=0)))
     steps = move_polar(steps, start_point, 0, direction_polar)
     return steps
+
+
+
+
+def rasterXY(min_x: float, max_x: float, min_y: float, max_y: float, stepover: float) -> list:
+    '''Generate a serpentine raster toolpath in the XY plane between the given bounds.
+    Returns a list of Points. Each pair of points defines one horizontal pass, and the
+    direction alternates on each successive pass.
+
+    Parameters:
+    - min_x (float): Minimum x bound.
+    - max_x (float): Maximum x bound.
+    - min_y (float): Minimum y bound.
+    - max_y (float): Maximum y bound.
+    - stepover (float): Distance between adjacent raster lines.
+
+    Returns:
+    - list of Points: The list of Points representing the raster path.
+    '''
+    if stepover <= 0:
+        raise ValueError("stepover must be greater than 0")
+    if max_x < min_x:
+        raise ValueError("max_x must be greater than or equal to min_x")
+    if max_y < min_y:
+        raise ValueError("max_y must be greater than or equal to min_y")
+
+    points = []
+
+    n_passes = ceil((max_y - min_y) / stepover) + 1
+
+    for i in range(n_passes):
+        y = min_y + i * stepover
+
+        # force exact last line onto max_y
+        if i == n_passes - 1:
+            y = max_y
+
+        if i % 2 == 0:
+            points.append(Point(x=min_x, y=y))
+            points.append(Point(x=max_x, y=y))
+        else:
+            points.append(Point(x=max_x, y=y))
+            points.append(Point(x=min_x, y=y))
+
+    return points
