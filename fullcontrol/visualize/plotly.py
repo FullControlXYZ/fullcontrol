@@ -65,7 +65,7 @@ def plot(data: PlotData, controls: PlotControls):
         controls (PlotControls): The controls for customizing the plot.
 
     Returns:
-        None
+        go.Figure: The generated figure, after displaying it or saving it in CI.
     '''
     
     fig = go.Figure()
@@ -159,3 +159,5 @@ def plot(data: PlotData, controls: PlotControls):
         import plotly.io as pio
         from datetime import datetime
         pio.write_image(fig, datetime.now().strftime("figure__%d-%m-%Y__%H-%M-%S.png"))
+
+    return fig

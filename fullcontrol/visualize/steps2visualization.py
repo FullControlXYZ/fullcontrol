@@ -14,7 +14,7 @@ def visualize(steps: list, plot_controls: PlotControls, show_tips: bool):
     - plot_controls (PlotControls, optional): The style of the plot can be adjusted by passing a PlotControls instance.
 
     Returns:
-    - plot_data (PlotData): The plot data if `plot_controls.raw_data` is True, otherwise None.
+    - PlotData if `plot_controls.raw_data` is True, otherwise the Plotly Figure.
     '''
     plot_controls.initialize()
     if show_tips: tips(plot_controls)
@@ -29,4 +29,4 @@ def visualize(steps: list, plot_controls: PlotControls, show_tips: bool):
         return plot_data
     else:
         from fullcontrol.visualize.plotly import plot
-        plot(plot_data, plot_controls)
+        return plot(plot_data, plot_controls)
