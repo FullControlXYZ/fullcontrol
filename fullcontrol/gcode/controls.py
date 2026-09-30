@@ -12,11 +12,15 @@ class GcodeControls(BaseModel):
         initialization_data (Optional[dict]): Values passed for initialization_data overwrite the default initialization_data of the printer. Defaults to an empty dictionary.
         save_as (Optional[str]): The file name to save the gcode as. Defaults to None resulting in no file being saved.
         include_date (Optional[bool]): Whether to include the date in the filename. Defaults to True.
+        always_print_F (Optional[bool]): If True include speed in every gcode line irrespective of wether it changed. Defaults to False.
+        always_print_geometry (Optional[bool]): If True include x, y and z coordinate in every gcode line irrespective of wether each coordinate changed. Defaults to False.
     """
     printer_name: Optional[str] = None
     initialization_data: Optional[dict] = {} # values passed for initialization_data overwrite the default initialization_data of the printer
     save_as: Optional[str] = None
     include_date: Optional[bool] = True
+    always_print_F: Optional[bool] = False
+    always_print_geometry: Optional[bool] = False
 
     def initialize(self):
         if self.printer_name is None:
