@@ -155,6 +155,82 @@ def last_point(steps: list, fully_defined: bool = True) -> Point:
     '''
     return first_point(list(reversed(steps)), fully_defined)
 
+def last_print_point(steps,extruder):
+    '''
+    Returns last point in steps where the extruder is on, the initial extruder state should be set.
+    
+    Parameters:
+        - steps (list): a list of steps.
+        - extruder (bool): The initial state of the extruder.
+    
+    Returns:
+        - Point: The last Point in the list with extruder on.
+
+    Raises:
+        - Exception if no point is found when extruder is on.
+    
+    '''
+    last_point = None
+    for step in steps:
+        if type(step).__name__== "Extruder":
+          extruder = step.on
+        if type(step).__name__ == 'Point' and extruder:
+            last_point=step
+
+    if last_point is None:
+        raise Exception('No point found in steps with extruder on')
+    
+    return last_point
+
+def first_print_point(steps,extruder):
+    '''
+    Returns first point in steps where the extruder is on, the initial extruder state should be set.
+    
+    Parameters:
+        - steps (list): a list of steps.
+        - extruder (bool): The initial state of the extruder.
+    
+    Returns:
+        - Point: The first Point in the list with extruder on.
+
+    Raises:
+        - Exception: if no point is found when extruder is on.
+    '''
+    first_point = None
+    for step in steps:
+        if type(step).__name__== "Extruder":
+          extruder = step.on
+        if type(step).__name__ == 'Point' and extruder:
+            first_point=step
+            break
+
+    if first_point is None:
+        raise Exception('No point found in steps with extruder on')
+    
+    return first_point
+
+def find_extruder_state(steps):
+    '''
+    Finds final extruder state if any changes occur in steps. Can be used to find extruder state for use with first_print_point and last_print_point.
+    
+    Parameters:
+        - steps (list): a list of steps.
+    
+    Returns:
+        - extruder state: The final extruder state (True/False)
+
+    Raises:
+        - Exception: if extruder state is not set in steps.
+    '''
+    extruder = None
+    for step in steps:
+        if type(step).__name__== "Extruder":
+          extruder = step.on
+
+    if extruder is None:
+        raise Exception('Extruder state not changed in steps.')
+
+    return extruder
 
 def export_design(steps: list, filename: str):
     '''
