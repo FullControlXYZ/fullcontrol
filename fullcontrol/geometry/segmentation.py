@@ -1,7 +1,7 @@
 
 from fullcontrol.geometry import Point, interpolated_point, distance
 from fullcontrol.common import linspace
-
+from typing import Sequence, List
 
 def segmented_line(point1: Point, point2: Point, segments: int) -> list:
     '''
@@ -20,6 +20,76 @@ def segmented_line(point1: Point, point2: Point, segments: int) -> list:
     y_steps = linspace(point1.y, point2.y, segments+1)
     z_steps = linspace(point1.z, point2.z, segments+1)
     return [Point(x=x_steps[i], y=y_steps[i], z=z_steps[i]) for i in range(segments+1)]
+
+def segmented_line_from_fractions(point1: Point, point2: Point, fractions: Sequence[float]) -> List[Point]:
+    """
+    Return Points along the line from point1 to point2 with user-defined split locations.
+
+    fractions:
+        Strictly increasing values in (0, 1) giving internal split positions along the line.
+        Endpoints are always included.
+        Returns len(fractions) + 2 Points.
+    """
+    fr = [float(f) for f in fractions]
+    if any(f <= 0.0 or f >= 1.0 for f in fr):
+        raise ValueError("All fractions must be strictly between 0 and 1.")
+    if any(fr[i] >= fr[i + 1] for i in range(len(fr) - 1)):
+        raise ValueError("fractions must be strictly increasing.")
+
+    dx = point2.x - point1.x
+    dy = point2.y - point1.y
+    dz = point2.z - point1.z
+
+    t_values = [0.0] + fr + [1.0]
+    return [
+        Point(
+            x=point1.x + t * dx,
+            y=point1.y + t * dy,
+            z=point1.z + t * dz,
+        )
+        for t in t_values
+    ]
+
+
+def segmented_line_from_lengths(point1: Point, point2: Point, lengths: Sequence[float]) -> List[Point]:
+    """
+    Return Points along the line from point1 to point2 with uneven spacing defined by segment weights.
+
+    lengths:
+        Positive numbers, one per segment. These are treated as relative weights and are normalised by their sum.
+        They do NOT need to match the geometric distance between point1 and point2.
+        Returns len(lengths) + 1 Points.
+    """
+    ls = [float(L) for L in lengths]
+    if len(ls) < 1:
+        raise ValueError("lengths must not be empty.")
+    if any(L <= 0.0 for L in ls):
+        raise ValueError("All values in lengths must be > 0.")
+    total = float(sum(ls))
+    if total <= 0.0:
+        raise ValueError("sum(lengths) must be > 0.")
+
+    dx = point2.x - point1.x
+    dy = point2.y - point1.y
+    dz = point2.z - point1.z
+
+    t_values = [0.0]
+    cum = 0.0
+    for L in ls[:-1]:
+        cum += L
+        t_values.append(cum / total)
+    t_values.append(1.0)
+
+    return [
+        Point(
+            x=point1.x + t * dx,
+            y=point1.y + t * dy,
+            z=point1.z + t * dz,
+        )
+        for t in t_values
+    ]
+
+
 
 
 def segmented_path(points: list, segments: int) -> int:
