@@ -196,14 +196,17 @@ def first_print_point(steps,extruder):
     Raises:
         - Exception: if no point is found when extruder is on.
     '''
+    point_prospect = None # The first point needs to be the point immediatly before the extruder is turned on, so the latest point needs to be accesible.
     first_point = None
     for step in steps:
+        if type(step).__name__ == 'Point':
+            point_prospect=step
         if type(step).__name__== "Extruder":
-          extruder = step.on
-        if type(step).__name__ == 'Point' and extruder:
-            first_point=step
-            break
-
+            extruder = step.on
+        if extruder and point_prospect is not None:
+            first_point = point_prospect
+            break 
+        
     if first_point is None:
         raise Exception('No point found in steps with extruder on')
     
