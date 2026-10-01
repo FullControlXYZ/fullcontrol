@@ -57,21 +57,24 @@ def configure_point(head_chain=None, bed_chain=None):
 class Point(BasePoint):
     axes: Optional[dict] = None # dictionary for assigning chages to the printer Axis based on the info in the point
 
-    def infinaxis_gcode(self, self_systemXYZ,state) -> float:
+    def infinaxis_gcode(self, self_systemXYZ,state):
         'generate XYZABC gcode string to move from a point p to this point. return XYZABC string'
         p = state.point_systemXYZ
+        always_print = state.Printer.always_print_geometry
         s = ''
-        if self_systemXYZ.x != None and self_systemXYZ.x != p.x:
-            s += f'X{round(state.printer.xyz_orientation[0] * self_systemXYZ.x, 6):.6} '
-        if self_systemXYZ.y != None and self_systemXYZ.y != p.y:
-            s += f'Y{round(state.printer.xyz_orientation[1] * self_systemXYZ.y, 6):.6} '
-        if self_systemXYZ.z != None and self_systemXYZ.z != p.z:
-            s += f'Z{round(state.printer.xyz_orientation[2] * self_systemXYZ.z, 6):.6} '
+        if (self_systemXYZ.x != None and self_systemXYZ.x != p.x) or always_print == True:
+            x = self_systemXYZ.x if self_systemXYZ.x != None else p.x
+            s += f'X{round(state.printer.xyz_orientation[0] * x, 6):.6} '
+        if (self_systemXYZ.y != None and self_systemXYZ.y != p.y) or always_print == True:
+            y = self_systemXYZ.y if self_systemXYZ.y != None else p.y
+            s += f'Y{round(state.printer.xyz_orientation[1] * y, 6):.6} '
+        if (self_systemXYZ.z != None and self_systemXYZ.z != p.z) or always_print == True:
+            z = self_systemXYZ.z if self_systemXYZ.z != None else p.z
+            s += f'Z{round(state.printer.xyz_orientation[2] * z, 6):.6} '
         
         # Currently this has no way of checking if movement occured in the chain axis, meaning they will always be included in the gcode output...
         for axis in state.printer.head_chain + state.printer.bed_chain:
             if axis.active != None:
-                # Not i fan of this float fix. The issue stems from the use of the axes dict in point since it doesnt force floats... but this is likely going to change anyway.
                 s += f'{axis.name}{round(float(axis.active), 12):.12} '
 
         return s if s != '' else None
