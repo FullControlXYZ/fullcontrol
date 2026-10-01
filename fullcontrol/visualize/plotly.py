@@ -153,9 +153,7 @@ def plot(data: PlotData, controls: PlotControls):
         fig.update_layout(width=500, height=500)
 
     # cicd_testing is a flag set by the CICD testing script (as a temporary environmental variable) to save the plot as a .png file
-    if not cicd_testing:
-        fig.show()
-    else:
+    if cicd_testing:
         import plotly.io as pio
         from datetime import datetime
         pio.write_image(fig, datetime.now().strftime("figure__%d-%m-%Y__%H-%M-%S.png"))

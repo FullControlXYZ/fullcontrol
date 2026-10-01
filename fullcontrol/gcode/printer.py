@@ -11,10 +11,14 @@ class Printer(BasePrinter):
         command_list (Optional[dict]): A dictionary containing the printer's command list.
         new_command (Optional[dict]): A dictionary containing a new command to be added to the command list.
         speed_changed (Optional[bool]): A flag indicating whether the print speed or travel speed has changed.
+        always_print_F (Optional[bool]): If True include speed in every gcode line irrespective of wether it changed. Defaults to False.
+        always_print_geometry (Optional[bool]): If True include x, y and z coordinate in every gcode line irrespective of wether each coordinate changed. Defaults to False.
     '''
     command_list: Optional[dict] = None
     new_command: Optional[dict] = None
     speed_changed: Optional[bool] = None
+    always_print_F: Optional[bool] = None
+    always_print_geometry: Optional[bool] = None
 
     def f_gcode(self, state):
         """
@@ -26,7 +30,7 @@ class Printer(BasePrinter):
         Returns:
         - The G-code string for the feedrate (F) based on the current state.
         """
-        if self.speed_changed == True:
+        if self.speed_changed == True or self.always_print_F == True:
             return f'F{self.print_speed if state.extruder.on else self.travel_speed:.1f}'.rstrip('0').rstrip('.') + ' '
         else:
             return ''

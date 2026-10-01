@@ -6,7 +6,7 @@ from typing import Union
 # import functions and classes that will be accessible to the user
 from .classes import *
 from fullcontrol.common import fix
-from fullcontrol.common import check, flatten, linspace, export_design, import_design, points_only, relative_point, first_point, last_point
+from fullcontrol.common import check, flatten, linspace, export_design, import_design, points_only, relative_point, first_point, last_point, first_print_point, last_print_point, find_extruder_state
 from fullcontrol.geometry import *
 from fullcontrol.visualize.bounding_box import BoundingBox
 
