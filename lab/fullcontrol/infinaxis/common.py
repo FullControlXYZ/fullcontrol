@@ -26,19 +26,5 @@ def transform(steps: list, result_type: str, controls: Union[GcodeControls, Plot
         if controls is None: controls = PlotControls()
         return visualize(steps, controls, show_tips)
     
-    elif result_type == 'fig':
-        from fullcontrol.visualize.plot_data import PlotData
-        from fullcontrol.visualize.state import State as VisualizeState
-        from lab.fullcontrol.infinaxis._plot import fig_plot
-
-        if controls is None: controls = PlotControls()
-        plot_controls = controls
-        plot_controls.initialize()
-
-        state = VisualizeState(steps, plot_controls)
-        plot_data = PlotData(steps, state)
-        for step in steps:
-            step.visualize(state, plot_data, plot_controls)
-        plot_data.cleanup()
-
-        return fig_plot(plot_data, plot_controls)
+    else:
+        raise ValueError(f"result_type '{result_type}' not recognized. Please use 'gcode' or 'plot' of fc.transform()")
