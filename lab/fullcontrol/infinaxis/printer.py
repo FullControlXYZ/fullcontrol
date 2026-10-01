@@ -16,19 +16,3 @@ class Printer(BasePrinter):
     planning_axes_names: list[str] = None
     verbose: bool = None
     f_round: bool = None
-
-    def f_gcode(self, state):
-        if self.speed_changed == True:
-            return f'F{self.print_speed if state.extruder.on else self.travel_speed:.1f}'.rstrip('0').rstrip('.') + ' '
-        else:
-            return ''
-
-    def gcode(self, state):
-        'process this instance in a list of steps supplied by the designer to generate and return a line of gcode'
-        # update all attributes of the tracking instance with the new instance (self)
-        state.printer.update_from(self)
-        if self.print_speed != None \
-                or self.travel_speed != None:
-            state.printer.speed_changed = True
-        if self.new_command != None:
-            state.printer.command_list = {**state.printer.command_list, **self.new_command}
