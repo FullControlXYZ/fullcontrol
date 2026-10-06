@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from importlib import import_module
 
 from fullcontrol.gcode.extrusion_classes import ExtrusionGeometry, Extruder
+from fullcontrol.gcode import ManualGcode
 
 from lab.fullcontrol.infinaxis.point import Point
 from lab.fullcontrol.infinaxis.printer import Printer
@@ -99,4 +100,10 @@ class State(BaseModel):
         primer_steps.append(Extruder(on=False))
         primer_steps.append(first_infinaxis_point(steps))  # move fast to start position
         primer_steps.append(Extruder(on=True))
-        self.steps = initialization_data['starting_procedure_steps'] + primer_steps + steps + initialization_data['ending_procedure_steps']
+
+        infinaxis_start_steps = []
+        infinaxis_end_steps = []
+        if gcode_controls.inverse_time_feedrate:
+            infinaxis_start_steps.append(ManualGcode(text='G93 ; inverse time feedrate mode'))
+            infinaxis_end_steps.append(ManualGcode(text='G94 ; unit pr minute mode (default)'))
+        self.steps = initialization_data['starting_procedure_steps'] + infinaxis_start_steps + primer_steps + steps + infinaxis_end_steps + initialization_data['ending_procedure_steps']
