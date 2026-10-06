@@ -143,7 +143,7 @@ def plot(data: PlotData, controls: PlotControls):
                                             range=[data.bounding_box.midx-bounding_box_size/2, data.bounding_box.midx+bounding_box_size/2],),
                                  yaxis=dict(backgroundcolor="black", nticks=10,
                                             range=[data.bounding_box.midy-bounding_box_size/2, data.bounding_box.midy+bounding_box_size/2],),
-                                 zaxis=dict(backgroundcolor="black", nticks=10, range=[min(0, data.bounding_box.minz), bounding_box_size],),
+                                 zaxis=dict(backgroundcolor="black", nticks=10, range=[min(0, data.bounding_box.minz), min(0, data.bounding_box.minz)+bounding_box_size],),
                       ), scene_camera=camera, width=800, height=500, margin=dict(l=10, r=10, b=10, t=10, pad=4))
     if controls.hide_axes or controls.neat_for_publishing:
         for axis in ['xaxis', 'yaxis', 'zaxis']:
