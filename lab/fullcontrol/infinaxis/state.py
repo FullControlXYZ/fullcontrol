@@ -101,6 +101,7 @@ class State(BaseModel):
         primer_steps.append(first_infinaxis_point(steps))  # move fast to start position
         primer_steps.append(Extruder(on=True))
 
+        # Inverse time feedrate is incompatible with using predefined starting and ending procedures as it changes the way F parameter is calculated.
         infinaxis_start_steps = []
         infinaxis_end_steps = []
         if gcode_controls.inverse_time_feedrate:
