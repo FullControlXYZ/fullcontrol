@@ -21,6 +21,7 @@ notebook_names = ["contents.ipynb",
                   "infinaxis_4axis_demo.ipynb",
                   "infinaxis_5axis_demo.ipynb",
                   "infinaxis_controls.ipynb",
+                  "infinaxis_system_setup.ipynb",
                   "infinaxis_custom_axes.ipynb",
                   "infinaxis_xyz_geom.ipynb"
                   ]
