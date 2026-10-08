@@ -5,24 +5,28 @@ from fullcontrol.common import Point as BasePoint
 class Point(BasePoint):
     'Extend generic class with gcode methods to convert the object to gcode'
 
-    def XYZ_gcode(self, p) -> float:
+    def XYZ_gcode(self, p,always_print) -> float:
         '''
         Generate XYZ gcode string to move from a point p to this point.
 
         Args:
             p (Point): The point to move from.
+            always_print (bool): If True alway include all coordinates. 
 
         Returns:
             str: The XYZ gcode string.
 
         '''
         s = ''
-        if self.x != None and self.x != p.x:
-            s += f'X{self.x:.6f}'.rstrip('0').rstrip('.') + ' '
-        if self.y != None and self.y != p.y:
-            s += f'Y{self.y:.6f}'.rstrip('0').rstrip('.') + ' '
-        if self.z != None and self.z != p.z:
-            s += f'Z{self.z:.6f}'.rstrip('0').rstrip('.') + ' '
+        if (self.x != None and self.x != p.x) or always_print == True:
+            x = self.x if self.x != None else p.x
+            s += f'X{x:.6f}'.rstrip('0').rstrip('.') + ' '
+        if (self.y != None and self.y != p.y) or always_print == True:
+            y = self.y if self.y != None else p.y
+            s += f'Y{y:.6f}'.rstrip('0').rstrip('.') + ' '
+        if (self.z != None and self.z != p.z) or always_print == True:
+            z = self.z if self.z != None else p.z
+            s += f'Z{z:.6f}'.rstrip('0').rstrip('.') + ' '
         return s if s != '' else None
 
     def gcode(self, state):
@@ -36,7 +40,7 @@ class Point(BasePoint):
             str: The generated line of gcode.
 
         '''
-        XYZ_str = self.XYZ_gcode(state.point)
+        XYZ_str = self.XYZ_gcode(state.point,state.printer.always_print_geometry)
         if XYZ_str != None:  # only write a line of gcode if movement occurs
             G_str = 'G1 ' if state.extruder.on or state.extruder.travel_format == "G1_E0" else 'G0 '
             F_str = state.printer.f_gcode(state)

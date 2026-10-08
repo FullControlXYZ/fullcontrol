@@ -73,7 +73,10 @@ class State(BaseModel):
             command_list=initialization_data['printer_command_list'],
             print_speed=initialization_data['print_speed'],
             travel_speed=initialization_data['travel_speed'],
-            speed_changed=True)
+            speed_changed=True,
+            always_print_F=initialization_data['always_print_F'],
+            always_print_geometry=initialization_data['always_print_geometry'],
+            )
 
         self.extrusion_geometry = ExtrusionGeometry(
             area_model=initialization_data['area_model'],
