@@ -12,13 +12,13 @@ class Printer(BasePrinter):
         new_command (Optional[dict]): A dictionary containing a new command to be added to the command list.
         speed_changed (Optional[bool]): A flag indicating whether the print speed or travel speed has changed.
         always_print_F (Optional[bool]): If True include speed in every gcode line irrespective of wether it changed. Defaults to False.
-        always_print_geometry (Optional[bool]): If True include x, y and z coordinate in every gcode line irrespective of wether each coordinate changed. Defaults to False.
+        always_print_xyz (Optional[bool]): If True include x, y and z coordinate in every gcode line irrespective of wether each coordinate changed. Defaults to False.
     '''
     command_list: Optional[dict] = None
     new_command: Optional[dict] = None
     speed_changed: Optional[bool] = None
     always_print_F: Optional[bool] = None
-    always_print_geometry: Optional[bool] = None
+    always_print_xyz: Optional[bool] = None
 
     def f_gcode(self, state):
         """

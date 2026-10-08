@@ -1,6 +1,8 @@
 default_initial_settings = {
     "print_speed": 1000,
     "travel_speed": 8000,
+    "always_print_F": False,  # include feedrate even when unchanged
+    "always_print_xyz": False,  # include XYZ coordinates even when unchanged
     "area_model": "rectangle",
     "extrusion_width": 0.4,
     "extrusion_height": 0.2,
