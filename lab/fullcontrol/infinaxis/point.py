@@ -60,7 +60,7 @@ class Point(BasePoint):
     def infinaxis_gcode(self, self_systemXYZ,state):
         'generate XYZABC gcode string to move from a point p to this point. return XYZABC string'
         p = state.point_systemXYZ
-        always_print = state.printer.always_print_geometry
+        always_print = state.printer.always_print_xyz
         s = ''
         if (self_systemXYZ.x != None and self_systemXYZ.x != p.x) or always_print == True:
             x = self_systemXYZ.x if self_systemXYZ.x != None else p.x
