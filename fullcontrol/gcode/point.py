@@ -40,7 +40,7 @@ class Point(BasePoint):
             str: The generated line of gcode.
 
         '''
-        XYZ_str = self.XYZ_gcode(state.point,state.printer.always_print_geometry)
+        XYZ_str = self.XYZ_gcode(state.point,state.printer.always_print_xyz)
         if XYZ_str != None:  # only write a line of gcode if movement occurs
             G_str = 'G1 ' if state.extruder.on or state.extruder.travel_format == "G1_E0" else 'G0 '
             F_str = state.printer.f_gcode(state)

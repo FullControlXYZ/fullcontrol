@@ -75,7 +75,7 @@ class State(BaseModel):
             travel_speed=initialization_data['travel_speed'],
             speed_changed=True,
             always_print_F=initialization_data['always_print_F'],
-            always_print_geometry=initialization_data['always_print_geometry'],
+            always_print_xyz=initialization_data['always_print_xyz'],
             )
 
         self.extrusion_geometry = ExtrusionGeometry(
