@@ -18,8 +18,6 @@ notebook_names = ["contents.ipynb",
                   "lab_five_axis_demo.ipynb",
                   "lab_stl_output.ipynb",
                   "lab_3mf_output.ipynb",
-                  "infinaxis_4axis_demo.ipynb",
-                  "infinaxis_5axis_demo.ipynb",
                   "infinaxis_controls.ipynb",
                   "infinaxis_system_setup.ipynb",
                   "infinaxis_xyz_geom.ipynb"
